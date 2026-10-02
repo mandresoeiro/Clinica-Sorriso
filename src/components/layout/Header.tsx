@@ -7,8 +7,9 @@ import './Header.css'
 
 const nav = [
   ['Clínica', ROUTES.clinic],
-  ['Tratamentos', ROUTES.treatments],
+  ['Especialidades', ROUTES.treatments],
   ['Equipe', ROUTES.team],
+  ['Dúvidas', ROUTES.faq],
   ['Contato', ROUTES.contact],
 ] as const
 
@@ -34,7 +35,7 @@ export function Header() {
         </nav>
 
         <div className="site-header__cta">
-          <Button href={whatsappUrl} target="_blank" rel="noreferrer">Agendar consulta</Button>
+          <Button href={whatsappUrl} target="_blank" rel="noreferrer">Solicitar agendamento</Button>
         </div>
 
         <button
@@ -57,7 +58,7 @@ export function Header() {
             <NavLink key={path} to={path} onClick={closeMenu}>{label}</NavLink>
           ))}
           <Button href={whatsappUrl} target="_blank" rel="noreferrer" onClick={closeMenu}>
-            Agendar consulta
+            Solicitar agendamento
           </Button>
         </nav>
       </div>

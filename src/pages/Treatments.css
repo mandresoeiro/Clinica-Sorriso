@@ -3,7 +3,7 @@
 }
 
 .specialties-hero {
-  padding: clamp(4.5rem, 8vw, 7.5rem) 0 3.5rem;
+  padding: clamp(4rem, 7vw, 6.5rem) 0 3.25rem;
 }
 
 .specialties-hero__grid {
@@ -18,9 +18,9 @@
   max-width: 10.5ch;
   color: var(--color-primary);
   font-family: var(--font-display);
-  font-size: clamp(3rem, 6vw, 6.2rem);
+  font-size: clamp(2.8rem, 5.4vw, 5.7rem);
   font-weight: 500;
-  line-height: .95;
+  line-height: .96;
   letter-spacing: -.04em;
   text-wrap: balance;
 }
@@ -30,11 +30,24 @@
   font-weight: 500;
 }
 
-.specialties-hero p {
-  margin: 0 0 .6rem;
+.specialties-hero__intro {
+  display: grid;
+  gap: .8rem;
+}
+
+.specialties-hero__intro p {
+  margin: 0;
   max-width: 42ch;
   color: var(--color-muted);
   line-height: 1.7;
+}
+
+.specialties-hero__intro span {
+  color: var(--color-secondary);
+  font-size: .74rem;
+  font-weight: 900;
+  letter-spacing: .1em;
+  text-transform: uppercase;
 }
 
 .specialties-list {
@@ -44,7 +57,7 @@
 .specialties-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 2.25rem 1.6rem;
+  gap: 2.35rem 1.6rem;
 }
 
 .specialty-card {
@@ -57,21 +70,27 @@
   position: relative;
   overflow: hidden;
   aspect-ratio: 16 / 10;
-  border-radius: 2px;
-  background: var(--color-soft);
+  border-radius: 4px;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(114,197,199,.35), transparent 35%),
+    linear-gradient(145deg, #dceceb, #b9d6d4);
 }
 
 .specialty-card__media::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(15,43,45,.04), rgba(15,43,45,.12));
+  background: linear-gradient(180deg, rgba(15,43,45,.03), rgba(15,43,45,.12));
   pointer-events: none;
 }
 
-.specialty-card__media img {
+.specialty-card__media img,
+.specialty-card__placeholder {
   width: 100%;
   height: 100%;
+}
+
+.specialty-card__media img {
   object-fit: cover;
   filter: saturate(.88) contrast(.98);
   transition: transform 650ms ease, filter 650ms ease;
@@ -82,13 +101,32 @@
   filter: saturate(.98) contrast(1);
 }
 
+.specialty-card__placeholder {
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 75% 20%, rgba(255,255,255,.38), transparent 28%),
+    linear-gradient(145deg, var(--color-soft), #bedcda);
+}
+
+.specialty-card__placeholder span {
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  border-radius: 50% 50% 50% 15%;
+  background: var(--color-primary);
+  color: white;
+  font-family: var(--font-display);
+  font-size: 2rem;
+}
+
 .specialty-card__number,
 .specialty-card__tag {
   position: absolute;
   z-index: 2;
   top: .85rem;
   padding: .4rem .55rem;
-  background: rgba(23, 56, 59, .88);
   color: white;
   font-size: .67rem;
   font-weight: 900;
@@ -99,15 +137,16 @@
 
 .specialty-card__number {
   left: .85rem;
+  background: rgba(23, 56, 59, .9);
 }
 
 .specialty-card__tag {
   right: .85rem;
-  background: rgba(47, 156, 163, .9);
+  background: rgba(47, 156, 163, .92);
 }
 
 .specialty-card__content {
-  padding: 0 .1rem .6rem;
+  padding: 0 .1rem .7rem;
   border-bottom: 1px solid var(--color-border);
 }
 
@@ -122,9 +161,9 @@
   margin: 0;
   color: var(--color-primary);
   font-family: var(--font-display);
-  font-size: clamp(1.7rem, 3vw, 2.65rem);
+  font-size: clamp(1.7rem, 2.7vw, 2.55rem);
   font-weight: 500;
-  line-height: 1;
+  line-height: 1.02;
 }
 
 .specialty-card__heading > span {
@@ -163,11 +202,11 @@
 
 @media (max-width: 560px) {
   .specialties-hero {
-    padding-top: 3.5rem;
+    padding-top: 3.25rem;
   }
 
   .specialties-hero h1 {
-    font-size: clamp(2.8rem, 14vw, 4.4rem);
+    font-size: clamp(2.65rem, 13vw, 4.15rem);
   }
 
   .specialty-card__tag {

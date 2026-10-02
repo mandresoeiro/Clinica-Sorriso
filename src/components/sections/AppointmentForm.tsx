@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, type FormEvent } from 'react'
 import { siteConfig } from '../../config/site.config'
 import './AppointmentForm.css'
 
@@ -25,7 +25,7 @@ export function AppointmentForm() {
     setForm((current) => ({ ...current, [field]: value }))
   }
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
     const text = [
@@ -87,6 +87,7 @@ export function AppointmentForm() {
                 value={form.phone}
                 onChange={(event) => updateField('phone', event.target.value)}
                 autoComplete="tel"
+                inputMode="tel"
                 required
                 placeholder="(91) 99999-9999"
               />

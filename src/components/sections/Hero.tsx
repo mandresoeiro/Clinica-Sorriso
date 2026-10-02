@@ -9,16 +9,19 @@ const heroImages = [
     src: 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1600&q=85',
     alt: 'Ambiente odontológico moderno e iluminado',
     label: 'Ambiente pensado para acolher',
+    position: 'center',
   },
   {
     src: 'https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&w=1600&q=85',
     alt: 'Atendimento odontológico em ambiente profissional',
     label: 'Tecnologia com cuidado humano',
+    position: 'center 42%',
   },
   {
     src: 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=1600&q=85',
     alt: 'Detalhe de atendimento em clínica odontológica',
     label: 'Planejamento em cada detalhe',
+    position: 'center 48%',
   },
 ]
 
@@ -28,7 +31,7 @@ export function Hero() {
   useEffect(() => {
     const interval = window.setInterval(() => {
       setActiveImage((current) => (current + 1) % heroImages.length)
-    }, 5200)
+    }, 5600)
 
     return () => window.clearInterval(interval)
   }, [])
@@ -38,21 +41,22 @@ export function Hero() {
   return (
     <section className="hero">
       <div className="hero__mesh" aria-hidden="true" />
+
       <div className="container hero__grid">
         <div className="hero__copy reveal">
           <div className="hero__intro">
+            <span className="hero__dot" aria-hidden="true" />
             <span className="eyebrow">Odontologia contemporânea • Belém</span>
-            <span className="hero__line" aria-hidden="true" />
           </div>
 
           <h1 className="display">
-            Seu sorriso merece
-            <span> cuidado com intenção.</span>
+            Cuidado que une
+            <span> precisão e leveza.</span>
           </h1>
 
           <p className="lead">
             Atendimento humanizado, planejamento individual e uma experiência
-            pensada para transmitir segurança do primeiro contato ao acompanhamento.
+            pensada para trazer mais tranquilidade em cada etapa do cuidado.
           </p>
 
           <div className="hero__actions">
@@ -64,26 +68,15 @@ export function Hero() {
             </Button>
           </div>
 
-          <div className="hero__proof">
-            <div>
-              <strong>01</strong>
-              <span>Atendimento humano</span>
-            </div>
-            <div>
-              <strong>02</strong>
-              <span>Planejamento individual</span>
-            </div>
-            <div>
-              <strong>03</strong>
-              <span>Ambiente acolhedor</span>
-            </div>
+          <div className="hero__proof" aria-label="Diferenciais da clínica">
+            <div><strong>01</strong><span>Atendimento humano</span></div>
+            <div><strong>02</strong><span>Planejamento individual</span></div>
+            <div><strong>03</strong><span>Ambiente acolhedor</span></div>
           </div>
         </div>
 
-        <div className="hero__art">
-          <div className="hero__ring" aria-hidden="true" />
-          <div className="hero__accent hero__accent--top" aria-hidden="true" />
-          <div className="hero__accent hero__accent--bottom" aria-hidden="true" />
+        <div className="hero__visual">
+          <div className="hero__halo" aria-hidden="true" />
 
           <div className="hero__photo" aria-live="polite">
             {heroImages.map((image, index) => (
@@ -92,28 +85,31 @@ export function Hero() {
                 src={image.src}
                 alt={image.alt}
                 className={index === activeImage ? 'is-active' : ''}
+                style={{ objectPosition: image.position }}
                 loading={index === 0 ? 'eager' : 'lazy'}
               />
             ))}
 
-            <div className="hero__photo-scrim" aria-hidden="true" />
-            <div className="hero__photo-caption">
-              <span>Imagens demonstrativas</span>
+            <div className="hero__photo-shade" aria-hidden="true" />
+
+            <div className="hero__caption">
+              <span>Imagem demonstrativa</span>
               <strong>{active.label}</strong>
+            </div>
+
+            <div className="hero__counter" aria-hidden="true">
+              <span>{String(activeImage + 1).padStart(2, '0')}</span>
+              <i />
+              <span>{String(heroImages.length).padStart(2, '0')}</span>
             </div>
           </div>
 
-          <div className="hero__floating-card hero__floating-card--care">
-            <span className="hero__floating-icon">✦</span>
+          <div className="hero__note">
+            <span className="hero__note-icon">✦</span>
             <div>
               <small>Experiência</small>
               <strong>Cuidado em cada detalhe</strong>
             </div>
-          </div>
-
-          <div className="hero__floating-card hero__floating-card--location">
-            <small>Belém • Pará</small>
-            <strong>Clínica contemporânea</strong>
           </div>
 
           <div className="hero__controls" aria-label="Selecionar imagem do destaque">
@@ -129,11 +125,9 @@ export function Hero() {
             ))}
           </div>
 
-          <div className="hero__counter" aria-hidden="true">
-            <span>{String(activeImage + 1).padStart(2, '0')}</span>
-            <i />
-            <span>{String(heroImages.length).padStart(2, '0')}</span>
-          </div>
+          <span className="hero__vertical-label" aria-hidden="true">
+            Clínica Sorriso • cuidado contemporâneo
+          </span>
         </div>
       </div>
     </section>

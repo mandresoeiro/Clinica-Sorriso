@@ -226,12 +226,16 @@
   }
 
   .hero__content {
-    padding-top: 3.8rem;
+    padding-top: 3.4rem;
+  }
+
+  .hero__demo-label {
+    display: none;
   }
 
   .hero h1 {
     max-width: 11ch;
-    font-size: clamp(2.75rem, 9.2vw, 4.25rem);
+    font-size: clamp(2.55rem, 8.5vw, 4rem);
   }
 
   .hero__footer {
@@ -244,47 +248,66 @@
 @media (max-width: 620px) {
   .hero,
   .hero__content {
-    min-height: 620px;
+    min-height: 690px;
   }
 
   .hero__slides img {
-    object-position: 62% center !important;
+    object-position: 58% center !important;
   }
 
   .hero__overlay {
     background:
-      linear-gradient(180deg, rgba(8, 46, 50, .84) 0%, rgba(12, 62, 66, .73) 58%, rgba(6, 31, 34, .58) 100%);
+      linear-gradient(180deg, rgba(8, 46, 50, .88) 0%, rgba(12, 62, 66, .76) 55%, rgba(6, 31, 34, .68) 100%);
   }
 
   .hero__content {
-    padding-top: 2.8rem;
-    padding-bottom: 1.25rem;
+    padding-top: 2rem;
+    padding-bottom: 4.4rem;
+    justify-content: flex-start;
+  }
+
+  .hero__copy {
+    gap: .9rem;
   }
 
   .hero__meta {
-    gap: .45rem;
+    gap: .35rem;
   }
 
-  .hero__demo-label {
-    display: none;
+  .hero__eyebrow {
+    padding: .42rem .58rem;
+    max-width: 100%;
+    white-space: nowrap;
+    font-size: .56rem;
+    letter-spacing: .08em;
   }
 
   .hero h1 {
-    max-width: 11ch;
-    font-size: clamp(2.45rem, 12vw, 3.75rem);
+    max-width: 9.8ch;
+    font-size: clamp(2.25rem, 10.8vw, 3.1rem);
+    line-height: .98;
+  }
+
+  .hero h1 span {
+    margin-top: .05em;
   }
 
   .hero__copy p {
-    max-width: 33ch;
+    max-width: 31ch;
+    font-size: .9rem;
+    line-height: 1.5;
   }
 
   .hero__actions {
+    margin-top: .25rem;
     align-items: stretch;
     flex-direction: column;
+    gap: .55rem;
   }
 
   .hero__actions .button {
     width: 100%;
+    min-height: 46px;
     justify-content: center;
   }
 
@@ -292,8 +315,37 @@
     display: none;
   }
 
+  .hero__footer {
+    margin-top: auto;
+    padding-top: 1.25rem;
+    width: 100%;
+  }
+
   .hero__slider-ui {
-    align-self: flex-end;
+    align-self: flex-start;
+    max-width: calc(100% - 4.4rem);
+    gap: .55rem;
+    padding: .48rem .58rem;
+  }
+
+  .hero__pause {
+    min-width: 44px;
+    min-height: 32px;
+  }
+}
+
+@media (max-width: 380px) {
+  .hero,
+  .hero__content {
+    min-height: 710px;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.15rem, 11vw, 2.75rem);
+  }
+
+  .hero__eyebrow {
+    font-size: .52rem;
   }
 }
 

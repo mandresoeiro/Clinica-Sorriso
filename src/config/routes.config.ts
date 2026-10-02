@@ -3,5 +3,6 @@ export const ROUTES = {
   clinic: '/clinica',
   treatments: '/tratamentos',
   team: '/equipe',
+  faq: '/duvidas',
   contact: '/contato',
 } as const

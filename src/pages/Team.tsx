@@ -1,2 +1,33 @@
 import { professionals } from '../content/professionals'
-export function Team(){return <section className="section"><div className="container"><span className="eyebrow">Equipe</span><h1 className="title">Pessoas antes de currículos.</h1><p className="lead">Dados demonstrativos. Nome, CRO, especialidade, formação e fotografia devem ser confirmados antes da publicação oficial.</p><div className="grid grid-2" style={{marginTop:'2rem'}}>{professionals.map(p=><article className="card" key={p.slug}><h2>{p.name}</h2><strong>{p.specialty}</strong><p>{p.formation}</p><p className="muted">{p.bio}</p><small>{p.cro}</small></article>)}</div></div></section>}
+
+export function Team() {
+  return (
+    <>
+      <section className="page-hero">
+        <div className="container">
+          <span className="eyebrow">Equipe</span>
+          <h1 className="title">Profissionais apresentados com clareza e credibilidade.</h1>
+          <p className="lead">
+            Nome, CRO, especialidade, formação, biografia e fotografia devem ser
+            confirmados antes da publicação oficial.
+          </p>
+        </div>
+      </section>
+
+      <section className="section--tight">
+        <div className="container grid grid-2">
+          {professionals.map((professional, index) => (
+            <article className="card stack" key={professional.slug}>
+              <span className="eyebrow">Profissional {String(index + 1).padStart(2, '0')}</span>
+              <h2>{professional.name}</h2>
+              <strong>{professional.specialty}</strong>
+              <p>{professional.formation}</p>
+              <p className="muted">{professional.bio}</p>
+              <small>{professional.cro}</small>
+            </article>
+          ))}
+        </div>
+      </section>
+    </>
+  )
+}

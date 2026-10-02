@@ -1,3 +1,61 @@
 import { Button } from '../components/ui/Button'
 import { whatsappUrl } from '../config/site.config'
-export function Clinic(){return <><section className="section"><div className="container"><span className="eyebrow">Clínica</span><h1 className="title">Um espaço desenhado para acolher.</h1><p className="lead">Esta página está pronta para receber a história real, filosofia, estrutura, tecnologias e fotografias da clínica assim que o briefing for validado.</p></div></section><section className="section--tight"><div className="container grid grid-3"><div className="card"><span className="eyebrow">01</span><h2>Atendimento humano</h2><p className="muted">Comunicação clara e experiência organizada do primeiro contato ao acompanhamento.</p></div><div className="card"><span className="eyebrow">02</span><h2>Ambiente acolhedor</h2><p className="muted">Uma linguagem visual calma e espaços que ajudam a reduzir a sensação de pressa.</p></div><div className="card"><span className="eyebrow">03</span><h2>Planejamento</h2><p className="muted">Cada caso é avaliado individualmente antes da definição de qualquer tratamento.</p></div></div></section><section className="section"><div className="container card"><h2 className="title">Conheça a clínica pessoalmente.</h2><p className="lead">Agende um horário para conversar com a equipe.</p><Button href={whatsappUrl} target="_blank" rel="noreferrer">Agendar consulta</Button></div></section></>}
+
+export function Clinic() {
+  return (
+    <>
+      <section className="page-hero">
+        <div className="container">
+          <span className="eyebrow">Clínica</span>
+          <h1 className="title">Um espaço pensado para acolher com calma e confiança.</h1>
+          <p className="lead">
+            A versão final desta página receberá a história, estrutura, tecnologias
+            e fotografias reais da clínica após validação do briefing.
+          </p>
+          <div className="page-actions">
+            <Button href={whatsappUrl} target="_blank" rel="noreferrer">Agendar consulta</Button>
+          </div>
+        </div>
+      </section>
+
+      <section className="section--tight">
+        <div className="container grid grid-3">
+          <article className="card">
+            <span className="eyebrow">01</span>
+            <h2>Atendimento humano</h2>
+            <p className="muted">
+              Comunicação clara, escuta e uma experiência organizada do primeiro contato ao acompanhamento.
+            </p>
+          </article>
+
+          <article className="card">
+            <span className="eyebrow">02</span>
+            <h2>Ambiente acolhedor</h2>
+            <p className="muted">
+              Uma linguagem visual tranquila e espaços pensados para conforto, privacidade e bem-estar.
+            </p>
+          </article>
+
+          <article className="card">
+            <span className="eyebrow">03</span>
+            <h2>Planejamento individual</h2>
+            <p className="muted">
+              Cada necessidade deve ser avaliada profissionalmente antes da definição de qualquer tratamento.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="container card">
+          <span className="eyebrow">Visite a clínica</span>
+          <h2 className="title">Conheça o espaço pessoalmente.</h2>
+          <p className="lead">Converse com a equipe e tire suas dúvidas antes de decidir qualquer tratamento.</p>
+          <div className="page-actions">
+            <Button href={whatsappUrl} target="_blank" rel="noreferrer">Conversar pelo WhatsApp</Button>
+          </div>
+        </div>
+      </section>
+    </>
+  )
+}

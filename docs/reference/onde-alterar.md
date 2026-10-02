@@ -1,17 +1,113 @@
 # Onde alterar cada coisa
 
-| Quero alterar | Arquivo |
-|---|---|
-| Telefone / WhatsApp | `src/config/site.config.ts` |
-| Endereço | `src/config/site.config.ts` |
-| Instagram | `src/config/site.config.ts` |
-| Tratamentos | `src/content/treatments.ts` |
-| Profissionais | `src/content/professionals.ts` |
-| Cores | `src/styles/tokens.css` |
-| Home | `src/pages/Home.tsx` + `src/components/sections/` |
-| Menu | `src/components/layout/Header.tsx` |
-| Nginx | `infra/nginx/clinica-sorriso.conf` |
+## Informações gerais
 
-## Regra
+Arquivos principais:
 
-Faça uma alteração por vez, teste localmente e só depois envie para o GitHub.
+```text
+src/config/site.config.ts
+src/config/routes.config.ts
+```
+
+Use esses arquivos para manter dados globais centralizados.
+
+## WhatsApp
+
+Arquivo:
+
+```text
+src/config/site.config.ts
+```
+
+Antes da publicação oficial, substitua o número demonstrativo pelo número confirmado pela clínica.
+
+## Tratamentos / Especialidades
+
+Arquivo:
+
+```text
+src/content/treatments.ts
+```
+
+A listagem é exibida na página de Especialidades/Tratamentos.
+
+## Profissionais
+
+Arquivo:
+
+```text
+src/content/professionals.ts
+```
+
+Antes de publicar, confirme:
+
+- nome;
+- CRO;
+- especialidade;
+- formação;
+- fotografia;
+- autorização de uso da imagem.
+
+## Hero
+
+Componente:
+
+```text
+src/components/sections/Hero.tsx
+```
+
+Estilos:
+
+```text
+src/components/sections/Hero.css
+```
+
+Imagens:
+
+```text
+public/images/hero/hero-01.jpg
+public/images/hero/hero-02.jpg
+public/images/hero/hero-03.jpg
+```
+
+## FAQ
+
+Página:
+
+```text
+src/pages/Faq.tsx
+```
+
+Estilos:
+
+```text
+src/pages/Faq.css
+```
+
+## Navegação
+
+Rotas:
+
+```text
+src/config/routes.config.ts
+```
+
+O menu atual inclui:
+
+```text
+Clínica
+Especialidades
+Equipe
+Dúvidas
+Contato
+```
+
+## Publicação da demo
+
+Configuração:
+
+```text
+wrangler.jsonc
+```
+
+A demo atual usa Cloudflare Workers.

@@ -1,36 +1,71 @@
-# Publicar a demo no Cloudflare Pages
+# Publicar a demo no Cloudflare Workers
 
-Esta é a opção mais simples para mostrar o site ao cliente antes do domínio oficial.
+A demonstração atual do projeto está publicada no **Cloudflare Workers** com assets estáticos gerados pelo Vite.
 
-## Passo 1 — coloque o projeto no GitHub
+## URL atual da demo
 
-Crie um repositório chamado `clinica-sorriso` e envie o código.
+```text
+https://clinica-sorriso.mandre-soeiro.workers.dev
+```
 
-## Passo 2 — Cloudflare
+> Esta URL é de demonstração. Antes da publicação oficial, revise domínio, conteúdo, dados da clínica e indexação.
 
-No painel Cloudflare:
+## Branch usada para a demo
 
-1. Acesse **Workers & Pages**.
-2. Escolha **Create**.
-3. Escolha **Pages**.
-4. Conecte o GitHub.
-5. Selecione o repositório `clinica-sorriso`.
+```text
+feat/home-demo-images
+```
 
-## Passo 3 — build
+O fluxo atual é:
 
-Use:
+```text
+Computador → GitHub → CI → Cloudflare Workers → Demo
+```
+
+## Build e deploy
+
+No Cloudflare, use:
 
 ```text
 Build command: npm run build
-Build output directory: dist
+Deploy command: npx wrangler deploy
+Root directory: /
 ```
 
-## Passo 4 — publique
+## Configuração Wrangler
 
-O Cloudflare gerará uma URL parecida com:
+Arquivo:
 
 ```text
-clinica-sorriso.pages.dev
+wrangler.jsonc
 ```
 
-Cada novo push na branch configurada poderá gerar uma nova versão automaticamente.
+Configuração atual:
+
+```json
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "clinica-sorriso",
+  "compatibility_date": "2026-10-02",
+  "assets": {
+    "directory": "./dist/",
+    "not_found_handling": "single-page-application"
+  }
+}
+```
+
+A opção `single-page-application` mantém as rotas do React funcionando quando a pessoa acessa uma URL interna diretamente.
+
+## Atualização automática
+
+Cada novo push na branch configurada no Cloudflare pode gerar um novo build e um novo deployment automaticamente.
+
+Antes de enviar a demo ao cliente, confirme:
+
+- CI do GitHub concluído com sucesso.
+- deployment do Cloudflare concluído.
+- versão mais recente recebendo 100% do tráfego.
+- navegação funcionando no celular e desktop.
+- imagens carregando.
+- WhatsApp abrindo corretamente.
+- conteúdo demonstrativo claramente identificado.

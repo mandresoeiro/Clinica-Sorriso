@@ -1,0 +1,3 @@
+import { Link } from 'react-router-dom'
+import { treatments } from '../content/treatments'
+export function Treatments(){return <section className="section"><div className="container"><span className="eyebrow">Tratamentos</span><h1 className="title">Cuidado de forma integrada.</h1><p className="lead">Conteúdo demonstrativo até a validação técnica e comercial da clínica.</p><div className="grid grid-3" style={{marginTop:'2rem'}}>{treatments.map(t=><Link className="card" key={t.slug} to={`/tratamentos/${t.slug}`}><span className="eyebrow">{t.eyebrow}</span><h2>{t.title}</h2><p className="muted">{t.shortDescription}</p><strong>Saiba mais →</strong></Link>)}</div></div></section>}

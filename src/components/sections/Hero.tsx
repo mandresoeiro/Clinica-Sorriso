@@ -1,0 +1,6 @@
+import { Button } from '../ui/Button'
+import { ROUTES } from '../../config/routes.config'
+import { whatsappUrl } from '../../config/site.config'
+import './Hero.css'
+
+export function Hero(){return <section className="hero"><div className="container hero__grid"><div className="hero__copy reveal"><span className="eyebrow">Odontologia contemporânea • Belém</span><h1 className="display">Cuidado que muda a forma de viver o seu sorriso.</h1><p className="lead">Técnica, acolhimento e planejamento em uma experiência criada para fazer você se sentir seguro em cada etapa.</p><div className="hero__actions"><Button href={whatsappUrl} target="_blank" rel="noreferrer">Agendar consulta</Button><Button variant="ghost" href={ROUTES.clinic}>Conhecer a clínica</Button></div><div className="hero__facts"><span>Atendimento humano</span><span>Planejamento individual</span><span>Ambiente acolhedor</span></div></div><div className="hero__art" aria-label="Espaço reservado para fotografia real da clínica"><div className="hero__orb hero__orb--one"/><div className="hero__orb hero__orb--two"/><div className="hero__photo"><span>FOTO REAL<br/>DA CLÍNICA</span></div><div className="hero__stamp">Cuidado em cada detalhe</div></div></div></section>}

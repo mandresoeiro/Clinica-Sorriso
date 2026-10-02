@@ -1,0 +1,5 @@
+import { Navigate, useParams } from 'react-router-dom'
+import { treatments } from '../content/treatments'
+import { Button } from '../components/ui/Button'
+import { whatsappUrl } from '../config/site.config'
+export function TreatmentDetails(){const {slug}=useParams();const treatment=treatments.find(t=>t.slug===slug);if(!treatment)return <Navigate to="/404" replace/>;return <><section className="section"><div className="container"><span className="eyebrow">{treatment.eyebrow}</span><h1 className="title">{treatment.title}</h1><p className="lead">{treatment.description}</p><Button href={whatsappUrl} target="_blank" rel="noreferrer">Conversar com a clínica</Button></div></section><section className="section--tight"><div className="container grid grid-2"><div className="card"><h2>Possíveis benefícios</h2><ul>{treatment.benefits.map(item=><li key={item}>{item}</li>)}</ul></div><div className="card"><h2>Quando pode ser avaliado</h2><ul>{treatment.indications.map(item=><li key={item}>{item}</li>)}</ul></div></div></section></>}

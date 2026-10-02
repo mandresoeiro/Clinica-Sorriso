@@ -1,0 +1,1 @@
+.wa { position: fixed; right: 1rem; bottom: 1rem; z-index: 40; padding: .8rem 1rem; border-radius: var(--radius-pill); background: var(--color-secondary); color: white; font-weight: 900; box-shadow: var(--shadow-lg); }

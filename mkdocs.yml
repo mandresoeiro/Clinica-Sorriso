@@ -1,0 +1,31 @@
+site_name: Clínica Sorriso — Documentação
+site_description: Documentação técnica e operacional do projeto Clínica Sorriso
+site_url: https://SEU-USUARIO.github.io/clinica-sorriso/
+repo_name: clinica-sorriso
+repo_url: https://github.com/SEU-USUARIO/clinica-sorriso
+
+theme:
+  name: material
+  language: pt-BR
+  features:
+    - navigation.sections
+    - navigation.top
+    - content.code.copy
+
+nav:
+  - Início: index.md
+  - Começando:
+      - Visão geral: getting-started/visao-geral.md
+      - Rodar no computador: getting-started/rodar-localmente.md
+  - Projeto:
+      - Arquitetura: project/arquitetura.md
+      - Conteúdo: project/conteudo.md
+      - Design system: project/design-system.md
+  - Publicação:
+      - Demo Cloudflare: deploy/demo-cloudflare.md
+      - VPS + Nginx: deploy/vps-nginx.md
+  - Manutenção:
+      - Atualizações seguras: maintenance/atualizacoes.md
+      - Checklist de release: maintenance/release.md
+  - Referência:
+      - Onde alterar cada coisa: reference/onde-alterar.md

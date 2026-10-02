@@ -6,25 +6,29 @@ import './Hero.css'
 
 type HeroSlide = {
   src: string
+  fallbackSrc: string
   alt: string
   position: string
 }
 
 const heroSlides: HeroSlide[] = [
   {
-    src: 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1800&q=88',
-    alt: 'Consultório odontológico moderno, claro e organizado',
-    position: 'center',
+    src: '/images/hero/hero-01.jpg',
+    fallbackSrc: 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1800&q=88',
+    alt: 'Paciente sorrindo durante atendimento odontológico',
+    position: 'center 42%',
   },
   {
-    src: 'https://images.unsplash.com/photo-1777331903190-341a3dd0441b?auto=format&fit=crop&w=1800&q=88',
-    alt: 'Conversa acolhedora entre profissional e paciente em clínica moderna',
+    src: '/images/hero/hero-02.jpg',
+    fallbackSrc: 'https://images.unsplash.com/photo-1777331903190-341a3dd0441b?auto=format&fit=crop&w=1800&q=88',
+    alt: 'Paciente em consulta odontológica com atendimento acolhedor',
     position: 'center 44%',
   },
   {
-    src: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=1800&q=88',
-    alt: 'Profissional de saúde em ambiente claro e acolhedor',
-    position: 'center 34%',
+    src: '/images/hero/hero-03.jpg',
+    fallbackSrc: 'https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&w=1800&q=88',
+    alt: 'Atendimento odontológico com foco em precisão e cuidado',
+    position: 'center 42%',
   },
 ]
 
@@ -45,10 +49,6 @@ export function Hero() {
     return () => window.clearInterval(interval)
   }, [isPaused])
 
-  function selectSlide(index: number) {
-    setActiveSlide(index)
-  }
-
   return (
     <section className="hero" aria-label="Apresentação da Clínica Sorriso">
       <div className="hero__slides" aria-live="polite">
@@ -62,6 +62,10 @@ export function Hero() {
             style={{ objectPosition: slide.position }}
             loading={index === 0 ? 'eager' : 'lazy'}
             fetchPriority={index === 0 ? 'high' : 'auto'}
+            onError={(event) => {
+              const image = event.currentTarget
+              if (image.src !== slide.fallbackSrc) image.src = slide.fallbackSrc
+            }}
           />
         ))}
       </div>
@@ -115,7 +119,7 @@ export function Hero() {
                   className={index === activeSlide ? 'is-active' : ''}
                   aria-label={`Mostrar imagem ${index + 1}`}
                   aria-pressed={index === activeSlide}
-                  onClick={() => selectSlide(index)}
+                  onClick={() => setActiveSlide(index)}
                 />
               ))}
             </div>

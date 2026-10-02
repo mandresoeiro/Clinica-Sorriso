@@ -17,8 +17,9 @@ export function Footer() {
           <strong>Navegação</strong>
           <nav className="footer__links" aria-label="Navegação do rodapé">
             <Link to={ROUTES.clinic}>Clínica</Link>
-            <Link to={ROUTES.treatments}>Tratamentos</Link>
+            <Link to={ROUTES.treatments}>Especialidades</Link>
             <Link to={ROUTES.team}>Equipe</Link>
+            <Link to={ROUTES.faq}>Dúvidas</Link>
             <Link to={ROUTES.contact}>Contato</Link>
           </nav>
         </div>

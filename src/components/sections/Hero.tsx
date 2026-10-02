@@ -7,18 +7,18 @@ import './Hero.css'
 const heroImages = [
   {
     src: 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1800&q=88',
-    alt: 'Ambiente odontológico moderno e iluminado',
+    alt: 'Consultório odontológico moderno, claro e organizado',
     position: 'center',
   },
   {
-    src: 'https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&w=1800&q=88',
-    alt: 'Atendimento odontológico em ambiente profissional',
-    position: 'center 42%',
+    src: 'https://images.unsplash.com/photo-1777331903190-341a3dd0441b?auto=format&fit=crop&w=1800&q=88',
+    alt: 'Dentista conversando de forma acolhedora com paciente em clínica moderna',
+    position: 'center 44%',
   },
   {
-    src: 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=1800&q=88',
-    alt: 'Detalhe de atendimento em clínica odontológica',
-    position: 'center 45%',
+    src: 'https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&w=1800&q=88',
+    alt: 'Atendimento odontológico profissional com foco em precisão e cuidado',
+    position: 'center 42%',
   },
 ]
 

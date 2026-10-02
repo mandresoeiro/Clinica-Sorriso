@@ -1,37 +1,96 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { treatments } from '../content/treatments'
 import './Treatments.css'
 
-const specialtyImages: Record<string, { src: string; position?: string }> = {
+type SpecialtyImage = {
+  src: string
+  fallback: string
+  position?: string
+}
+
+const specialtyImages: Record<string, SpecialtyImage> = {
   prevencao: {
     src: 'https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&w=1400&q=84',
+    fallback: 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1400&q=84',
     position: 'center 42%',
   },
   estetica: {
-    src: 'https://images.unsplash.com/photo-1609840114035-3c981b782dfe?auto=format&fit=crop&w=1400&q=84',
+    src: 'https://images.unsplash.com/photo-1629909615184-74f495363b67?auto=format&fit=crop&w=1400&q=84',
+    fallback: 'https://images.unsplash.com/photo-1609840114035-3c981b782dfe?auto=format&fit=crop&w=1400&q=84',
     position: 'center',
   },
   'reabilitacao-oral': {
-    src: 'https://images.unsplash.com/photo-1629909615184-74f495363b67?auto=format&fit=crop&w=1400&q=84',
+    src: 'https://images.unsplash.com/photo-1609840114035-3c981b782dfe?auto=format&fit=crop&w=1400&q=84',
+    fallback: 'https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&w=1400&q=84',
     position: 'center',
   },
   implantes: {
     src: 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=1400&q=84',
+    fallback: 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1400&q=84',
     position: 'center 45%',
   },
   proteses: {
-    src: 'https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=1400&q=84',
-    position: 'center',
+    src: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=1400&q=84',
+    fallback: 'https://images.unsplash.com/photo-1629909615184-74f495363b67?auto=format&fit=crop&w=1400&q=84',
+    position: 'center 24%',
   },
   clareamento: {
-    src: 'https://images.unsplash.com/photo-1606265752439-1f18756aa376?auto=format&fit=crop&w=1400&q=84',
-    position: 'center',
+    src: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=1400&q=84',
+    fallback: 'https://images.unsplash.com/photo-1609840114035-3c981b782dfe?auto=format&fit=crop&w=1400&q=84',
+    position: 'center 26%',
   },
+}
+
+function SpecialtyMedia({
+  title,
+  image,
+  index,
+  eyebrow,
+}: {
+  title: string
+  image: SpecialtyImage
+  index: number
+  eyebrow: string
+}) {
+  const [src, setSrc] = useState(image.src)
+  const [failed, setFailed] = useState(false)
+
+  return (
+    <div className={`specialty-card__media ${failed ? 'has-fallback' : ''}`}>
+      {!failed ? (
+        <img
+          src={src}
+          alt={`Imagem demonstrativa para ${title}`}
+          loading="lazy"
+          decoding="async"
+          style={{ objectPosition: image.position ?? 'center' }}
+          onError={() => {
+            if (src !== image.fallback) {
+              setSrc(image.fallback)
+            } else {
+              setFailed(true)
+            }
+          }}
+        />
+      ) : (
+        <div className="specialty-card__placeholder" aria-hidden="true">
+          <span>S</span>
+        </div>
+      )}
+
+      <span className="specialty-card__number">
+        {String(index + 1).padStart(2, '0')} /
+      </span>
+
+      <span className="specialty-card__tag">{eyebrow}</span>
+    </div>
+  )
 }
 
 export function Treatments() {
   return (
-    <main className="specialties-page">
+    <div className="specialties-page">
       <section className="specialties-hero">
         <div className="container specialties-hero__grid">
           <div>
@@ -43,18 +102,21 @@ export function Treatments() {
             </h1>
           </div>
 
-          <p>
-            Cada cuidado começa com avaliação individual. Conheça algumas das
-            áreas que podem fazer parte de um planejamento odontológico
-            personalizado.
-          </p>
+          <div className="specialties-hero__intro">
+            <p>
+              Cada cuidado começa com avaliação individual. Conheça algumas das
+              áreas que podem fazer parte de um planejamento odontológico
+              personalizado.
+            </p>
+            <span>{treatments.length} áreas apresentadas</span>
+          </div>
         </div>
       </section>
 
       <section className="specialties-list">
         <div className="container specialties-grid">
           {treatments.map((treatment, index) => {
-            const image = specialtyImages[treatment.slug]
+            const image = specialtyImages[treatment.slug] ?? specialtyImages.prevencao
 
             return (
               <Link
@@ -63,25 +125,12 @@ export function Treatments() {
                 className="specialty-card"
                 aria-label={`Conhecer ${treatment.title}`}
               >
-                <div className="specialty-card__media">
-                  {image && (
-                    <img
-                      src={image.src}
-                      alt=""
-                      loading="lazy"
-                      decoding="async"
-                      style={{ objectPosition: image.position ?? 'center' }}
-                    />
-                  )}
-
-                  <span className="specialty-card__number">
-                    {String(index + 1).padStart(2, '0')} /
-                  </span>
-
-                  <span className="specialty-card__tag">
-                    {treatment.eyebrow}
-                  </span>
-                </div>
+                <SpecialtyMedia
+                  title={treatment.title}
+                  image={image}
+                  index={index}
+                  eyebrow={treatment.eyebrow}
+                />
 
                 <div className="specialty-card__content">
                   <div className="specialty-card__heading">
@@ -96,6 +145,6 @@ export function Treatments() {
           })}
         </div>
       </section>
-    </main>
+    </div>
   )
 }

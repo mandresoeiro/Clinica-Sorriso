@@ -6,22 +6,19 @@ import './Hero.css'
 
 const heroImages = [
   {
-    src: 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1600&q=85',
+    src: 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1800&q=88',
     alt: 'Ambiente odontológico moderno e iluminado',
-    label: 'Ambiente pensado para acolher',
     position: 'center',
   },
   {
-    src: 'https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&w=1600&q=85',
+    src: 'https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&w=1800&q=88',
     alt: 'Atendimento odontológico em ambiente profissional',
-    label: 'Tecnologia com cuidado humano',
     position: 'center 42%',
   },
   {
-    src: 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=1600&q=85',
+    src: 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=1800&q=88',
     alt: 'Detalhe de atendimento em clínica odontológica',
-    label: 'Planejamento em cada detalhe',
-    position: 'center 48%',
+    position: 'center 45%',
   },
 ]
 
@@ -31,32 +28,41 @@ export function Hero() {
   useEffect(() => {
     const interval = window.setInterval(() => {
       setActiveImage((current) => (current + 1) % heroImages.length)
-    }, 5600)
+    }, 5000)
 
     return () => window.clearInterval(interval)
   }, [])
 
-  const active = heroImages[activeImage]
-
   return (
     <section className="hero">
-      <div className="hero__mesh" aria-hidden="true" />
+      <div className="hero__slides" aria-live="polite">
+        {heroImages.map((image, index) => (
+          <img
+            key={image.src}
+            src={image.src}
+            alt={index === activeImage ? image.alt : ''}
+            aria-hidden={index !== activeImage}
+            className={index === activeImage ? 'is-active' : ''}
+            style={{ objectPosition: image.position }}
+            loading={index === 0 ? 'eager' : 'lazy'}
+          />
+        ))}
+      </div>
 
-      <div className="container hero__grid">
+      <div className="hero__overlay" aria-hidden="true" />
+
+      <div className="container hero__content">
         <div className="hero__copy reveal">
-          <div className="hero__intro">
-            <span className="hero__dot" aria-hidden="true" />
-            <span className="eyebrow">Odontologia contemporânea • Belém</span>
-          </div>
+          <span className="hero__eyebrow">Odontologia contemporânea • Belém</span>
 
-          <h1 className="display">
-            Cuidado que une
-            <span> precisão e leveza.</span>
+          <h1>
+            Cuidado, estética e confiança
+            <span> para viver melhor o seu sorriso.</span>
           </h1>
 
-          <p className="lead">
+          <p>
             Atendimento humanizado, planejamento individual e uma experiência
-            pensada para trazer mais tranquilidade em cada etapa do cuidado.
+            pensada para tornar cada etapa mais tranquila.
           </p>
 
           <div className="hero__actions">
@@ -67,49 +73,13 @@ export function Hero() {
               Conhecer a clínica
             </Button>
           </div>
-
-          <div className="hero__proof" aria-label="Diferenciais da clínica">
-            <div><strong>01</strong><span>Atendimento humano</span></div>
-            <div><strong>02</strong><span>Planejamento individual</span></div>
-            <div><strong>03</strong><span>Ambiente acolhedor</span></div>
-          </div>
         </div>
 
-        <div className="hero__visual">
-          <div className="hero__halo" aria-hidden="true" />
-
-          <div className="hero__photo" aria-live="polite">
-            {heroImages.map((image, index) => (
-              <img
-                key={image.src}
-                src={image.src}
-                alt={image.alt}
-                className={index === activeImage ? 'is-active' : ''}
-                style={{ objectPosition: image.position }}
-                loading={index === 0 ? 'eager' : 'lazy'}
-              />
-            ))}
-
-            <div className="hero__photo-shade" aria-hidden="true" />
-
-            <div className="hero__caption">
-              <span>Imagem demonstrativa</span>
-              <strong>{active.label}</strong>
-            </div>
-
-            <div className="hero__counter" aria-hidden="true">
-              <span>{String(activeImage + 1).padStart(2, '0')}</span>
-              <i />
-              <span>{String(heroImages.length).padStart(2, '0')}</span>
-            </div>
-          </div>
-
-          <div className="hero__note">
-            <span className="hero__note-icon">✦</span>
-            <div>
-              <small>Experiência</small>
-              <strong>Cuidado em cada detalhe</strong>
-            </div>
+        <div className="hero__footer">
+          <div className="hero__proof" aria-label="Diferenciais da clínica">
+            <span>Atendimento humano</span>
+            <span>Planejamento individual</span>
+            <span>Ambiente acolhedor</span>
           </div>
 
           <div className="hero__controls" aria-label="Selecionar imagem do destaque">
@@ -124,10 +94,6 @@ export function Hero() {
               />
             ))}
           </div>
-
-          <span className="hero__vertical-label" aria-hidden="true">
-            Clínica Sorriso • cuidado contemporâneo
-          </span>
         </div>
       </div>
     </section>

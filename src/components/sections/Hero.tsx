@@ -6,7 +6,6 @@ import './Hero.css'
 
 type HeroSlide = {
   src: string
-  fallbackSrc: string
   alt: string
   position: string
 }
@@ -14,21 +13,18 @@ type HeroSlide = {
 const heroSlides: HeroSlide[] = [
   {
     src: '/images/hero/hero-01.jpg',
-    fallbackSrc: 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1800&q=88',
     alt: 'Paciente sorrindo durante atendimento odontológico',
     position: 'center 42%',
   },
   {
     src: '/images/hero/hero-02.jpg',
-    fallbackSrc: 'https://images.unsplash.com/photo-1777331903190-341a3dd0441b?auto=format&fit=crop&w=1800&q=88',
-    alt: 'Paciente em consulta odontológica com atendimento acolhedor',
+    alt: 'Atendimento odontológico com foco em precisão e cuidado',
     position: 'center 44%',
   },
   {
     src: '/images/hero/hero-03.jpg',
-    fallbackSrc: 'https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&w=1800&q=88',
-    alt: 'Atendimento odontológico com foco em precisão e cuidado',
-    position: 'center 42%',
+    alt: 'Paciente sorrindo durante avaliação odontológica',
+    position: 'center 40%',
   },
 ]
 
@@ -62,10 +58,6 @@ export function Hero() {
             style={{ objectPosition: slide.position }}
             loading={index === 0 ? 'eager' : 'lazy'}
             fetchPriority={index === 0 ? 'high' : 'auto'}
-            onError={(event) => {
-              const image = event.currentTarget
-              if (image.src !== slide.fallbackSrc) image.src = slide.fallbackSrc
-            }}
           />
         ))}
       </div>

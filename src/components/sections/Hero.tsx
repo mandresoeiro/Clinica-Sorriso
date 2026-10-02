@@ -4,7 +4,13 @@ import { ROUTES } from '../../config/routes.config'
 import { whatsappUrl } from '../../config/site.config'
 import './Hero.css'
 
-const heroImages = [
+type HeroSlide = {
+  src: string
+  alt: string
+  position: string
+}
+
+const heroSlides: HeroSlide[] = [
   {
     src: 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1800&q=88',
     alt: 'Consultório odontológico moderno, claro e organizado',
@@ -12,39 +18,50 @@ const heroImages = [
   },
   {
     src: 'https://images.unsplash.com/photo-1777331903190-341a3dd0441b?auto=format&fit=crop&w=1800&q=88',
-    alt: 'Dentista conversando de forma acolhedora com paciente em clínica moderna',
+    alt: 'Conversa acolhedora entre profissional e paciente em clínica moderna',
     position: 'center 44%',
   },
   {
-    src: 'https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&w=1800&q=88',
-    alt: 'Atendimento odontológico profissional com foco em precisão e cuidado',
-    position: 'center 42%',
+    src: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=1800&q=88',
+    alt: 'Profissional de saúde em ambiente claro e acolhedor',
+    position: 'center 34%',
   },
 ]
 
+const SLIDE_DURATION = 5500
+
 export function Hero() {
-  const [activeImage, setActiveImage] = useState(0)
+  const [activeSlide, setActiveSlide] = useState(0)
+  const [isPaused, setIsPaused] = useState(false)
 
   useEffect(() => {
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (reducedMotion || isPaused) return
+
     const interval = window.setInterval(() => {
-      setActiveImage((current) => (current + 1) % heroImages.length)
-    }, 5000)
+      setActiveSlide((current) => (current + 1) % heroSlides.length)
+    }, SLIDE_DURATION)
 
     return () => window.clearInterval(interval)
-  }, [])
+  }, [isPaused])
+
+  function selectSlide(index: number) {
+    setActiveSlide(index)
+  }
 
   return (
-    <section className="hero">
+    <section className="hero" aria-label="Apresentação da Clínica Sorriso">
       <div className="hero__slides" aria-live="polite">
-        {heroImages.map((image, index) => (
+        {heroSlides.map((slide, index) => (
           <img
-            key={image.src}
-            src={image.src}
-            alt={index === activeImage ? image.alt : ''}
-            aria-hidden={index !== activeImage}
-            className={index === activeImage ? 'is-active' : ''}
-            style={{ objectPosition: image.position }}
+            key={slide.src}
+            src={slide.src}
+            alt={index === activeSlide ? slide.alt : ''}
+            aria-hidden={index !== activeSlide}
+            className={index === activeSlide ? 'is-active' : ''}
+            style={{ objectPosition: slide.position }}
             loading={index === 0 ? 'eager' : 'lazy'}
+            fetchPriority={index === 0 ? 'high' : 'auto'}
           />
         ))}
       </div>
@@ -53,7 +70,10 @@ export function Hero() {
 
       <div className="container hero__content">
         <div className="hero__copy reveal">
-          <span className="hero__eyebrow">Odontologia contemporânea • Belém</span>
+          <div className="hero__meta">
+            <span className="hero__eyebrow">Odontologia contemporânea • Belém</span>
+            <span className="hero__demo-label">Imagens demonstrativas</span>
+          </div>
 
           <h1>
             Cuidado, estética e confiança
@@ -82,17 +102,32 @@ export function Hero() {
             <span>Ambiente acolhedor</span>
           </div>
 
-          <div className="hero__controls" aria-label="Selecionar imagem do destaque">
-            {heroImages.map((image, index) => (
-              <button
-                key={image.src}
-                type="button"
-                className={index === activeImage ? 'is-active' : ''}
-                aria-label={`Mostrar imagem ${index + 1}`}
-                aria-pressed={index === activeImage}
-                onClick={() => setActiveImage(index)}
-              />
-            ))}
+          <div className="hero__slider-ui">
+            <span className="hero__slide-number" aria-hidden="true">
+              {String(activeSlide + 1).padStart(2, '0')} / {String(heroSlides.length).padStart(2, '0')}
+            </span>
+
+            <div className="hero__controls" aria-label="Selecionar imagem do destaque">
+              {heroSlides.map((slide, index) => (
+                <button
+                  key={slide.src}
+                  type="button"
+                  className={index === activeSlide ? 'is-active' : ''}
+                  aria-label={`Mostrar imagem ${index + 1}`}
+                  aria-pressed={index === activeSlide}
+                  onClick={() => selectSlide(index)}
+                />
+              ))}
+            </div>
+
+            <button
+              className="hero__pause"
+              type="button"
+              onClick={() => setIsPaused((current) => !current)}
+              aria-pressed={isPaused}
+            >
+              {isPaused ? 'Continuar' : 'Pausar'}
+            </button>
           </div>
         </div>
       </div>

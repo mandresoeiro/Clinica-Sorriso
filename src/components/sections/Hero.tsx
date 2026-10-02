@@ -83,7 +83,7 @@ export function Hero() {
 
           <div className="hero__actions">
             <Button href={whatsappUrl} target="_blank" rel="noreferrer">
-              Agendar consulta
+              Solicitar agendamento
             </Button>
             <Button variant="ghost" href={ROUTES.clinic}>
               Conhecer a clínica

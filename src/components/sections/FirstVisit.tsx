@@ -1,3 +1,4 @@
+import { VisitChecklist } from './VisitChecklist'
 import { useState } from 'react'
 import { Button } from '../ui/Button'
 import { siteConfig } from '../../config/site.config'
@@ -59,6 +60,7 @@ export function FirstVisit() {
             {siteConfig.demoMode && <p className="first-visit__note">Demonstração: o contato da clínica ainda será confirmado.</p>}
           </div>
         </div>
+        <VisitChecklist />
       </div>
     </section>
   )

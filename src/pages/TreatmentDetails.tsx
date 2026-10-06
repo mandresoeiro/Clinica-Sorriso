@@ -1,3 +1,4 @@
+import { ShareButton } from '../components/ui/ShareButton'
 import { TreatmentJourney } from '../components/sections/TreatmentJourney'
 import { Link, Navigate, useParams } from 'react-router-dom'
 import { treatments } from '../content/treatments'
@@ -43,6 +44,7 @@ export function TreatmentDetails() {
           </article>
         </div>
       </section>
+      <div className="container"><ShareButton title={treatment.title + ' | Clínica Sorriso'} /></div>
       <TreatmentJourney key={treatment.slug} title={treatment.title} slug={treatment.slug} />
     </>
   )

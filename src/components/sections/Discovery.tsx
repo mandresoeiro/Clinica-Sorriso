@@ -1,3 +1,4 @@
+import { matchesSearch, normalizeSearch } from '../../utils/search'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { treatments } from '../../content/treatments'
@@ -7,11 +8,10 @@ import './Discovery.css'
 export function Discovery() {
   const [intent, setIntent] = useState('clinic')
   const [query, setQuery] = useState('')
-  const normalize = (value: string) => value.normalize('NFD').replace(/\p{M}/gu, '').toLowerCase()
-  const term = normalize(query.trim())
+  const term = normalizeSearch(query.trim())
   const results = term ? [
-    ...treatments.filter(item => normalize(item.title + ' ' + item.description + ' ' + item.indications.join(' ')).includes(term)).map(item => ({ title: item.title, text: item.shortDescription, href: '/tratamentos/' + item.slug })),
-    ...faqs.filter(item => normalize(item.question + ' ' + item.answer).includes(term)).map(item => ({ title: item.question, text: item.answer, href: '/duvidas#' + faqs.findIndex(faq => faq.question === item.question) })),
+    ...treatments.filter(item => matchesSearch(item.title + ' ' + item.description + ' ' + item.indications.join(' '), term)).map(item => ({ title: item.title, text: item.shortDescription, href: '/tratamentos/' + item.slug })),
+    ...faqs.filter(item => matchesSearch(item.question + ' ' + item.answer, term)).map(item => ({ title: item.question, text: item.answer, href: '/duvidas#' + faqs.findIndex(faq => faq.question === item.question) })),
   ] : []
   const choices = [
     { id: 'clinic', label: 'Conhecer a clínica', title: 'Conheça o espaço no seu ritmo.', text: 'Explore os ambientes demonstrativos e prepare sua primeira visita.', href: '/clinica#tour-virtual', action: 'Entrar no tour' },

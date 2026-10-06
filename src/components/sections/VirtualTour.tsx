@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+import { ShareButton } from '../ui/ShareButton'
 import { TourExplorer } from './TourExplorer'
 import { useRef, useState } from 'react'
 import './VirtualTour.css'
@@ -109,6 +111,8 @@ export function VirtualTour() {
           <span>{roomIndex + 1} / {rooms.length}</span>
           <button type="button" onClick={() => selectRoom((roomIndex + 1) % rooms.length)}>Próximo ambiente →</button>
         </div>
+        <div className="page-actions"><Link className="button button--primary" to="/contato#agendamento">Quero conhecer pessoalmente →</Link></div>
+        <ShareButton title="Conheça o tour da Clínica Sorriso" path="/clinica#tour-virtual" />
         <dialog ref={dialog} className="virtual-tour__dialog" aria-labelledby="tour-dialog-title" onKeyDown={(event) => {
           if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return
           event.preventDefault()

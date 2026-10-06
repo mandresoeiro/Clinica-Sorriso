@@ -1,3 +1,4 @@
+import { TreatmentComparison } from '../components/sections/TreatmentComparison'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { treatments } from '../content/treatments'
@@ -145,6 +146,7 @@ export function Treatments() {
           })}
         </div>
       </section>
+      <TreatmentComparison />
     </div>
   )
 }

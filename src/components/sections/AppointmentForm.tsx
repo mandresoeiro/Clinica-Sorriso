@@ -21,12 +21,15 @@ const initialState: FormState = {
 
 export function AppointmentForm({ initialInterest = '' }: { initialInterest?: string }) {
   const [form, setForm] = useState<FormState>(() => ({ ...initialState, interest: initialInterest }))
+  const [preparedUrl, setPreparedUrl] = useState('')
+  const [submitted, setSubmitted] = useState(false)
   const [error, setError] = useState('')
   const [errorField, setErrorField] = useState<'name' | 'phone' | null>(null)
   const nameInput = useRef<HTMLInputElement>(null)
   const phoneInput = useRef<HTMLInputElement>(null)
 
   function updateField(field: keyof FormState, value: string) {
+    setPreparedUrl(''); setSubmitted(false)
     setForm((current) => ({ ...current, [field]: value }))
     if (field === errorField) { setError(''); setErrorField(null) }
   }
@@ -62,6 +65,8 @@ export function AppointmentForm({ initialInterest = '' }: { initialInterest?: st
       .join('\n')
 
     const url = `https://wa.me/${siteConfig.contact.phoneE164}?text=${encodeURIComponent(text)}`
+    setPreparedUrl(url)
+    setSubmitted(true)
     window.open(url, '_blank', 'noopener,noreferrer')
   }
 
@@ -176,6 +181,7 @@ export function AppointmentForm({ initialInterest = '' }: { initialInterest?: st
             <span aria-hidden="true">→</span>
           </button>
 
+          {submitted && <div className="appointment-form__success"><p role="status">Sua mensagem está pronta. Tentamos abrir o WhatsApp; a consulta ainda precisa ser confirmada pela equipe.</p><a href={preparedUrl} target="_blank" rel="noopener noreferrer">Se não abriu, toque aqui para continuar no WhatsApp ↗</a></div>}
           <p className="appointment-form__privacy">
             Os campos não são gravados no site. Ao continuar, eles serão incluídos
             em uma URL enviada ao WhatsApp; você revisa a mensagem antes de enviar à clínica.

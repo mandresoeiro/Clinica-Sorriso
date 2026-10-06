@@ -123,6 +123,9 @@
   box-shadow: 0 12px 30px rgba(0, 0, 0, .12);
 }
 
+.hero .button--primary { background: #b8e7e5; color: var(--color-primary-2); border-color: #b8e7e5; }
+.hero .button--primary:hover { background: #d7f4f2; }
+
 .hero .button--ghost {
   color: white;
   border-color: rgba(255, 255, 255, .42);
@@ -184,26 +187,26 @@
 }
 
 .hero__controls button {
-  width: 7px;
-  height: 7px;
+  width: 44px;
+  height: 44px;
   padding: 0;
   border: 0;
   border-radius: 999px;
-  background: rgba(255, 255, 255, .46);
+  background: radial-gradient(circle, rgba(255, 255, 255, .46) 0 4px, transparent 5px);
   cursor: pointer;
   transition: width var(--transition), background var(--transition);
 }
 
 .hero__controls button.is-active {
-  width: 26px;
-  background: white;
+  background: radial-gradient(circle, white 0 6px, transparent 7px);
 }
 
 .hero__pause {
   border: 0;
   background: transparent;
   color: rgba(255, 255, 255, .78);
-  padding: .2rem .1rem;
+  padding: .6rem .4rem;
+  min-height: 44px;
   font-size: .67rem;
   font-weight: 800;
   cursor: pointer;
@@ -281,6 +284,7 @@
     font-size: .56rem;
     letter-spacing: .08em;
   }
+  .hero__demo-label { font-size: .6rem; }
 
   .hero h1 {
     max-width: 9.8ch;
@@ -355,3 +359,20 @@
     transform: none;
   }
 }
+.hero { background: #eef5f3; }
+.hero__overlay { background: linear-gradient(90deg, rgba(250,252,250,.97) 0%, rgba(250,252,250,.9) 38%, rgba(250,252,250,.32) 74%, rgba(250,252,250,.08) 100%); }
+.hero__copy { color: var(--color-primary-2); }
+.hero h1 span { color: #397779; }
+.hero__copy p { color: #455d5e; }
+.hero__eyebrow, .hero__demo-label { color: #365d5f; background: rgba(255,255,255,.8); border-color: #c7dbd8; }
+.hero .button--primary { background: #24585b; color: white; border-color: #24585b; }
+.hero .button--primary:hover { background: #17383b; }
+.hero .button--ghost { color: #17383b; border-color: #8caaa8; background: rgba(255,255,255,.8); }
+.hero .button--ghost:hover { background: white; }
+.hero__proof span { color: #365d5f; background: rgba(255,255,255,.8); border-color: #c7dbd8; }
+.hero__slider-ui { background: rgba(255,255,255,.9); border-color: #c7dbd8; }
+.hero__slide-number, .hero__pause, .hero__pause:hover { color: #365d5f; }
+.hero__controls button { background: radial-gradient(circle, #719b99 0 4px, transparent 5px); }
+.hero__controls button.is-active { background: radial-gradient(circle, #17383b 0 6px, transparent 7px); }
+@media (max-width: 900px) { .hero__overlay { background: linear-gradient(90deg, rgba(250,252,250,.96), rgba(250,252,250,.82) 58%, rgba(250,252,250,.4)); } }
+@media (max-width: 620px) { .hero__overlay { background: linear-gradient(180deg, rgba(250,252,250,.95), rgba(250,252,250,.87) 58%, rgba(250,252,250,.78)); } }

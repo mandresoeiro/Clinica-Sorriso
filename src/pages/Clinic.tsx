@@ -1,5 +1,7 @@
 import { Button } from '../components/ui/Button'
 import { whatsappUrl } from '../config/site.config'
+import { FirstVisit } from '../components/sections/FirstVisit'
+import { VirtualTour } from '../components/sections/VirtualTour'
 
 export function Clinic() {
   return (
@@ -45,6 +47,9 @@ export function Clinic() {
           </article>
         </div>
       </section>
+
+      <VirtualTour />
+      <FirstVisit />
 
       <section className="section">
         <div className="container card">

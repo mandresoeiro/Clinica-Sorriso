@@ -47,7 +47,7 @@ export function Hero() {
 
   return (
     <section className="hero" aria-label="Apresentação da Clínica Sorriso">
-      <div className="hero__slides" aria-live="polite">
+      <div className="hero__slides">
         {heroSlides.map((slide, index) => (
           <img
             key={slide.src}
@@ -65,15 +65,15 @@ export function Hero() {
       <div className="hero__overlay" aria-hidden="true" />
 
       <div className="container hero__content">
-        <div className="hero__copy reveal">
+        <div className="hero__copy">
           <div className="hero__meta">
             <span className="hero__eyebrow">Odontologia contemporânea • Belém</span>
             <span className="hero__demo-label">Imagens demonstrativas</span>
           </div>
 
           <h1>
-            Cuidado, estética e confiança
-            <span> para viver melhor o seu sorriso.</span>
+            Seu sorriso merece
+            <span> cuidado e tranquilidade.</span>
           </h1>
 
           <p>
@@ -85,8 +85,8 @@ export function Hero() {
             <Button href={whatsappUrl} target="_blank" rel="noreferrer">
               Solicitar agendamento
             </Button>
-            <Button variant="ghost" href={ROUTES.clinic}>
-              Conhecer a clínica
+            <Button variant="ghost" href={`${ROUTES.clinic}#tour-virtual`}>
+              Conhecer a clínica e o tour
             </Button>
           </div>
         </div>

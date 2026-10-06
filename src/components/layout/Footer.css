@@ -74,3 +74,7 @@
     grid-template-columns: 1fr;
   }
 }
+.footer__credit { display: inline-flex; align-items: center; flex-wrap: wrap; gap: .45rem; color: rgba(255,255,255,.8); padding: .25rem 0; }
+.footer__credit strong { font-size: .8rem; color: #d7f4f2; letter-spacing: .02em; }
+.footer__credit-domain { border-left: 1px solid rgba(255,255,255,.25); padding-left: .6rem; }
+.footer__credit:hover strong, .footer__credit:hover .footer__credit-domain { color: white; text-decoration: underline; text-underline-offset: 4px; }

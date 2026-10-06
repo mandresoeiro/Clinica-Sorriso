@@ -20,19 +20,32 @@ const initialState: FormState = {
 
 export function AppointmentForm() {
   const [form, setForm] = useState<FormState>(initialState)
+  const [error, setError] = useState('')
 
   function updateField(field: keyof FormState, value: string) {
     setForm((current) => ({ ...current, [field]: value }))
+    setError('')
   }
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
+    const name = form.name.trim()
+    const phone = form.phone.replace(/\D/g, '')
+    const localPhone = phone.startsWith('55') && phone.length > 11 ? phone.slice(2) : phone
+    if (name.length < 2) {
+      setError('Informe seu nome com pelo menos dois caracteres.')
+      return
+    }
+    if (!/^[1-9]{2}\d{8,9}$/.test(localPhone)) {
+      setError('Informe um telefone válido com DDD, por exemplo (91) 99999-9999.')
+      return
+    }
 
     const text = [
       'Olá! Vim pelo site da Clínica Sorriso.',
       '',
-      `Nome: ${form.name}`,
-      `WhatsApp: ${form.phone}`,
+      `Nome: ${name}`,
+      `WhatsApp: ${phone}`,
       form.interest ? `Interesse: ${form.interest}` : '',
       form.period ? `Melhor período: ${form.period}` : '',
       form.message ? `Mensagem: ${form.message}` : '',
@@ -75,6 +88,7 @@ export function AppointmentForm() {
                 onChange={(event) => updateField('name', event.target.value)}
                 autoComplete="name"
                 required
+                maxLength={100}
                 placeholder="Seu nome"
               />
             </label>
@@ -89,6 +103,7 @@ export function AppointmentForm() {
                 autoComplete="tel"
                 inputMode="tel"
                 required
+                maxLength={22}
                 placeholder="(91) 99999-9999"
               />
             </label>
@@ -140,6 +155,7 @@ export function AppointmentForm() {
             />
           </label>
 
+          {error && <p role="alert" className="appointment-form__error">{error}</p>}
           <button type="submit" className="appointment-form__submit">
             Continuar no WhatsApp
             <span aria-hidden="true">→</span>

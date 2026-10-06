@@ -17,6 +17,7 @@ export function Footer() {
           <strong>Navegação</strong>
           <nav className="footer__links" aria-label="Navegação do rodapé">
             <Link to={ROUTES.clinic}>Clínica</Link>
+            <a href={`${ROUTES.clinic}#tour-virtual`}>Tour virtual</a>
             <Link to={ROUTES.treatments}>Especialidades</Link>
             <Link to={ROUTES.team}>Equipe</Link>
             <Link to={ROUTES.faq}>Dúvidas</Link>
@@ -39,6 +40,11 @@ export function Footer() {
       <div className="container footer__bottom">
         <span>© {new Date().getFullYear()} {siteConfig.name}.</span>
         <span>Conteúdo sujeito à validação da clínica.</span>
+        <a className="footer__credit" href="https://soeirotech.com.br" target="_blank" rel="noopener noreferrer" aria-label="Desenvolvido por SoeiroTech — visitar site em nova aba">
+          <span>Desenvolvido por</span>
+          <strong>SoeiroTech</strong>
+          <span className="footer__credit-domain">soeirotech.com.br <span aria-hidden="true">↗</span></span>
+        </a>
       </div>
     </footer>
   )

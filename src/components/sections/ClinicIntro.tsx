@@ -8,16 +8,18 @@ export function ClinicIntro() {
       <div className="container clinic-intro__grid">
         <div className="clinic-intro__visual">
           <img
-            src="https://images.unsplash.com/photo-1629909615184-74f495363b67?auto=format&fit=crop&w=1400&q=82"
-            alt="Imagem demonstrativa de consultório odontológico contemporâneo"
+            src="/images/tour/recepcao.webp"
+            alt="Recepção fictícia da clínica, gerada por IA, com poltronas e balcão de madeira"
             loading="lazy"
+            width="1672"
+            height="941"
           />
           <span className="clinic-intro__tag">Imagem demonstrativa</span>
         </div>
 
         <div className="clinic-intro__copy">
           <span className="eyebrow">A clínica</span>
-          <h2 className="title">Um ambiente pensado para reduzir pressa e aumentar confiança.</h2>
+          <h2 className="title">Conheça o espaço antes de chegar.</h2>
           <p className="lead">
             A experiência começa antes do atendimento: comunicação clara,
             organização, conforto e uma atmosfera tranquila em cada detalhe.
@@ -29,7 +31,7 @@ export function ClinicIntro() {
             <div><strong>03</strong><span>Cuidado em cada etapa</span></div>
           </div>
 
-          <Button href={ROUTES.clinic} variant="ghost">Conhecer nosso espaço</Button>
+          <Button href={`${ROUTES.clinic}#tour-virtual`} variant="ghost">Explorar o tour virtual →</Button>
         </div>
       </div>
     </section>

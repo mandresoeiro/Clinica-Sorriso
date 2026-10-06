@@ -104,3 +104,10 @@
     grid-template-columns: 1fr;
   }
 }
+.clinic-intro { background: #f2f5ef; color: var(--color-primary-2); }
+.clinic-intro .lead { color: #526463; }
+.clinic-intro__visual { border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); }
+.clinic-intro__numbers div { border-color: #cdd9d2; }
+.clinic-intro__numbers strong { color: #397779; }
+.clinic-intro__numbers span { color: #526463; }
+.clinic-intro .button--ghost { color: #17383b; border-color: #8caaa8; background: white; }

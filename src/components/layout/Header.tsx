@@ -32,6 +32,7 @@ export function Header() {
           {nav.map(([label, path]) => (
             <NavLink key={path} to={path}>{label}</NavLink>
           ))}
+          <a href={`${ROUTES.clinic}#tour-virtual`}>Tour virtual</a>
         </nav>
 
         <div className="site-header__cta">
@@ -52,11 +53,12 @@ export function Header() {
         </button>
       </div>
 
-      <div className={`mobile-menu ${menuOpen ? 'is-open' : ''}`} id="mobile-navigation">
+      <div className={`mobile-menu ${menuOpen ? 'is-open' : ''}`} id="mobile-navigation" inert={!menuOpen}>
         <nav className="container" aria-label="Navegação móvel">
           {nav.map(([label, path]) => (
             <NavLink key={path} to={path} onClick={closeMenu}>{label}</NavLink>
           ))}
+          <a href={`${ROUTES.clinic}#tour-virtual`} onClick={closeMenu}>Tour virtual</a>
           <Button href={whatsappUrl} target="_blank" rel="noreferrer" onClick={closeMenu}>
             Solicitar agendamento
           </Button>

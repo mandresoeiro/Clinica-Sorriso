@@ -147,3 +147,5 @@
 .appointment-form label > .appointment-form__error { color: #9c2525; font-weight: 500; }
 .appointment-form input[aria-invalid="true"] { border-color: #9c2525; }
 .appointment-form__privacy a { text-decoration: underline; text-underline-offset: 3px; color: var(--color-primary); }
+
+.appointment-form__context{padding:1rem;border-radius:12px;background:var(--color-soft);font-size:.9rem}@media(max-width:600px){.appointment-form input,.appointment-form select,.appointment-form textarea{font-size:16px}}

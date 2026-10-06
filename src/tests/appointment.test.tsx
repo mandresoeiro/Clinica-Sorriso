@@ -37,3 +37,17 @@ describe('appointment form', () => {
     expect(message).toContain('WhatsApp: 5591999999999')
   })
 })
+
+it('preserves treatment context and allows changing it before WhatsApp', () => {
+  const open = vi.spyOn(window, 'open').mockReturnValue(null)
+  const { container } = render(<AppointmentForm initialInterest="Clareamento" />)
+  const interest = screen.getByLabelText('O que você procura?') as HTMLSelectElement
+  expect(interest.value).toBe('Clareamento')
+  fireEvent.change(interest, { target: { value: 'Próteses' } })
+  fireEvent.change(screen.getByLabelText('Nome'), { target: { value: 'Maria' } })
+  fireEvent.change(screen.getByLabelText('WhatsApp'), { target: { value: '91999999999' } })
+  fireEvent.submit(container.querySelector('form')!)
+  const message = new URL(String(open.mock.calls[0][0])).searchParams.get('text')
+  expect(message).toContain('Interesse: Próteses')
+  expect(message).not.toContain('Interesse: Clareamento')
+})

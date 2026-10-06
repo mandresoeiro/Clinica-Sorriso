@@ -1,9 +1,13 @@
+import { useSearchParams } from 'react-router-dom'
+import { treatments } from '../content/treatments'
 import { AppointmentForm } from '../components/sections/AppointmentForm'
 import { Button } from '../components/ui/Button'
 import { siteConfig, whatsappUrl } from '../config/site.config'
 import { SocialSection } from '../components/sections/SocialSection'
 
 export function Contact() {
+  const [params] = useSearchParams()
+  const interest = treatments.find(item => item.slug === params.get('tratamento'))?.title ?? ''
   return (
     <>
       <section className="page-hero">
@@ -38,7 +42,7 @@ export function Contact() {
         </div>
       </section>
 
-      <AppointmentForm />
+      <AppointmentForm key={interest} initialInterest={interest} />
       <SocialSection />
     </>
   )

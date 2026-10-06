@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { ROUTES } from '../../config/routes.config'
 import { Button } from '../ui/Button'
@@ -14,6 +14,7 @@ const nav = [
 ] as const
 
 export function Header() {
+  const toggle = useRef<HTMLButtonElement>(null)
   const [menuOpen, setMenuOpen] = useState(false)
 
   function closeMenu() {
@@ -21,7 +22,7 @@ export function Header() {
   }
 
   return (
-    <header className="site-header">
+    <header className="site-header" onKeyDown={event => { if (event.key === 'Escape' && menuOpen) { closeMenu(); toggle.current?.focus() } }}>
       <div className="container site-header__inner">
         <NavLink to={ROUTES.home} className="brand" aria-label="Clínica Sorriso — início" onClick={closeMenu}>
           <span className="brand__mark" aria-hidden="true">S</span>
@@ -40,6 +41,7 @@ export function Header() {
         </div>
 
         <button
+          ref={toggle}
           className="menu-toggle"
           type="button"
           aria-label={menuOpen ? 'Fechar menu' : 'Abrir menu'}

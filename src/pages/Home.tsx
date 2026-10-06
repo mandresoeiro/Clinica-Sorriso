@@ -2,12 +2,9 @@ import { Discovery } from '../components/sections/Discovery'
 import { Hero } from '../components/sections/Hero'
 import { TreatmentsSection } from '../components/sections/TreatmentsSection'
 import { ClinicIntro } from '../components/sections/ClinicIntro'
-import { TeamPreview } from '../components/sections/TeamPreview'
 import { AppointmentForm } from '../components/sections/AppointmentForm'
-import { LocationSection } from '../components/sections/LocationSection'
 import { useEffect, useRef } from 'react'
 import './Home.css'
-import { SocialSection } from '../components/sections/SocialSection'
 
 export function Home() {
   const root = useRef<HTMLDivElement>(null)
@@ -31,8 +28,6 @@ export function Home() {
       <Discovery />
       <TreatmentsSection />
       <ClinicIntro />
-      <TeamPreview />
-      <SocialSection />
       <section className="section--tight home-questions" aria-labelledby="home-questions-title">
         <div className="container">
           <span className="eyebrow">Antes de entrar em contato</span>
@@ -46,7 +41,6 @@ export function Home() {
         </div>
       </section>
       <AppointmentForm />
-      <LocationSection />
     </div>
   )
 }

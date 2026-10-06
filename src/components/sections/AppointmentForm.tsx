@@ -1,3 +1,4 @@
+import { treatments } from '../../content/treatments'
 import { useRef, useState, type FormEvent } from 'react'
 import { siteConfig } from '../../config/site.config'
 import './AppointmentForm.css'
@@ -18,8 +19,8 @@ const initialState: FormState = {
   message: '',
 }
 
-export function AppointmentForm() {
-  const [form, setForm] = useState<FormState>(initialState)
+export function AppointmentForm({ initialInterest = '' }: { initialInterest?: string }) {
+  const [form, setForm] = useState<FormState>(() => ({ ...initialState, interest: initialInterest }))
   const [error, setError] = useState('')
   const [errorField, setErrorField] = useState<'name' | 'phone' | null>(null)
   const nameInput = useRef<HTMLInputElement>(null)
@@ -124,7 +125,8 @@ export function AppointmentForm() {
             </label>
           </div>
 
-          <details className="appointment-form__optional">
+          {initialInterest && <p className="appointment-form__context">Você veio de: <strong>{initialInterest}</strong>. Pode alterar o interesse abaixo.</p>}
+          <details className="appointment-form__optional" open={initialInterest ? true : undefined}>
           <summary>Personalizar minha mensagem <span>Opcional</span></summary>
           <div className="appointment-form__row">
             <label>
@@ -136,11 +138,7 @@ export function AppointmentForm() {
               >
                 <option value="">Selecione</option>
                 <option>Consulta de avaliação</option>
-                <option>Prevenção</option>
-                <option>Estética do sorriso</option>
-                <option>Implantes</option>
-                <option>Reabilitação oral</option>
-                <option>Clareamento</option>
+                {treatments.map(item => <option key={item.slug}>{item.title}</option>)}
                 <option>Outros</option>
               </select>
             </label>

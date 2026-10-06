@@ -2,7 +2,7 @@ import { TreatmentJourney } from '../components/sections/TreatmentJourney'
 import { Link, Navigate, useParams } from 'react-router-dom'
 import { treatments } from '../content/treatments'
 import { Button } from '../components/ui/Button'
-import { whatsappUrl } from '../config/site.config'
+import { siteConfig } from '../config/site.config'
 
 export function TreatmentDetails() {
   const { slug } = useParams()
@@ -10,6 +10,7 @@ export function TreatmentDetails() {
 
   if (!treatment) return <Navigate to="/404" replace />
 
+  const treatmentWhatsApp = 'https://wa.me/' + siteConfig.contact.phoneE164 + '?text=' + encodeURIComponent('Olá! Conheci ' + treatment.title + ' pelo site e gostaria de entender as etapas e solicitar uma avaliação.')
   return (
     <>
       <section className="page-hero">
@@ -18,7 +19,7 @@ export function TreatmentDetails() {
           <h1 className="title">{treatment.title}</h1>
           <p className="lead">{treatment.description}</p>
           <div className="page-actions">
-            <Button href={whatsappUrl} target="_blank" rel="noreferrer">Conversar com a clínica</Button>
+            <Button href={treatmentWhatsApp} target="_blank" rel="noreferrer">Conversar com a clínica</Button>
           </div>
         </div>
       </section>
@@ -42,7 +43,7 @@ export function TreatmentDetails() {
           </article>
         </div>
       </section>
-      <TreatmentJourney key={treatment.slug} title={treatment.title} />
+      <TreatmentJourney key={treatment.slug} title={treatment.title} slug={treatment.slug} />
     </>
   )
 }

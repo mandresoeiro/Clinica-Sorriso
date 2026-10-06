@@ -145,3 +145,5 @@
     font-size: .93rem;
   }
 }
+
+@media(max-width:1100px){.mobile-menu.is-open nav{max-height:calc(100dvh - 70px);overflow-y:auto;overscroll-behavior:contain}.site-header__inner{gap:1rem}}

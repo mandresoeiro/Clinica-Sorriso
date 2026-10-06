@@ -47,7 +47,7 @@ export function Hero() {
   }, [isPaused])
 
   return (
-    <section ref={hero} className="hero" aria-label="Apresentação da Clínica Sorriso" onPointerMove={(event) => {
+    <section ref={hero} className={isPaused ? 'hero is-paused' : 'hero'} aria-label="Apresentação da Clínica Sorriso" onPointerMove={(event) => {
       if (event.pointerType !== 'mouse' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
       const bounds = event.currentTarget.getBoundingClientRect()
       hero.current?.style.setProperty('--hero-pointer-x', `${event.clientX - bounds.left}px`)

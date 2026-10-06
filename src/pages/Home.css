@@ -99,3 +99,24 @@
   .home-page .hero__footer { margin-top: 0; padding-top: .25rem; }
   .home-page .hero__slider-ui { max-width: 100%; }
 }
+
+/* Subtle mobile photo motion, without white overlays or fading the photo. */
+@media (max-width: 700px) {
+  .home-page .hero__slides { overflow: hidden; border-radius: 0 0 22px 22px; }
+  .home-page .hero__slides img.is-active { animation: mobile-photo-zoom 5.5s ease-out both; }
+  .home-page .hero.is-paused .hero__slides img.is-active { animation-play-state: paused; }
+  .treatment-card__image img, .specialty-card__media img, .clinic-intro__visual img {
+    transition: transform .35s ease;
+  }
+  .treatment-card:active .treatment-card__image img,
+  .specialty-card:active .specialty-card__media img { transform: scale(1.04); }
+  .home-section-entered .clinic-intro__visual img { animation: mobile-photo-settle .8s ease-out both; }
+}
+@keyframes mobile-photo-zoom { from { transform: scale(1); } to { transform: scale(1.06); } }
+@keyframes mobile-photo-settle { from { transform: scale(1.04); } to { transform: scale(1); } }
+@media (prefers-reduced-motion: reduce) {
+  .home-page .hero__slides img.is-active,
+  .home-section-entered .clinic-intro__visual img { animation: none; }
+  .treatment-card:active .treatment-card__image img,
+  .specialty-card:active .specialty-card__media img { transform: none; }
+}

@@ -1,3 +1,4 @@
+import { TourExplorer } from './TourExplorer'
 import { useRef, useState } from 'react'
 import './VirtualTour.css'
 
@@ -43,13 +44,21 @@ export function VirtualTour() {
   }
 
   function scene(detailId: string) {
-    return <div className={`virtual-tour__viewer ${motion ? 'has-motion' : ''}`}>
+    return <TourExplorer key={room.name} label={room.name}><div className={`virtual-tour__viewer ${motion ? 'has-motion' : ''}`}>
       <div className="virtual-tour__scene" key={room.name}>
-        <img src={room.image} alt={room.alt} width="1672" height="941" />
+        <img src={room.image} alt={room.alt} loading="lazy" draggable={false} width="1672" height="941" />
         <span className="virtual-tour__image-label">Ambiente ilustrativo · {room.name}</span>
         {room.points.map((point, index) => <button key={point.name} type="button" className="virtual-tour__point" style={{ left: `${point.x}%`, top: `${point.y}%` }} aria-label={`Explorar: ${point.name}`} aria-expanded={pointIndex === index} aria-controls={detailId} onClick={() => setPointIndex(guided ? index : pointIndex === index ? null : index)}>{index + 1}<span className="virtual-tour__point-name">{point.name}</span></button>)}
       </div>
-    </div>
+    </div></TourExplorer>
+  }
+
+  function roomMap() {
+    return <nav className="tour-map" aria-label="Mapa esquemático dos ambientes">
+      <strong>Mapa do passeio</strong>
+      {rooms.map((item, index) => <button type="button" key={item.name} aria-current={roomIndex === index ? 'true' : undefined} onClick={() => selectRoom(index)}>{index + 1} · {item.name}</button>)}
+      <small>Esquema de navegação ilustrativo; não representa a planta real da clínica.</small>
+    </nav>
   }
 
   function guideControls() {
@@ -81,15 +90,8 @@ export function VirtualTour() {
           <button type="button" aria-pressed={guided} onClick={() => { setGuided(!guided); if (!guided) visitStep(0) }}>{guided ? 'Sair do passeio' : 'Começar passeio →'}</button>
           <button type="button" aria-pressed={motion} onClick={() => setMotion(!motion)}>{motion ? 'Pausar movimento' : 'Ativar movimento suave'}</button>
         </div>
-        <div className={`virtual-tour__viewer ${motion ? 'has-motion' : ''}`}>
-          <div className="virtual-tour__scene" key={room.name}>
-          <img src={room.image} alt={room.alt} loading="lazy" width="1672" height="941" />
-          <span className="virtual-tour__image-label">Ambiente ilustrativo · {room.name}</span>
-          {room.points.map((point, index) => (
-            <button key={`${room.name}-${point.name}`} type="button" className="virtual-tour__point" style={{ left: `${point.x}%`, top: `${point.y}%` }} aria-label={`Explorar: ${point.name}`} aria-expanded={pointIndex === index} aria-controls="tour-detail" onClick={() => setPointIndex(guided ? index : pointIndex === index ? null : index)}>{index + 1}<span className="virtual-tour__point-name">{point.name}</span></button>
-          ))}
-          </div>
-        </div>
+        {scene('tour-detail')}
+        {roomMap()}
         {guided && <div className="virtual-tour__guide">
           <div className="virtual-tour__navigation">
             <button type="button" disabled={step === 0} onClick={() => visitStep(step - 1)}>← Voltar</button>
@@ -130,6 +132,7 @@ export function VirtualTour() {
                 <button type="button" aria-pressed={motion} onClick={() => setMotion(!motion)}>{motion ? 'Pausar movimento' : 'Movimento suave'}</button>
               </div>
               <div id="tour-immersive-detail" className="virtual-tour__detail" aria-live="polite" aria-atomic="true"><strong>{pointIndex === null ? room.name : room.points[pointIndex].name}</strong><p>{pointIndex === null ? 'Toque nos pontos da imagem para descobrir cada detalhe.' : room.points[pointIndex].text}</p></div>
+              {roomMap()}
               {guided && guideControls()}
               <p>Imagens fictícias geradas por IA. Não representam a estrutura real da clínica.</p>
             </aside>

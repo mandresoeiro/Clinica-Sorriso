@@ -1,3 +1,4 @@
+import { TreatmentJourney } from '../components/sections/TreatmentJourney'
 import { Link, Navigate, useParams } from 'react-router-dom'
 import { treatments } from '../content/treatments'
 import { Button } from '../components/ui/Button'
@@ -41,6 +42,7 @@ export function TreatmentDetails() {
           </article>
         </div>
       </section>
+      <TreatmentJourney key={treatment.slug} title={treatment.title} />
     </>
   )
 }

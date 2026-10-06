@@ -15,7 +15,7 @@ export function Clinic() {
             e fotografias reais da clínica após validação do briefing.
           </p>
           <div className="page-actions">
-            <Button href={whatsappUrl} target="_blank" rel="noreferrer">Agendar consulta</Button>
+            <Button href={whatsappUrl} target="_blank" rel="noreferrer">Solicitar agendamento</Button>
           </div>
         </div>
       </section>

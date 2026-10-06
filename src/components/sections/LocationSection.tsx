@@ -16,9 +16,9 @@ export function LocationSection() {
           <p className="muted">{siteConfig.hours}</p>
 
           <div className="page-actions">
-            <Button href={siteConfig.address.mapsUrl} target="_blank" rel="noreferrer" variant="ghost">
+            {!siteConfig.demoMode && <Button href={siteConfig.address.mapsUrl} target="_blank" rel="noreferrer" variant="ghost">
               Como chegar
-            </Button>
+            </Button>}
             <Button href={whatsappUrl} target="_blank" rel="noreferrer">
               WhatsApp
             </Button>

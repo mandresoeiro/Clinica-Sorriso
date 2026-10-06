@@ -35,6 +35,9 @@ export function Footer() {
         <div>
           <strong>Localização</strong>
           <p>{siteConfig.address.district} • {siteConfig.address.city}/{siteConfig.address.state}</p>
+          <nav className="footer__links" aria-label="Redes sociais">
+            {Object.entries(siteConfig.social).filter(([, url]) => url).map(([name, url]) => <a key={name} href={url} target="_blank" rel="noopener noreferrer">{name === 'instagram' ? 'Instagram' : name === 'facebook' ? 'Facebook' : 'TikTok'} ↗</a>)}
+          </nav>
         </div>
       </div>
 

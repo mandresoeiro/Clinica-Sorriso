@@ -21,7 +21,9 @@ export const siteConfig = {
     mapsUrl: 'https://maps.google.com',
   },
   social: {
-    instagram: 'https://instagram.com',
+    instagram: '',
+    facebook: '',
+    tiktok: '',
   },
   hours: 'Seg–Sex • 08h às 18h | Sáb • sob agendamento',
 } as const

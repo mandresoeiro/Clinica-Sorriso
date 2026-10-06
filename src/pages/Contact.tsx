@@ -1,6 +1,7 @@
 import { AppointmentForm } from '../components/sections/AppointmentForm'
 import { Button } from '../components/ui/Button'
 import { siteConfig, whatsappUrl } from '../config/site.config'
+import { SocialSection } from '../components/sections/SocialSection'
 
 export function Contact() {
   return (
@@ -29,14 +30,16 @@ export function Contact() {
             <span className="eyebrow">Localização</span>
             <strong>{siteConfig.address.district} • {siteConfig.address.city}/{siteConfig.address.state}</strong>
             <p className="muted">{siteConfig.address.street}</p>
-            <Button href={siteConfig.address.mapsUrl} target="_blank" rel="noreferrer" variant="ghost">
+            {!siteConfig.demoMode && <Button href={siteConfig.address.mapsUrl} target="_blank" rel="noreferrer" variant="ghost">
               Como chegar
-            </Button>
+            </Button>}
+            {siteConfig.demoMode && <small className="muted">O mapa será ativado após confirmação do endereço oficial.</small>}
           </article>
         </div>
       </section>
 
       <AppointmentForm />
+      <SocialSection />
     </>
   )
 }

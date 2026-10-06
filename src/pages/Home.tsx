@@ -6,6 +6,7 @@ import { AppointmentForm } from '../components/sections/AppointmentForm'
 import { LocationSection } from '../components/sections/LocationSection'
 import { useEffect, useRef } from 'react'
 import './Home.css'
+import { SocialSection } from '../components/sections/SocialSection'
 
 export function Home() {
   const root = useRef<HTMLDivElement>(null)
@@ -40,6 +41,7 @@ export function Home() {
       <TreatmentsSection />
       <ClinicIntro />
       <TeamPreview />
+      <SocialSection />
       <section className="section--tight home-questions" aria-labelledby="home-questions-title">
         <div className="container">
           <span className="eyebrow">Antes de entrar em contato</span>

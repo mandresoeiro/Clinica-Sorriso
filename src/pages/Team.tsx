@@ -6,7 +6,7 @@ export function Team() {
       <section className="page-hero">
         <div className="container">
           <span className="eyebrow">Equipe</span>
-          <h1 className="title">Profissionais apresentados com clareza e credibilidade.</h1>
+          <h1 className="title">Conheça quem vai cuidar do seu sorriso.</h1>
           <p className="lead">
             Nome, CRO, especialidade, formação, biografia e fotografia devem ser
             confirmados antes da publicação oficial.

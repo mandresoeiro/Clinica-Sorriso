@@ -162,7 +162,10 @@ export function AppointmentForm() {
           </button>
 
           <p className="appointment-form__privacy">
-            Este formulário não salva dados no site nesta versão.
+            Os campos não são gravados no site. Ao continuar, eles serão incluídos
+            em uma URL enviada ao WhatsApp; você revisa a mensagem antes de enviar à clínica.
+            {' '}<a href="/privacidade">Leia o aviso de privacidade.</a>
+            {siteConfig.demoMode && ' Demonstração: utilize somente dados fictícios.'}
           </p>
         </form>
       </div>

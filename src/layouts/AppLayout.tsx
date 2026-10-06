@@ -14,6 +14,7 @@ export function AppLayout() {
       '/equipe': ['Nossa equipe', 'Conheça a apresentação da equipe da Clínica Sorriso.'],
       '/duvidas': ['Dúvidas frequentes', 'Encontre respostas para dúvidas sobre atendimento e primeira consulta.'],
       '/contato': ['Contato e agendamento', 'Converse com a Clínica Sorriso sobre atendimento e horários pelo WhatsApp.'],
+      '/privacidade': ['Privacidade e LGPD', 'Entenda como funciona o formulário, o WhatsApp e o uso de dados na demonstração da Clínica Sorriso.'],
     }
     const page = pages[pathname] ?? (pathname.startsWith('/tratamentos/')
       ? ['Conheça o tratamento', 'Saiba mais sobre as etapas de cuidado e converse com a equipe da Clínica Sorriso.']

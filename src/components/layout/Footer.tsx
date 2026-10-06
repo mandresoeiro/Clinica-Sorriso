@@ -22,6 +22,7 @@ export function Footer() {
             <Link to={ROUTES.team}>Equipe</Link>
             <Link to={ROUTES.faq}>Dúvidas</Link>
             <Link to={ROUTES.contact}>Contato</Link>
+            <Link to={ROUTES.privacy}>Privacidade e LGPD</Link>
           </nav>
         </div>
 

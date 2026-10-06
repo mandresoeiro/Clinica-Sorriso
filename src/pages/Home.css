@@ -53,3 +53,30 @@
 .home-questions summary { cursor: pointer; color: var(--color-primary); font-weight: 700; min-height: 32px; }
 .home-questions details p { max-width: 70ch; color: var(--color-muted); }
 .home-questions details a { font-weight: 700; color: var(--color-primary); }
+.home-page .hero::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(260px circle at var(--hero-pointer-x, 70%) var(--hero-pointer-y, 40%), rgba(255,255,255,.3), transparent); }
+.hero__tour-peek { position: absolute; right: 0; top: 110px; width: 245px; padding: .8rem; display: grid; gap: .5rem; border: 1px solid rgba(255,255,255,.85); border-radius: 24px; background: rgba(255,255,255,.9); box-shadow: 0 20px 65px rgba(16,44,46,.12); transform: rotate(2deg); transition: transform .3s ease, box-shadow .3s ease; color: var(--color-primary); }
+.hero__tour-peek:hover, .hero__tour-peek:focus-visible { transform: rotate(0) translateY(-5px); box-shadow: 0 26px 70px rgba(16,44,46,.18); }
+.hero__tour-peek-image { position: relative; border-radius: 16px; overflow: hidden; aspect-ratio: 16 / 10; }
+.hero__tour-peek-image img { width: 100%; height: 100%; object-fit: cover; }
+.hero__tour-peek-image > span { position: absolute; right: .6rem; bottom: .6rem; width: 38px; height: 38px; display: grid; place-items: center; background: white; border-radius: 50%; font-size: 1.2rem; }
+.hero__tour-peek > strong { font-family: var(--font-display); font-size: 1.6rem; font-weight: 500; }
+.hero__tour-peek > span:last-child { font-size: .8rem; color: var(--color-muted); }
+.home-page .home-start__grid { grid-template-columns: 1.2fr 1fr 1fr; }
+.home-page .home-start__grid > a { position: relative; overflow: hidden; transition: transform .3s ease, background .3s ease, box-shadow .3s ease; }
+.home-page .home-start__grid > a:first-child { background: linear-gradient(135deg, #e8f3ef, #fff 75%); border-color: #bfd4cb; }
+.home-page .home-start__grid > a:nth-child(2) { background: #fffaf1; }
+.home-page .home-start__grid > a:hover { transform: translateY(-5px); box-shadow: 0 16px 36px rgba(16,44,46,.09); }
+.home-start__grid h3 > span { display: inline-block; transition: transform .25s ease; }
+.home-start__grid a:hover h3 > span { transform: translate(3px, -3px); }
+.home-section-entered .treatment-card, .home-section-entered .team-card, .home-section-entered .home-start__grid > a, .home-section-entered .clinic-intro__visual { animation: home-card-enter .65s ease backwards; }
+.home-section-entered .treatment-card:nth-child(2), .home-section-entered .team-card:nth-child(2), .home-section-entered .home-start__grid > a:nth-child(2) { animation-delay: .08s; }
+.home-section-entered .treatment-card:nth-child(3), .home-section-entered .home-start__grid > a:nth-child(3) { animation-delay: .16s; }
+@keyframes home-card-enter { from { opacity: .5; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+.home-reading-progress { display: none; }
+@supports (animation-timeline: scroll()) {
+  .home-reading-progress { display: block; position: fixed; left: 0; top: 0; width: 100%; height: 3px; z-index: 60; background: #397779; transform-origin: left; animation: home-read linear both; animation-timeline: scroll(); }
+  @keyframes home-read { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+}
+@media (max-width: 1100px) { .hero__tour-peek { display: none; } }
+@media (max-width: 900px) { .home-page .home-start__grid { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) { .home-reading-progress { display: none; } .home-page .hero::after { display: none; } .hero__tour-peek { transform: none; } }

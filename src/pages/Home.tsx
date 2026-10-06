@@ -4,11 +4,27 @@ import { ClinicIntro } from '../components/sections/ClinicIntro'
 import { TeamPreview } from '../components/sections/TeamPreview'
 import { AppointmentForm } from '../components/sections/AppointmentForm'
 import { LocationSection } from '../components/sections/LocationSection'
+import { useEffect, useRef } from 'react'
 import './Home.css'
 
 export function Home() {
+  const root = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('home-section-entered')
+          observer.unobserve(entry.target)
+        }
+      })
+    }, { threshold: .08 })
+    root.current?.querySelectorAll('section:not(.hero)').forEach((section) => observer.observe(section))
+    return () => observer.disconnect()
+  }, [])
   return (
-    <div className="home-page">
+    <div className="home-page" ref={root}>
+      <div className="home-reading-progress" aria-hidden="true" />
       <Hero />
       <section className="home-start section--tight" aria-labelledby="home-start-title">
         <div className="container">

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Button } from '../ui/Button'
 import { ROUTES } from '../../config/routes.config'
 import { whatsappUrl } from '../../config/site.config'
@@ -31,6 +31,7 @@ const heroSlides: HeroSlide[] = [
 const SLIDE_DURATION = 5500
 
 export function Hero() {
+  const hero = useRef<HTMLElement>(null)
   const [activeSlide, setActiveSlide] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
 
@@ -46,7 +47,12 @@ export function Hero() {
   }, [isPaused])
 
   return (
-    <section className="hero" aria-label="Apresentação da Clínica Sorriso">
+    <section ref={hero} className="hero" aria-label="Apresentação da Clínica Sorriso" onPointerMove={(event) => {
+      if (event.pointerType !== 'mouse' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+      const bounds = event.currentTarget.getBoundingClientRect()
+      hero.current?.style.setProperty('--hero-pointer-x', `${event.clientX - bounds.left}px`)
+      hero.current?.style.setProperty('--hero-pointer-y', `${event.clientY - bounds.top}px`)
+    }}>
       <div className="hero__slides">
         {heroSlides.map((slide, index) => (
           <img
@@ -90,6 +96,13 @@ export function Hero() {
             </Button>
           </div>
         </div>
+
+        <a className="hero__tour-peek" href={`${ROUTES.clinic}#tour-virtual`}>
+          <div className="hero__tour-peek-image"><img src="/images/tour/recepcao.webp" alt="" width="1672" height="941" /><span aria-hidden="true">↗</span></div>
+          <span className="eyebrow">Tour demonstrativo</span>
+          <strong>Conheça por dentro.</strong>
+          <span>Explore os ambientes, no seu ritmo.</span>
+        </a>
 
         <div className="hero__footer">
           <div className="hero__proof" aria-label="Diferenciais da clínica">

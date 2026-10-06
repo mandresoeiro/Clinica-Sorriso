@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react'
+import { useRef, useState, type FormEvent } from 'react'
 import { siteConfig } from '../../config/site.config'
 import './AppointmentForm.css'
 
@@ -21,10 +21,13 @@ const initialState: FormState = {
 export function AppointmentForm() {
   const [form, setForm] = useState<FormState>(initialState)
   const [error, setError] = useState('')
+  const [errorField, setErrorField] = useState<'name' | 'phone' | null>(null)
+  const nameInput = useRef<HTMLInputElement>(null)
+  const phoneInput = useRef<HTMLInputElement>(null)
 
   function updateField(field: keyof FormState, value: string) {
     setForm((current) => ({ ...current, [field]: value }))
-    setError('')
+    if (field === errorField) { setError(''); setErrorField(null) }
   }
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -34,10 +37,14 @@ export function AppointmentForm() {
     const localPhone = phone.startsWith('55') && phone.length > 11 ? phone.slice(2) : phone
     if (name.length < 2) {
       setError('Informe seu nome com pelo menos dois caracteres.')
+      setErrorField('name')
+      nameInput.current?.focus()
       return
     }
     if (!/^[1-9]{2}\d{8,9}$/.test(localPhone)) {
       setError('Informe um telefone válido com DDD, por exemplo (91) 99999-9999.')
+      setErrorField('phone')
+      phoneInput.current?.focus()
       return
     }
 
@@ -83,6 +90,9 @@ export function AppointmentForm() {
               <span>Nome</span>
               <input
                 type="text"
+                ref={nameInput}
+                aria-invalid={errorField === 'name'}
+                aria-describedby={errorField === 'name' ? 'appointment-name-error' : undefined}
                 name="name"
                 value={form.name}
                 onChange={(event) => updateField('name', event.target.value)}
@@ -91,12 +101,16 @@ export function AppointmentForm() {
                 maxLength={100}
                 placeholder="Seu nome"
               />
+              {errorField === 'name' && <span id="appointment-name-error" role="alert" className="appointment-form__error">{error}</span>}
             </label>
 
             <label>
               <span>WhatsApp</span>
               <input
                 type="tel"
+                ref={phoneInput}
+                aria-invalid={errorField === 'phone'}
+                aria-describedby={errorField === 'phone' ? 'appointment-phone-error' : undefined}
                 name="phone"
                 value={form.phone}
                 onChange={(event) => updateField('phone', event.target.value)}
@@ -106,6 +120,7 @@ export function AppointmentForm() {
                 maxLength={22}
                 placeholder="(91) 99999-9999"
               />
+              {errorField === 'phone' && <span id="appointment-phone-error" role="alert" className="appointment-form__error">{error}</span>}
             </label>
           </div>
 
@@ -155,7 +170,6 @@ export function AppointmentForm() {
             />
           </label>
 
-          {error && <p role="alert" className="appointment-form__error">{error}</p>}
           <button type="submit" className="appointment-form__submit">
             Continuar no WhatsApp
             <span aria-hidden="true">→</span>

@@ -23,3 +23,13 @@
 .virtual-tour__dialog :focus-visible { outline-color: white; }
 .virtual-tour__viewer { aspect-ratio: 1672 / 941; }
 @media (max-width: 560px) { .virtual-tour__viewer { aspect-ratio: 1672 / 941; } .virtual-tour__point { width: 44px; height: 44px; } }
+.virtual-tour__scene { position: absolute; inset: 0; animation: tour-arrive .65s ease both; }
+.virtual-tour__viewer.has-motion .virtual-tour__scene { animation: tour-arrive .65s ease both, tour-drift 16s ease-in-out infinite alternate; }
+.virtual-tour__point-name { position: absolute; top: calc(100% + 10px); left: 50%; transform: translateX(-50%); width: max-content; max-width: 160px; padding: .35rem .65rem; background: rgba(15,43,45,.94); color: white; border-radius: 10px; font-size: .75rem; line-height: 1.3; pointer-events: none; }
+.virtual-tour__guide { padding: .5rem 1rem 1rem; background: var(--color-soft); border-radius: var(--radius-md); margin-top: 1rem; }
+.virtual-tour__guide progress { width: 100%; height: 8px; margin-top: 1rem; accent-color: var(--color-primary); }
+.virtual-tour__guide button:disabled { opacity: .45; cursor: default; }
+@keyframes tour-arrive { from { opacity: .3; } to { opacity: 1; } }
+@keyframes tour-drift { from { transform: scale(1); } to { transform: scale(1.035); } }
+@media (max-width: 560px) { .virtual-tour__point-name { font-size: .65rem; max-width: 105px; } }
+@media (prefers-reduced-motion: reduce) { .virtual-tour__scene, .virtual-tour__viewer.has-motion .virtual-tour__scene { animation: none; } }

@@ -27,8 +27,17 @@ export function VirtualTour() {
   const [pointIndex, setPointIndex] = useState<number | null>(null)
   const dialog = useRef<HTMLDialogElement>(null)
   const room = rooms[roomIndex]
+  const [guided, setGuided] = useState(false)
+  const [motion, setMotion] = useState(false)
+  const step = roomIndex * 2 + (pointIndex ?? 0)
+
+  function visitStep(index: number) {
+    setRoomIndex(Math.floor(index / 2))
+    setPointIndex(index % 2)
+  }
 
   function selectRoom(index: number) {
+    setGuided(false)
     setRoomIndex(index)
     setPointIndex(null)
   }
@@ -49,14 +58,26 @@ export function VirtualTour() {
             <button key={item.name} type="button" aria-pressed={roomIndex === index} onClick={() => selectRoom(index)}>{String(index + 1).padStart(2, '0')} · {item.name}</button>
           ))}
           <button type="button" onClick={() => dialog.current?.showModal()}>Ampliar tour ⛶</button>
+          <button type="button" aria-pressed={guided} onClick={() => { setGuided(!guided); if (!guided) visitStep(0) }}>{guided ? 'Sair do passeio' : 'Começar passeio →'}</button>
+          <button type="button" aria-pressed={motion} onClick={() => setMotion(!motion)}>{motion ? 'Pausar movimento' : 'Ativar movimento suave'}</button>
         </div>
-        <div className="virtual-tour__viewer">
+        <div className={`virtual-tour__viewer ${motion ? 'has-motion' : ''}`}>
+          <div className="virtual-tour__scene" key={room.name}>
           <img src={room.image} alt={room.alt} loading="lazy" width="1672" height="941" />
           <span className="virtual-tour__image-label">Ambiente ilustrativo · {room.name}</span>
           {room.points.map((point, index) => (
-            <button key={`${room.name}-${point.name}`} type="button" className="virtual-tour__point" style={{ left: `${point.x}%`, top: `${point.y}%` }} aria-label={`Explorar: ${point.name}`} aria-expanded={pointIndex === index} aria-controls="tour-detail" onClick={() => setPointIndex(pointIndex === index ? null : index)}>{index + 1}</button>
+            <button key={`${room.name}-${point.name}`} type="button" className="virtual-tour__point" style={{ left: `${point.x}%`, top: `${point.y}%` }} aria-label={`Explorar: ${point.name}`} aria-expanded={pointIndex === index} aria-controls="tour-detail" onClick={() => setPointIndex(guided ? index : pointIndex === index ? null : index)}>{index + 1}<span className="virtual-tour__point-name">{point.name}</span></button>
           ))}
+          </div>
         </div>
+        {guided && <div className="virtual-tour__guide">
+          <div className="virtual-tour__navigation">
+            <button type="button" disabled={step === 0} onClick={() => visitStep(step - 1)}>← Voltar</button>
+            <span aria-live="polite">Parada {step + 1} de 4</span>
+            <button type="button" onClick={() => { if (step === 3) { setGuided(false); setPointIndex(null) } else visitStep(step + 1) }}>{step === 3 ? 'Concluir passeio ✓' : 'Próxima parada →'}</button>
+          </div>
+          <progress max={4} value={step + 1} aria-label="Progresso do passeio" />
+        </div>}
         <div className="virtual-tour__detail" id="tour-detail" aria-live="polite" aria-atomic="true">
           <strong>{pointIndex === null ? room.name : room.points[pointIndex].name}</strong>
           <p>{pointIndex === null ? room.description : room.points[pointIndex].text}</p>

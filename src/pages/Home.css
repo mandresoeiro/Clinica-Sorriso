@@ -80,3 +80,22 @@
 @media (max-width: 1100px) { .hero__tour-peek { display: none; } }
 @media (max-width: 900px) { .home-page .home-start__grid { grid-template-columns: 1fr; } }
 @media (prefers-reduced-motion: reduce) { .home-reading-progress { display: none; } .home-page .hero::after { display: none; } .hero__tour-peek { transform: none; } }
+
+/* On small screens, keep photos unobscured and text on its own light surface. */
+@media (max-width: 700px) {
+  .home-page .hero { background: #fafcf9; min-height: 0; }
+  .home-page .hero__slides { bottom: auto; height: clamp(210px, 58vw, 310px); }
+  .home-page .hero__slides img { filter: none; transform: none; object-position: center 42% !important; }
+  .home-page .hero__overlay, .home-page .hero::after { display: none; }
+  .home-page .hero__content {
+    min-height: 0;
+    padding-top: calc(clamp(210px, 58vw, 310px) + 1.5rem);
+    padding-bottom: 1.5rem;
+    gap: 1rem;
+  }
+  .home-page .hero__copy { gap: 1rem; max-width: 100%; }
+  .home-page .hero h1 { font-size: clamp(2.2rem, 8vw, 3.2rem); max-width: 18ch; }
+  .home-page .hero__copy p { max-width: 46ch; }
+  .home-page .hero__footer { margin-top: 0; padding-top: .25rem; }
+  .home-page .hero__slider-ui { max-width: 100%; }
+}

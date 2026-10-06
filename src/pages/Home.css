@@ -102,7 +102,7 @@
 
 /* Subtle mobile photo motion, without white overlays or fading the photo. */
 @media (max-width: 700px) {
-  .home-page .hero__slides { overflow: hidden; border-radius: 0 0 22px 22px; }
+  .home-page .hero__slides { overflow: hidden; border-radius: 0; border: 0; box-shadow: none; }
   .home-page .hero__slides img.is-active { animation: mobile-photo-zoom 5.5s ease-out both; }
   .home-page .hero.is-paused .hero__slides img.is-active { animation-play-state: paused; }
   .treatment-card__image img, .specialty-card__media img, .clinic-intro__visual img {

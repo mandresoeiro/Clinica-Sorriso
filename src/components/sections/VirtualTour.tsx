@@ -107,7 +107,13 @@ export function VirtualTour() {
           <span>{roomIndex + 1} / {rooms.length}</span>
           <button type="button" onClick={() => selectRoom((roomIndex + 1) % rooms.length)}>Próximo ambiente →</button>
         </div>
-        <dialog ref={dialog} className="virtual-tour__dialog" aria-labelledby="tour-dialog-title">
+        <dialog ref={dialog} className="virtual-tour__dialog" aria-labelledby="tour-dialog-title" onKeyDown={(event) => {
+          if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return
+          event.preventDefault()
+          const direction = event.key === 'ArrowRight' ? 1 : -1
+          if (guided) visitStep(Math.max(0, Math.min(3, step + direction)))
+          else selectRoom((roomIndex + direction + rooms.length) % rooms.length)
+        }}>
           <div className="virtual-tour__dialog-header">
             <h3 id="tour-dialog-title">{room.name} · Tour demonstrativo</h3>
             <button type="button" onClick={() => dialog.current?.close()} autoFocus>Fechar ×</button>

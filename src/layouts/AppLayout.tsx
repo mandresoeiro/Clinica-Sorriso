@@ -5,7 +5,17 @@ import { Footer } from '../components/layout/Footer'
 import { WhatsAppButton } from '../components/layout/WhatsAppButton'
 
 export function AppLayout() {
-  const { pathname } = useLocation()
+  const { pathname, hash } = useLocation()
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => {
+      if (hash) {
+        document.getElementById(hash.slice(1))?.scrollIntoView({ block: 'start' })
+      } else {
+        window.scrollTo({ top: 0, behavior: 'instant' })
+      }
+    })
+    return () => cancelAnimationFrame(frame)
+  }, [pathname, hash])
   useEffect(() => {
     const pages: Record<string, [string, string]> = {
       '/': ['Odontologia contemporânea', 'Conheça a Clínica Sorriso e explore cuidados, equipe e formas de contato.'],
@@ -27,7 +37,7 @@ export function AppLayout() {
       <a className="skip-link" href="#main-content">Pular para o conteúdo</a>
       <Header />
       <main id="main-content">
-        <Outlet />
+        <div className="page-transition" key={pathname}><Outlet /></div>
       </main>
       <Footer />
       <WhatsAppButton />

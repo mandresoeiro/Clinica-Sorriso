@@ -139,3 +139,11 @@
   }
 }
 .appointment-form__error { color: #9c2525; background: #fff0f0; border-radius: 12px; padding: .8rem 1rem; }
+.appointment-form__optional { border: 1px solid var(--color-border); border-radius: 14px; padding: 1rem; }
+.appointment-form__optional summary { cursor: pointer; color: var(--color-primary); font-weight: 700; min-height: 30px; }
+.appointment-form__optional summary span { color: var(--color-muted); font-size: .75rem; font-weight: 400; margin-left: .5rem; }
+.appointment-form__optional[open] summary { margin-bottom: 1rem; }
+.appointment-form__optional > label { margin-top: 1rem; }
+.appointment-form label > .appointment-form__error { color: #9c2525; font-weight: 500; }
+.appointment-form input[aria-invalid="true"] { border-color: #9c2525; }
+.appointment-form__privacy a { text-decoration: underline; text-underline-offset: 3px; color: var(--color-primary); }

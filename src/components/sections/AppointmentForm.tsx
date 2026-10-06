@@ -124,6 +124,8 @@ export function AppointmentForm() {
             </label>
           </div>
 
+          <details className="appointment-form__optional">
+          <summary>Personalizar minha mensagem <span>Opcional</span></summary>
           <div className="appointment-form__row">
             <label>
               <span>O que você procura?</span>
@@ -170,6 +172,7 @@ export function AppointmentForm() {
             />
           </label>
 
+          </details>
           <button type="submit" className="appointment-form__submit">
             Continuar no WhatsApp
             <span aria-hidden="true">→</span>

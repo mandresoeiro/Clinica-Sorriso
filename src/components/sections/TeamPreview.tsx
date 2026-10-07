@@ -17,8 +17,8 @@ export function TeamPreview() {
             <h2 className="title">Profissionais apresentados com clareza e proximidade.</h2>
           </div>
           <p className="lead">
-            As fotos e nomes abaixo são demonstrativos. A versão final receberá
-            retratos reais, CRO, formação e especialidades validadas.
+            Conheça os nomes da equipe. As fotos são ilustrativas; retratos reais,
+            registros profissionais e especialidades serão adicionados após confirmação.
           </p>
         </div>
 

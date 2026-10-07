@@ -24,9 +24,9 @@ export function Header() {
   return (
     <header className="site-header" onKeyDown={event => { if (event.key === 'Escape' && menuOpen) { closeMenu(); toggle.current?.focus() } }}>
       <div className="container site-header__inner">
-        <NavLink to={ROUTES.home} className="brand" aria-label="Clínica Sorriso — início" onClick={closeMenu}>
-          <span className="brand__mark" aria-hidden="true">S</span>
-          <span className="brand__name">Clínica Sorriso</span>
+        <NavLink to={ROUTES.home} className="brand" aria-label="Clínica Odontopersonnalite — início" onClick={closeMenu}>
+          <span className="brand__mark" aria-hidden="true">OP</span>
+          <span className="brand__name">Clínica Odontopersonnalite</span>
         </NavLink>
 
         <nav className="desktop-nav" aria-label="Navegação principal">

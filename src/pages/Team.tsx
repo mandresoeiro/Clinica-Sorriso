@@ -8,8 +8,8 @@ export function Team() {
           <span className="eyebrow">Equipe</span>
           <h1 className="title">Conheça quem vai cuidar do seu sorriso.</h1>
           <p className="lead">
-            Nome, CRO, especialidade, formação, biografia e fotografia devem ser
-            confirmados antes da publicação oficial.
+            Dra. Sônia, Dra. Ingrid e Dra. Fabienne integram a equipe da clínica.
+            Registros profissionais, especialidades e informações de formação serão adicionados após confirmação.
           </p>
         </div>
       </section>

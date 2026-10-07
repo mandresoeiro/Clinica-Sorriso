@@ -44,7 +44,7 @@ export function TreatmentDetails() {
           </article>
         </div>
       </section>
-      <div className="container"><ShareButton title={treatment.title + ' | Clínica Sorriso'} /></div>
+      <div className="container"><ShareButton title={treatment.title + ' | Clínica Odontopersonnalite'} /></div>
       <TreatmentJourney key={treatment.slug} title={treatment.title} slug={treatment.slug} />
     </>
   )

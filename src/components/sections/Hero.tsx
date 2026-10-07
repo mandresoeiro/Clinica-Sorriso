@@ -47,7 +47,7 @@ export function Hero() {
   }, [isPaused])
 
   return (
-    <section ref={hero} className={isPaused ? 'hero is-paused' : 'hero'} aria-label="Apresentação da Clínica Sorriso" onPointerMove={(event) => {
+    <section ref={hero} className={isPaused ? 'hero is-paused' : 'hero'} aria-label="Apresentação da Clínica Odontopersonnalite" onPointerMove={(event) => {
       if (event.pointerType !== 'mouse' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
       const bounds = event.currentTarget.getBoundingClientRect()
       hero.current?.style.setProperty('--hero-pointer-x', `${event.clientX - bounds.left}px`)
@@ -73,7 +73,7 @@ export function Hero() {
       <div className="container hero__content">
         <div className="hero__copy">
           <div className="hero__meta">
-            <span className="hero__eyebrow">Odontologia contemporânea • Belém</span>
+            <span className="hero__eyebrow">Odontologia contemporânea</span>
             <span className="hero__demo-label">Imagens demonstrativas</span>
           </div>
 

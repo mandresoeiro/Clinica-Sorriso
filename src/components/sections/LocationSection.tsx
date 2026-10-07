@@ -10,13 +10,12 @@ export function LocationSection() {
           <span className="eyebrow">Localização</span>
           <h2 className="title">Fácil de encontrar. Simples de agendar.</h2>
           <p className="lead">
-            {siteConfig.address.street}<br />
-            {siteConfig.address.district} • {siteConfig.address.city}/{siteConfig.address.state}
+            {siteConfig.address.street}
           </p>
           <p className="muted">{siteConfig.hours}</p>
 
           <div className="page-actions">
-            {!siteConfig.demoMode && <Button href={siteConfig.address.mapsUrl} target="_blank" rel="noreferrer" variant="ghost">
+            {siteConfig.addressConfirmed && <Button href={siteConfig.address.mapsUrl} target="_blank" rel="noreferrer" variant="ghost">
               Como chegar
             </Button>}
             <Button href={whatsappUrl} target="_blank" rel="noreferrer">
@@ -29,8 +28,7 @@ export function LocationSection() {
           <span className="location__pin" aria-hidden="true">⌖</span>
           <strong>Mapa da clínica</strong>
           <small>
-            O mapa real será ativado quando o endereço oficial for confirmado.
-            Assim evitamos publicar localização incorreta durante a fase de demonstração.
+            Use “Como chegar” para pesquisar o endereço no Google Maps e conferir o trajeto.
           </small>
         </div>
       </div>

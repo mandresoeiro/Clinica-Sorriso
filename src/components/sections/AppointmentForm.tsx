@@ -53,7 +53,7 @@ export function AppointmentForm({ initialInterest = '' }: { initialInterest?: st
     }
 
     const text = [
-      'Olá! Vim pelo site da Clínica Sorriso.',
+      'Olá! Vim pelo site da Clínica Odontopersonnalite.',
       '',
       `Nome: ${name}`,
       `WhatsApp: ${phone}`,

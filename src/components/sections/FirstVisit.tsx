@@ -28,7 +28,7 @@ const preferences = [
 export function FirstVisit() {
   const [selected, setSelected] = useState<string>('steps')
   const preference = preferences.find((item) => item.id === selected) ?? preferences[1]
-  const message = `Olá! Conheci a Clínica Sorriso pelo site e quero saber sobre minha primeira visita.\nMinha preferência: ${preference.label}.\n${preference.description}\nPodem me orientar sobre atendimento e horários?`
+  const message = `Olá! Conheci a Clínica Odontopersonnalite pelo site e quero saber sobre minha primeira visita.\nMinha preferência: ${preference.label}.\n${preference.description}\nPodem me orientar sobre atendimento e horários?`
   const url = `https://wa.me/${siteConfig.contact.phoneE164}?text=${encodeURIComponent(message)}`
 
   return (
@@ -57,7 +57,7 @@ export function FirstVisit() {
             </div>
             <Button href={url} target="_blank" rel="noopener noreferrer">Levar minha preferência ao WhatsApp ↗</Button>
             <p className="first-visit__note">Sua escolha fica apenas nesta página. O botão abre uma mensagem pronta; você decide se quer enviá-la.</p>
-            {siteConfig.demoMode && <p className="first-visit__note">Demonstração: o contato da clínica ainda será confirmado.</p>}
+            {siteConfig.demoMode && <p className="first-visit__note">As imagens são demonstrativas. Confirme a disponibilidade diretamente com a equipe.</p>}
           </div>
         </div>
         <VisitChecklist />

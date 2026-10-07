@@ -18,18 +18,18 @@ export function AppLayout() {
   }, [pathname, hash])
   useEffect(() => {
     const pages: Record<string, [string, string]> = {
-      '/': ['Odontologia contemporânea', 'Conheça a Clínica Sorriso e explore cuidados, equipe e formas de contato.'],
-      '/clinica': ['Nossa clínica e tour virtual', 'Explore o tour demonstrativo da Clínica Sorriso e prepare sua primeira visita.'],
-      '/tratamentos': ['Especialidades', 'Conheça os cuidados odontológicos apresentados pela Clínica Sorriso.'],
-      '/equipe': ['Nossa equipe', 'Conheça a apresentação da equipe da Clínica Sorriso.'],
+      '/': ['Odontologia contemporânea', 'Conheça a Clínica Odontopersonnalite e explore cuidados, equipe e formas de contato.'],
+      '/clinica': ['Nossa clínica e tour virtual', 'Explore o tour demonstrativo da Clínica Odontopersonnalite e prepare sua primeira visita.'],
+      '/tratamentos': ['Especialidades', 'Conheça os cuidados odontológicos apresentados pela Clínica Odontopersonnalite.'],
+      '/equipe': ['Nossa equipe', 'Conheça a apresentação da equipe da Clínica Odontopersonnalite.'],
       '/duvidas': ['Dúvidas frequentes', 'Encontre respostas para dúvidas sobre atendimento e primeira consulta.'],
-      '/contato': ['Contato e agendamento', 'Converse com a Clínica Sorriso sobre atendimento e horários pelo WhatsApp.'],
-      '/privacidade': ['Privacidade e LGPD', 'Entenda como funciona o formulário, o WhatsApp e o uso de dados na demonstração da Clínica Sorriso.'],
+      '/contato': ['Contato e agendamento', 'Converse com a Clínica Odontopersonnalite sobre atendimento e horários pelo WhatsApp.'],
+      '/privacidade': ['Privacidade e LGPD', 'Entenda como funciona o formulário, o WhatsApp e o uso de dados na demonstração da Clínica Odontopersonnalite.'],
     }
     const page = pages[pathname] ?? (pathname.startsWith('/tratamentos/')
-      ? ['Conheça o tratamento', 'Saiba mais sobre as etapas de cuidado e converse com a equipe da Clínica Sorriso.']
-      : ['Página não encontrada', 'Navegue pelas páginas da Clínica Sorriso.'])
-    document.title = `${page[0]} | Clínica Sorriso`
+      ? ['Conheça o tratamento', 'Saiba mais sobre as etapas de cuidado e converse com a equipe da Clínica Odontopersonnalite.']
+      : ['Página não encontrada', 'Navegue pelas páginas da Clínica Odontopersonnalite.'])
+    document.title = `${page[0]} | Clínica Odontopersonnalite`
     document.querySelector('meta[name="description"]')?.setAttribute('content', page[1])
   }, [pathname])
   return (

@@ -15,8 +15,8 @@ export function Contact() {
           <span className="eyebrow">Contato</span>
           <h1 className="title">Vamos conversar?</h1>
           <p className="lead">
-            Escolha o canal mais conveniente. Nesta versão demonstrativa,
-            os dados de contato ainda precisam ser confirmados pela clínica.
+            Conheça nossos canais e solicite informações sobre atendimento.
+            A equipe confirma os dias e horários disponíveis diretamente com você.
           </p>
         </div>
       </section>
@@ -32,12 +32,12 @@ export function Contact() {
 
           <article className="card stack">
             <span className="eyebrow">Localização</span>
-            <strong>{siteConfig.address.district} • {siteConfig.address.city}/{siteConfig.address.state}</strong>
+            <strong>Endereço da clínica</strong>
             <p className="muted">{siteConfig.address.street}</p>
-            {!siteConfig.demoMode && <Button href={siteConfig.address.mapsUrl} target="_blank" rel="noreferrer" variant="ghost">
+            {siteConfig.addressConfirmed && <Button href={siteConfig.address.mapsUrl} target="_blank" rel="noreferrer" variant="ghost">
               Como chegar
             </Button>}
-            {siteConfig.demoMode && <small className="muted">O mapa será ativado após confirmação do endereço oficial.</small>}
+            <small className="muted">Confirme o trajeto no mapa antes de sair.</small>
           </article>
         </div>
       </section>

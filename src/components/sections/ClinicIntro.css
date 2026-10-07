@@ -111,3 +111,8 @@
 .clinic-intro__numbers strong { color: #397779; }
 .clinic-intro__numbers span { color: #526463; }
 .clinic-intro .button--ghost { color: #17383b; border-color: #8caaa8; background: white; }
+
+.clinic-intro__instagram { width: fit-content; display: flex; align-items: center; flex-wrap: wrap; gap: .4rem; min-height: 44px; color: var(--color-primary); font-weight: 700; text-underline-offset: .25em; }
+.clinic-intro__instagram:hover { text-decoration: underline; }
+.clinic-intro__instagram:focus-visible { outline: 2px solid currentColor; outline-offset: 5px; border-radius: 4px; }
+.clinic-intro__instagram-hint { flex-basis: 100%; font-size: .75rem; font-weight: 400; color: #526463; }

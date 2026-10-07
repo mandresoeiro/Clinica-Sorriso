@@ -1,5 +1,6 @@
 import { Button } from '../ui/Button'
 import { ROUTES } from '../../config/routes.config'
+import { siteConfig } from '../../config/site.config'
 import './ClinicIntro.css'
 
 export function ClinicIntro() {
@@ -32,6 +33,10 @@ export function ClinicIntro() {
           </div>
 
           <Button href={`${ROUTES.clinic}#tour-virtual`} variant="ghost">Explorar o tour virtual →</Button>
+          <a className="clinic-intro__instagram" href={siteConfig.social.instagram} target="_blank" rel="noopener noreferrer">
+            Acompanhe a clínica no Instagram <span aria-hidden="true">↗</span>
+            <span className="clinic-intro__instagram-hint">Abre em uma nova aba</span>
+          </a>
         </div>
       </div>
     </section>

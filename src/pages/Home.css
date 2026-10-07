@@ -1,0 +1,122 @@
+.home-start { background: var(--color-soft); }
+.home-start h2 { margin: .5rem 0 1.5rem; color: var(--color-primary); font-family: var(--font-display); font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 500; }
+.home-start__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+.home-start__grid > a { display: block; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 1.5rem; transition: border-color var(--transition), box-shadow var(--transition); }
+.home-start__grid > a:hover { border-color: var(--color-primary); box-shadow: var(--shadow-sm); }
+.home-start__grid h3 { color: var(--color-primary); font-size: 1.15rem; margin: .6rem 0; }
+.home-start__grid p { color: var(--color-muted); margin: 0; font-size: .95rem; }
+@media (max-width: 900px) { .home-start__grid { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) { .home-start__grid > a { transition: none; } }
+.home-page .hero { min-height: 580px; }
+.home-page .hero__content { min-height: 580px; padding-top: clamp(3rem, 6vw, 5rem); gap: 2rem; }
+.home-page .hero__copy { max-width: 640px; gap: 1.5rem; }
+.home-page .hero h1 { max-width: 17ch; font-size: clamp(2.7rem, 4.7vw, 4.6rem); line-height: 1.06; }
+.home-page .hero__copy p { max-width: 46ch; }
+.home-page .home-start { background: #fafaf6; border-bottom: 1px solid #e5ebe5; }
+.home-page .home-start__grid > a { padding: 1.8rem; box-shadow: 0 4px 20px rgba(16,44,46,.03); }
+.home-page .home-start__grid > a:hover { background: #f4f8f5; }
+.home-page .treatments-showcase__heading .title,
+.home-page .team-preview__heading .title { max-width: 19ch; margin-top: .7rem; font-size: clamp(2.2rem, 3.6vw, 3.5rem); }
+.home-page .treatment-card { box-shadow: 0 8px 30px rgba(16,44,46,.04); }
+.home-page .treatment-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-sm); }
+.home-page .treatment-card__body { padding: 1.6rem; }
+.home-page .treatment-card h3 { color: var(--color-primary); font-size: 1.8rem; line-height: 1.2; }
+.home-page .treatment-card p { margin: .6rem 0 1.3rem; }
+.home-page .clinic-intro__grid { gap: clamp(2rem, 5vw, 4rem); }
+.home-page .clinic-intro__visual { min-height: 0; aspect-ratio: 5 / 4; }
+.home-page .clinic-intro__visual img { min-height: 0; height: 100%; }
+.home-page .clinic-intro__copy .title { max-width: 18ch; font-size: clamp(2.2rem, 3.6vw, 3.5rem); }
+.home-page .team-preview { background: #fff; }
+.home-page .team-card { box-shadow: none; }
+.home-page .team-card h3 { color: var(--color-primary); line-height: 1.2; }
+@media (max-width: 900px) {
+  .home-page .hero h1 { max-width: 17ch; font-size: clamp(2.65rem, 6.5vw, 3.7rem); }
+  .home-page .treatments-showcase__heading, .home-page .team-preview__heading { gap: 1rem; }
+  .home-page .clinic-intro__numbers { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 560px) {
+  .home-page .hero, .home-page .hero__content { min-height: 560px; }
+  .home-page .hero__content { padding-top: 2.3rem; }
+  .home-page .hero h1 { font-size: clamp(2.45rem, 9.8vw, 3.3rem); max-width: 17ch; }
+  .home-page .hero__meta { gap: .4rem; }
+  .home-page .hero__eyebrow, .home-page .hero__demo-label { letter-spacing: .06em; padding: .4rem .6rem; }
+  .home-page .home-start__grid > a { padding: 1.35rem; }
+  .home-page .clinic-intro__tag { left: .8rem; bottom: .8rem; font-size: .6rem; }
+  .home-page .team-card__photo { aspect-ratio: 4 / 3; }
+  .home-page .team-card__photo img { min-height: 0; height: 100%; }
+}
+.home-page .hero__demo-label { display: inline-block; }
+.home-questions { background: #fafaf6; }
+.home-questions .title { max-width: 22ch; margin-top: .6rem; font-size: clamp(2rem, 3.5vw, 3rem); }
+.home-questions__list { margin: 1.7rem 0; max-width: 850px; }
+.home-questions details { border-bottom: 1px solid var(--color-border); padding: 1.1rem 0; }
+.home-questions summary { cursor: pointer; color: var(--color-primary); font-weight: 700; min-height: 32px; }
+.home-questions details p { max-width: 70ch; color: var(--color-muted); }
+.home-questions details a { font-weight: 700; color: var(--color-primary); }
+.home-page .hero::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(260px circle at var(--hero-pointer-x, 70%) var(--hero-pointer-y, 40%), rgba(255,255,255,.3), transparent); }
+.hero__tour-peek { position: absolute; right: 0; top: 110px; width: 245px; padding: .8rem; display: grid; gap: .5rem; border: 1px solid rgba(255,255,255,.85); border-radius: 24px; background: rgba(255,255,255,.9); box-shadow: 0 20px 65px rgba(16,44,46,.12); transform: rotate(2deg); transition: transform .3s ease, box-shadow .3s ease; color: var(--color-primary); }
+.hero__tour-peek:hover, .hero__tour-peek:focus-visible { transform: rotate(0) translateY(-5px); box-shadow: 0 26px 70px rgba(16,44,46,.18); }
+.hero__tour-peek-image { position: relative; border-radius: 16px; overflow: hidden; aspect-ratio: 16 / 10; }
+.hero__tour-peek-image img { width: 100%; height: 100%; object-fit: cover; }
+.hero__tour-peek-image > span { position: absolute; right: .6rem; bottom: .6rem; width: 38px; height: 38px; display: grid; place-items: center; background: white; border-radius: 50%; font-size: 1.2rem; }
+.hero__tour-peek > strong { font-family: var(--font-display); font-size: 1.6rem; font-weight: 500; }
+.hero__tour-peek > span:last-child { font-size: .8rem; color: var(--color-muted); }
+.home-page .home-start__grid { grid-template-columns: 1.2fr 1fr 1fr; }
+.home-page .home-start__grid > a { position: relative; overflow: hidden; transition: transform .3s ease, background .3s ease, box-shadow .3s ease; }
+.home-page .home-start__grid > a:first-child { background: linear-gradient(135deg, #e8f3ef, #fff 75%); border-color: #bfd4cb; }
+.home-page .home-start__grid > a:nth-child(2) { background: #fffaf1; }
+.home-page .home-start__grid > a:hover { transform: translateY(-5px); box-shadow: 0 16px 36px rgba(16,44,46,.09); }
+.home-start__grid h3 > span { display: inline-block; transition: transform .25s ease; }
+.home-start__grid a:hover h3 > span { transform: translate(3px, -3px); }
+.home-section-entered .treatment-card, .home-section-entered .team-card, .home-section-entered .home-start__grid > a, .home-section-entered .clinic-intro__visual { animation: home-card-enter .65s ease backwards; }
+.home-section-entered .treatment-card:nth-child(2), .home-section-entered .team-card:nth-child(2), .home-section-entered .home-start__grid > a:nth-child(2) { animation-delay: .08s; }
+.home-section-entered .treatment-card:nth-child(3), .home-section-entered .home-start__grid > a:nth-child(3) { animation-delay: .16s; }
+@keyframes home-card-enter { from { opacity: .5; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+.home-reading-progress { display: none; }
+@supports (animation-timeline: scroll()) {
+  .home-reading-progress { display: block; position: fixed; left: 0; top: 0; width: 100%; height: 3px; z-index: 60; background: #397779; transform-origin: left; animation: home-read linear both; animation-timeline: scroll(); }
+  @keyframes home-read { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+}
+@media (max-width: 1100px) { .hero__tour-peek { display: none; } }
+@media (max-width: 900px) { .home-page .home-start__grid { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) { .home-reading-progress { display: none; } .home-page .hero::after { display: none; } .hero__tour-peek { transform: none; } }
+
+/* On small screens, keep photos unobscured and text on its own light surface. */
+@media (max-width: 700px) {
+  .home-page .hero { background: #fafcf9; min-height: 0; }
+  .home-page .hero__slides { bottom: auto; height: clamp(210px, 58vw, 310px); }
+  .home-page .hero__slides img { filter: none; transform: none; object-position: center 42% !important; }
+  .home-page .hero__overlay, .home-page .hero::after { display: none; }
+  .home-page .hero__content {
+    min-height: 0;
+    padding-top: calc(clamp(210px, 58vw, 310px) + 1.5rem);
+    padding-bottom: 1.5rem;
+    gap: 1rem;
+  }
+  .home-page .hero__copy { gap: 1rem; max-width: 100%; }
+  .home-page .hero h1 { font-size: clamp(2.2rem, 8vw, 3.2rem); max-width: 18ch; }
+  .home-page .hero__copy p { max-width: 46ch; }
+  .home-page .hero__footer { margin-top: 0; padding-top: .25rem; }
+  .home-page .hero__slider-ui { max-width: 100%; }
+}
+
+/* Subtle mobile photo motion, without white overlays or fading the photo. */
+@media (max-width: 700px) {
+  .home-page .hero__slides { overflow: hidden; border-radius: 0; border: 0; box-shadow: none; }
+  .home-page .hero__slides img.is-active { animation: mobile-photo-zoom 5.5s ease-out both; }
+  .home-page .hero.is-paused .hero__slides img.is-active { animation-play-state: paused; }
+  .treatment-card__image img, .specialty-card__media img, .clinic-intro__visual img {
+    transition: transform .35s ease;
+  }
+  .treatment-card:active .treatment-card__image img,
+  .specialty-card:active .specialty-card__media img { transform: scale(1.04); }
+  .home-section-entered .clinic-intro__visual img { animation: mobile-photo-settle .8s ease-out both; }
+}
+@keyframes mobile-photo-zoom { from { transform: scale(1); } to { transform: scale(1.06); } }
+@keyframes mobile-photo-settle { from { transform: scale(1.04); } to { transform: scale(1); } }
+@media (prefers-reduced-motion: reduce) {
+  .home-page .hero__slides img.is-active,
+  .home-section-entered .clinic-intro__visual img { animation: none; }
+  .treatment-card:active .treatment-card__image img,
+  .specialty-card:active .specialty-card__media img { transform: none; }
+}

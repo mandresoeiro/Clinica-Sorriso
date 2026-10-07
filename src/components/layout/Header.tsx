@@ -1,3 +1,4 @@
+import { useRef, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { ROUTES } from '../../config/routes.config'
 import { Button } from '../ui/Button'
@@ -6,23 +7,64 @@ import './Header.css'
 
 const nav = [
   ['Clínica', ROUTES.clinic],
-  ['Tratamentos', ROUTES.treatments],
+  ['Especialidades', ROUTES.treatments],
   ['Equipe', ROUTES.team],
+  ['Dúvidas', ROUTES.faq],
   ['Contato', ROUTES.contact],
 ] as const
 
 export function Header() {
+  const toggle = useRef<HTMLButtonElement>(null)
+  const [menuOpen, setMenuOpen] = useState(false)
+
+  function closeMenu() {
+    setMenuOpen(false)
+  }
+
   return (
-    <header className="site-header">
+    <header className="site-header" onKeyDown={event => { if (event.key === 'Escape' && menuOpen) { closeMenu(); toggle.current?.focus() } }}>
       <div className="container site-header__inner">
-        <NavLink to={ROUTES.home} className="brand" aria-label="Clínica Sorriso — início">
-          <span className="brand__mark">S</span>
-          <span>Clínica Sorriso</span>
+        <NavLink to={ROUTES.home} className="brand" aria-label="Clínica Odontopersonnalite — início" onClick={closeMenu}>
+          <img className="brand__logo" src="/images/brand/symbol.svg" alt="" width="48" height="52" />
+          <span className="brand__name">Clínica Odontopersonnalite</span>
         </NavLink>
+
         <nav className="desktop-nav" aria-label="Navegação principal">
-          {nav.map(([label, path]) => <NavLink key={path} to={path}>{label}</NavLink>)}
+          {nav.map(([label, path]) => (
+            <NavLink key={path} to={path}>{label}</NavLink>
+          ))}
+          <a href={`${ROUTES.clinic}#tour-virtual`}>Tour virtual</a>
         </nav>
-        <Button href={whatsappUrl} target="_blank" rel="noreferrer">Agendar consulta</Button>
+
+        <div className="site-header__cta">
+          <Button href={whatsappUrl} target="_blank" rel="noreferrer">Solicitar agendamento</Button>
+        </div>
+
+        <button
+          ref={toggle}
+          className="menu-toggle"
+          type="button"
+          aria-label={menuOpen ? 'Fechar menu' : 'Abrir menu'}
+          aria-expanded={menuOpen}
+          aria-controls="mobile-navigation"
+          onClick={() => setMenuOpen((current) => !current)}
+        >
+          <span />
+          <span />
+          <span />
+        </button>
+      </div>
+
+      <div className={`mobile-menu ${menuOpen ? 'is-open' : ''}`} id="mobile-navigation" inert={!menuOpen}>
+        <nav className="container" aria-label="Navegação móvel">
+          {nav.map(([label, path]) => (
+            <NavLink key={path} to={path} onClick={closeMenu}>{label}</NavLink>
+          ))}
+          <a href={`${ROUTES.clinic}#tour-virtual`} onClick={closeMenu}>Tour virtual</a>
+          <Button href={whatsappUrl} target="_blank" rel="noreferrer" onClick={closeMenu}>
+            Solicitar agendamento
+          </Button>
+        </nav>
       </div>
     </header>
   )

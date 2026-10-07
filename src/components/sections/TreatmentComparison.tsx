@@ -1,0 +1,9 @@
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { treatments } from '../../content/treatments'
+export function TreatmentComparison() {
+  const [first, setFirst] = useState(treatments[0].slug)
+  const [second, setSecond] = useState(treatments[1].slug)
+  const chosen = [first, second].map(slug => treatments.find(item => item.slug === slug)!)
+  return <section className="section--tight"><div className="container"><span className="eyebrow">Entenda as diferenças</span><h2 className="title">Compare informações de duas especialidades.</h2><p>A comparação é informativa. As áreas podem se complementar; a indicação depende da avaliação profissional.</p><div className="comparison-selectors">{[first, second].map((value, index) => <label key={index}>Especialidade {index + 1}<select value={value} onChange={event => index === 0 ? setFirst(event.target.value) : setSecond(event.target.value)}>{treatments.map(item => <option key={item.slug} value={item.slug} disabled={item.slug === (index === 0 ? second : first)}>{item.title}</option>)}</select></label>)}</div><div className="comparison-scroll" tabIndex={0} role="region" aria-label="Tabela de comparação"><table className="comparison-table"><caption>Informações gerais das especialidades selecionadas</caption><thead><tr><th scope="col">Aspecto</th>{chosen.map(item => <th scope="col" key={item.slug}>{item.title}</th>)}</tr></thead><tbody><tr><th scope="row">Foco</th>{chosen.map(item => <td key={item.slug}>{item.shortDescription}</td>)}</tr><tr><th scope="row">O que pode ser avaliado</th>{chosen.map(item => <td key={item.slug}><ul>{item.indications.map(text => <li key={text}>{text}</li>)}</ul></td>)}</tr><tr><th scope="row">Saiba mais</th>{chosen.map(item => <td key={item.slug}><Link to={'/tratamentos/' + item.slug}>Conhecer {item.title} →</Link></td>)}</tr></tbody></table></div></div></section>
+}

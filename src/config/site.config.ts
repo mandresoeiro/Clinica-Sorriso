@@ -1,29 +1,32 @@
 export const siteConfig = {
-  name: 'Clínica Sorriso',
-  shortName: 'Sorriso',
+  name: 'Clínica Odontopersonnalite',
+  shortName: 'Odontopersonnalite',
   tagline: 'Odontologia com técnica, cuidado e leveza.',
   description:
     'Uma experiência odontológica contemporânea, humana e cuidadosamente planejada para cada paciente.',
   demoMode: true,
+  addressConfirmed: true,
   contact: {
-    phoneDisplay: '(91) 99999-9999',
-    phoneE164: '5591999999999',
+    phoneDisplay: '(91) 8188-8353',
+    phoneE164: '559181888353',
     whatsappMessage:
       'Olá! Conheci a clínica pelo site e gostaria de informações sobre atendimento e horários disponíveis.',
-    email: 'contato@clinicasorriso.com.br',
+    email: '',
   },
   address: {
-    street: 'Endereço da clínica',
-    district: 'Umarizal',
+    street: 'Travessa Almirante Wandenkolk, 1243',
+    district: '',
     city: 'Belém',
     state: 'PA',
-    zipCode: '00000-000',
-    mapsUrl: 'https://maps.google.com',
+    zipCode: '',
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Travessa%20Almirante%20Wandenkolk%2C%201243',
   },
   social: {
-    instagram: 'https://instagram.com',
+    instagram: 'https://www.instagram.com/odontopersonnalite_/',
+    facebook: '',
+    tiktok: '',
   },
-  hours: 'Seg–Sex • 08h às 18h | Sáb • sob agendamento',
+  hours: '08h30 às 12h e 14h às 18h · consulte os dias de atendimento',
 } as const
 
 export const whatsappUrl = `https://wa.me/${siteConfig.contact.phoneE164}?text=${encodeURIComponent(siteConfig.contact.whatsappMessage)}`

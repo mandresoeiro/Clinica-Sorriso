@@ -1,2 +1,16 @@
-import { Button } from '../components/ui/Button'
-export function NotFound(){return <section className="section"><div className="container"><span className="eyebrow">404</span><h1 className="title">Parece que você chegou ao lugar errado.</h1><p className="lead">Voltar ao início é fácil.</p><Button href="/">Voltar para o início</Button></div></section>}
+import { Link } from 'react-router-dom'
+
+export function NotFound() {
+  return (
+    <section className="page-hero">
+      <div className="container">
+        <span className="eyebrow">Erro 404</span>
+        <h1 className="title">Esta página não foi encontrada.</h1>
+        <p className="lead">O endereço pode ter mudado ou não existir mais.</p>
+        <div className="page-actions">
+          <Link className="button button--primary" to="/">Voltar para o início</Link>
+        </div>
+      </div>
+    </section>
+  )
+}

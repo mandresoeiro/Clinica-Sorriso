@@ -1,0 +1,9 @@
+.social-section__panel { display:grid; grid-template-columns:1fr 1fr; gap:2rem; padding:clamp(1.5rem,4vw,3rem); border:1px solid #e8e4de; border-radius:24px; background:linear-gradient(120deg,#fff,#f7f4ef); }
+.social-section__panel h2 { margin:.7rem 0; }
+.social-section__links { display:grid; gap:.75rem; align-content:center; }
+.social-section__links a { display:grid; gap:.4rem; padding:1rem 1.25rem; border:1px solid #e7e1d8; border-radius:16px; background:#fff; text-decoration:none; transition:transform .2s,box-shadow .2s; }
+.social-section__links a strong { display:flex; justify-content:space-between; }
+.social-section__links a span { font-size:.9rem; }
+.social-section__links a:hover,.social-section__links a:focus-visible { transform:translateY(-3px); box-shadow:0 10px 24px #20392e12; }
+.social-section__pending { align-self:center; padding:1.25rem; border-radius:16px; background:#ffffffb8; color:#555e58; }
+@media(max-width:760px) { .social-section__panel { grid-template-columns:1fr; gap:1rem; } }

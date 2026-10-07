@@ -1,3 +1,4 @@
 User-agent: *
-Allow: /
-Sitemap: https://www.seudominio.com.br/sitemap.xml
+Disallow: /
+
+# Versão demonstrativa: liberar indexação somente após domínio e conteúdo oficial serem confirmados.

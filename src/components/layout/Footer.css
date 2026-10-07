@@ -78,3 +78,5 @@
 .footer__credit strong { font-size: .8rem; color: #d7f4f2; letter-spacing: .02em; }
 .footer__credit-domain { border-left: 1px solid rgba(255,255,255,.25); padding-left: .6rem; }
 .footer__credit:hover strong, .footer__credit:hover .footer__credit-domain { color: white; text-decoration: underline; text-underline-offset: 4px; }
+
+.footer__logo{display:block;width:220px;max-width:100%;height:auto;margin-bottom:1rem}

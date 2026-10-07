@@ -8,7 +8,7 @@ export function Footer() {
     <footer className="footer">
       <div className="container footer__grid">
         <div className="footer__brand">
-          <strong>{siteConfig.name}</strong>
+          <img className="footer__logo" src="/images/brand/logo.svg" alt={siteConfig.name} width="220" height="165" />
           <p>{siteConfig.tagline}</p>
           {siteConfig.demoMode && <span className="footer__demo">Versão demonstrativa</span>}
         </div>

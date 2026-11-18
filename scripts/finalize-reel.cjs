@@ -1,0 +1,11 @@
+const fs=require('fs'),path=require('path'),{spawnSync}=require('child_process'),sharp=require('C:/Users/mandr/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/sharp');
+const root=path.resolve(__dirname,'../output/carrossel-reel-implantes'),bin=path.resolve(__dirname,'../tmp/video-runtime/imageio_ffmpeg/binaries');const ff=path.join(bin,fs.readdirSync(bin).find(x=>x.endsWith('.exe')));
+const run=a=>{let r=spawnSync(ff,a,{encoding:'utf8',windowsHide:true,maxBuffer:5e6});if(r.status!==0)throw Error(r.stderr);return r;};
+async function main(){const src=path.join(root,'Reel_Cenas','01_reel.svg'),s=fs.readFileSync(src,'utf8').replace('Deslize para conhecer as etapas →','Veja as etapas a seguir →');fs.writeFileSync(src,s);await sharp(Buffer.from(s)).png().toFile(path.join(root,'Reel_Cenas','01_reel.png'));
+run(['-y','-loop','1','-i',path.join(root,'Reel_Cenas','01_reel.png'),'-vf',"zoompan=z='1+0.00015*on':x='iw/2-iw/zoom/2':y='ih/2-ih/zoom/2':d=150:s=1080x1920:fps=30,fade=t=in:st=0:d=0.25,fade=t=out:st=4.75:d=0.25",'-t','5','-c:v','libx264','-threads','2','-preset','veryfast','-crf','20','-pix_fmt','yuv420p',path.join(root,'Projeto','cena-0.mp4')]);
+run(['-y','-f','concat','-safe','0','-i',path.join(root,'Projeto','concat.txt'),'-i',path.join(root,'Projeto','trilha-original.wav'),'-c:v','copy','-c:a','aac','-b:a','160k','-shortest','-movflags','+faststart',path.join(root,'REEL_IMPLANTES_1080x1920.mp4')]);
+for(const [i,t] of [2,7,12,17,22].entries())run(['-y','-ss',String(t),'-i',path.join(root,'REEL_IMPLANTES_1080x1920.mp4'),'-frames:v','1',path.join(root,'Projeto',`qa-${i}.png`)]);
+const tiles=[];for(let i=0;i<5;i++)tiles.push({input:await sharp(path.join(root,'Projeto',`qa-${i}.png`)).resize(216,384).toBuffer(),left:20+i*236,top:20});await sharp({create:{width:1200,height:424,channels:3,background:'#DDE4D9'}}).composite(tiles).png().toFile(path.join(root,'PREVIA_REEL_SEQUENCIA.png'));
+let info=spawnSync(ff,['-hide_banner','-i',path.join(root,'REEL_IMPLANTES_1080x1920.mp4')],{encoding:'utf8',windowsHide:true});fs.writeFileSync(path.join(root,'Projeto','verificacao-video.txt'),info.stderr);console.log(info.stderr);
+run(['-v','error','-i',path.join(root,'REEL_IMPLANTES_1080x1920.mp4'),'-f','null','-']);console.log('Reel decodificado sem erros.');}
+main().catch(e=>{console.error(e);process.exit(1)});

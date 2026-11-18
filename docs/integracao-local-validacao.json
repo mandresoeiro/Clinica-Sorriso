@@ -1,0 +1,14 @@
+{
+  "contact_page": 200,
+  "javascript": 200,
+  "first_post": 201,
+  "retry_post": 200,
+  "postgresql_record": "one new contact",
+  "private_list": 403,
+  "temporary_test_records_removed": 1,
+  "data": "2026-10-13",
+  "backend_postgresql_tests_passed": 19,
+  "frontend_tests_passed": 10,
+  "public_cloudflare_connected": false,
+  "local_contact_url": "http://127.0.0.1:8001/contato"
+}

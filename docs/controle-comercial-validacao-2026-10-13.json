@@ -1,0 +1,12 @@
+{
+  "data": "2026-10-13",
+  "module": "controle comercial",
+  "postgresql_tests_passed": 14,
+  "migration": "leads.0001_initial aplicada pelo Compose",
+  "permissions": "grupo Recepção comercial: view/add/change, sem delete ou contas",
+  "public_capture": false,
+  "whatsapp_integration": false,
+  "automatic_booking": false,
+  "clinical_records": false,
+  "url": "http://127.0.0.1:8001/admin/leads/lead/"
+}

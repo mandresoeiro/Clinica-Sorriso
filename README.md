@@ -37,3 +37,11 @@ http://127.0.0.1:8000
 Os contatos, CROs, fotos e alguns textos são demonstrativos. Substitua somente com dados confirmados pela clínica.
 
 Consulte `docs/` para o guia completo.
+
+## Backend independente
+
+Base Django + API + PostgreSQL em [backend/README.md](backend/README.md). O site React continua independente; nenhum endpoint foi conectado ao frontend ou publicado em produção.
+
+## Landing page de atendimento humanizado
+
+Versão do domínio preparada em public/tratamento-humanizado, com integração ao Django e configuração de medição. Consulte [o guia de implantação](docs/landing-pages/TRATAMENTO-HUMANIZADO-ENTREGA.md). A publicação no domínio depende de servidor Django; a prévia Sites usa um banco separado.

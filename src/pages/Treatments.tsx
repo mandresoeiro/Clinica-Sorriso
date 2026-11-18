@@ -122,7 +122,7 @@ export function Treatments() {
             return (
               <Link
                 key={treatment.slug}
-                to={`/tratamentos/${treatment.slug}`}
+                to={treatment.slug === 'proteses' ? '/proteses' : `/tratamentos/${treatment.slug}`}
                 className="specialty-card"
                 aria-label={`Conhecer ${treatment.title}`}
               >
@@ -150,3 +150,4 @@ export function Treatments() {
     </div>
   )
 }
+

@@ -1,4 +1,4 @@
-.button { display: inline-flex; align-items: center; justify-content: center; gap: .55rem; min-height: 48px; padding: .8rem 1.25rem; border-radius: var(--radius-pill); font-weight: 800; transition: transform var(--transition), background var(--transition), border-color var(--transition); border: 1px solid transparent; }
+.button { display: inline-flex; align-items: center; justify-content: center; gap: .55rem; min-height: 48px; padding: .8rem 1.25rem; border-radius: var(--radius-pill); font-weight: 600; transition: transform var(--transition), background var(--transition), border-color var(--transition); border: 1px solid transparent; }
 .button:hover { transform: translateY(-2px); }
 .button--primary { background: var(--color-primary); color: white; }
 .button--primary:hover { background: var(--color-primary-2); }

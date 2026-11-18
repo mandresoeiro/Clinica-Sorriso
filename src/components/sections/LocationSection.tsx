@@ -1,4 +1,4 @@
-import { siteConfig, whatsappUrl } from '../../config/site.config'
+import { siteConfig, getWhatsAppUrl } from '../../config/site.config'
 import { Button } from '../ui/Button'
 import './LocationSection.css'
 
@@ -18,7 +18,7 @@ export function LocationSection() {
             {siteConfig.addressConfirmed && <Button href={siteConfig.address.mapsUrl} target="_blank" rel="noreferrer" variant="ghost">
               Como chegar
             </Button>}
-            <Button href={whatsappUrl} target="_blank" rel="noreferrer">
+            <Button href={getWhatsAppUrl()} target="_blank" rel="noreferrer">
               WhatsApp
             </Button>
           </div>

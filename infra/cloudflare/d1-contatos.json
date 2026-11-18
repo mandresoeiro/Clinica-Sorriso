@@ -1,0 +1,48 @@
+{
+  "account_id": "2bc93c263c79b06b2a9d2540d4e7e3ee",
+  "database_name": "odonto-personnallite-contatos",
+  "database_id": "f5de2b47-0d43-4248-925f-62139c5634cd",
+  "planned_binding": "DB",
+  "created_on": "2026-10-21",
+  "schema_applied": "contact_requests and its owner_created/rate indexes",
+  "public_form_connected": true,
+  "worker": "personnallite-atendimento",
+  "url": "https://odontopersonnallite.com.br/tratamento-humanizado/",
+  "version_id": "ddbb0284-3e2e-43cf-8f51-4f70098e6b13",
+  "location": {
+    "address": "Travessa Almirante Wandenkolk, 1243, Belém, PA",
+    "both_landings_updated": true,
+    "official_google_embed": true,
+    "map_render_verified": true
+  },
+  "analytics": {
+    "measurement_id": "G-LLJLL8E1PH",
+    "stream_id": "16175542866",
+    "account_id": "412837139",
+    "property_id": "560007026",
+    "installed_on_both_landings": true,
+    "consent_required": true,
+    "enhanced_measurement": false,
+    "realtime_page_view_verified": true
+  },
+  "urgency_landing": {
+    "url": "https://odontopersonnallite.com.br/urgencia-protese-implante/",
+    "published": true,
+    "public_form_connected": true,
+    "panel_origin_verified": true,
+    "test_record_archived": true
+  },
+  "panel": {
+    "implemented": true,
+    "login_active": true,
+    "authenticated_verification_pending": false,
+    "authenticated_list_verified": true,
+    "live_status_update_verified": true,
+    "access_checkout_pending": false,
+    "authorized_emails_pending": false,
+    "access_application_id": "4f290c61-a585-4a5a-b552-3471e1f10d4b",
+    "access_policy_id": "f03da7b4-5126-4b4b-8ad1-f57188627d28",
+    "session_hours": 6,
+    "url": "https://odontopersonnallite.com.br/tratamento-humanizado/painel/"
+  }
+}

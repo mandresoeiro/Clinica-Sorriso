@@ -1,14 +1,16 @@
+import { campaignOriginText } from '../utils/campaignOrigin'
+
 export const siteConfig = {
-  name: 'Clínica Odontopersonnalite',
-  shortName: 'Odontopersonnalite',
+  name: 'Clínica Odonto Personnallite',
+  shortName: 'Odonto Personnallite',
   tagline: 'Odontologia com técnica, cuidado e leveza.',
   description:
     'Uma experiência odontológica contemporânea, humana e cuidadosamente planejada para cada paciente.',
   demoMode: true,
   addressConfirmed: true,
   contact: {
-    phoneDisplay: '(91) 8188-8353',
-    phoneE164: '559181888353',
+    phoneDisplay: '(91) 98188-8353',
+    phoneE164: '5591981888353',
     whatsappMessage:
       'Olá! Conheci a clínica pelo site e gostaria de informações sobre atendimento e horários disponíveis.',
     email: '',
@@ -19,14 +21,19 @@ export const siteConfig = {
     city: 'Belém',
     state: 'PA',
     zipCode: '',
-    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Travessa%20Almirante%20Wandenkolk%2C%201243',
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Travessa%20Almirante%20Wandenkolk%2C%201243%2C%20Bel%C3%A9m%20-%20PA',
   },
   social: {
-    instagram: 'https://www.instagram.com/odontopersonnalite_/',
+    instagram: 'https://www.instagram.com/odontopersonallite_/',
     facebook: '',
     tiktok: '',
   },
-  hours: '08h30 às 12h e 14h às 18h · consulte os dias de atendimento',
+  hours: 'Atendimento mediante agendamento. Consulte dias, horários e disponibilidade pelo WhatsApp.',
+  technicalResponsible: 'Dra. Sônia Almeida - CRO-PA 2638',
 } as const
 
-export const whatsappUrl = `https://wa.me/${siteConfig.contact.phoneE164}?text=${encodeURIComponent(siteConfig.contact.whatsappMessage)}`
+export function getWhatsAppUrl(message: string = siteConfig.contact.whatsappMessage) {
+  const origin = campaignOriginText()
+  const text = origin ? `${message}\n\n${origin}` : message
+  return `https://wa.me/${siteConfig.contact.phoneE164}?text=${encodeURIComponent(text)}`
+}

@@ -1,8 +1,10 @@
+import { ContactRequest } from "../components/sections/ContactRequest"
+import { contactIntakeEnabled } from "../services/contactRequest"
 import { useSearchParams } from 'react-router-dom'
 import { treatments } from '../content/treatments'
 import { AppointmentForm } from '../components/sections/AppointmentForm'
 import { Button } from '../components/ui/Button'
-import { siteConfig, whatsappUrl } from '../config/site.config'
+import { siteConfig, getWhatsAppUrl } from '../config/site.config'
 import { SocialSection } from '../components/sections/SocialSection'
 
 export function Contact() {
@@ -27,7 +29,7 @@ export function Contact() {
             <span className="eyebrow">WhatsApp</span>
             <strong>{siteConfig.contact.phoneDisplay}</strong>
             <p className="muted">Para dúvidas gerais, horários e primeiro contato.</p>
-            <Button href={whatsappUrl} target="_blank" rel="noreferrer">Abrir WhatsApp</Button>
+            <Button href={getWhatsAppUrl()} target="_blank" rel="noreferrer">Abrir WhatsApp</Button>
           </article>
 
           <article className="card stack">
@@ -42,7 +44,7 @@ export function Contact() {
         </div>
       </section>
 
-      <AppointmentForm key={interest} initialInterest={interest} />
+      {contactIntakeEnabled ? <ContactRequest /> : <AppointmentForm key={interest} initialInterest={interest} />}
       <SocialSection />
     </>
   )

@@ -1,0 +1,16 @@
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+import {JSDOM} from 'jsdom';
+const root='landing-pages/tratamento-humanizado/web/';
+const dom=new JSDOM(fs.readFileSync(root+'index.html','utf8'),{runScripts:'outside-only'});
+const d=dom.window.document,section=d.querySelector('.care-team');
+assert(section);
+assert.equal(section.querySelectorAll('.care-team__group:not([aria-hidden]) img').length,3);
+assert.equal(section.querySelectorAll('.care-team__group[aria-hidden="true"] img[alt=""]').length,3);
+for(const img of section.querySelectorAll('img'))assert(fs.existsSync(root+img.getAttribute('src')));
+dom.window.eval(fs.readFileSync(root+'app.js','utf8'));
+const button=section.querySelector('button');
+button.click();assert.equal(button.getAttribute('aria-pressed'),'true');assert(section.classList.contains('is-paused'));
+button.click();assert.equal(button.getAttribute('aria-pressed'),'false');assert(!section.classList.contains('is-paused'));
+dom.window.close();
+console.log('OK: três artes, arquivos presentes, cópias decorativas ocultas e controle de pausa.');

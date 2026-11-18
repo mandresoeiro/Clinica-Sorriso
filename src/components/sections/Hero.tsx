@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Button } from '../ui/Button'
 import { ROUTES } from '../../config/routes.config'
-import { whatsappUrl } from '../../config/site.config'
+import { getWhatsAppUrl } from '../../config/site.config'
 import './Hero.css'
 
 type HeroSlide = {
@@ -47,7 +47,7 @@ export function Hero() {
   }, [isPaused])
 
   return (
-    <section ref={hero} className={isPaused ? 'hero is-paused' : 'hero'} aria-label="Apresentação da Clínica Odontopersonnalite" onPointerMove={(event) => {
+    <section ref={hero} className={isPaused ? 'hero is-paused' : 'hero'} aria-label="Apresentação da Clínica Odonto Personnallite" onPointerMove={(event) => {
       if (event.pointerType !== 'mouse' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
       const bounds = event.currentTarget.getBoundingClientRect()
       hero.current?.style.setProperty('--hero-pointer-x', `${event.clientX - bounds.left}px`)
@@ -73,7 +73,7 @@ export function Hero() {
       <div className="container hero__content">
         <div className="hero__copy">
           <div className="hero__meta">
-            <span className="hero__eyebrow">Odontologia contemporânea</span>
+            <span className="hero__eyebrow">Odontologia em Belém</span>
             <span className="hero__demo-label">Imagens demonstrativas</span>
           </div>
 
@@ -88,21 +88,14 @@ export function Hero() {
           </p>
 
           <div className="hero__actions">
-            <Button href={whatsappUrl} target="_blank" rel="noreferrer">
+            <Button href={getWhatsAppUrl()} target="_blank" rel="noreferrer">
               Solicitar agendamento
             </Button>
-            <Button variant="ghost" href={`${ROUTES.clinic}#tour-virtual`}>
-              Conhecer a clínica e o tour
+            <Button variant="ghost" href={ROUTES.clinic}>
+              Conhecer a clínica
             </Button>
           </div>
         </div>
-
-        <a className="hero__tour-peek" href={`${ROUTES.clinic}#tour-virtual`}>
-          <div className="hero__tour-peek-image"><img src="/images/tour/recepcao.webp" alt="" width="1672" height="941" /><span aria-hidden="true">↗</span></div>
-          <span className="eyebrow">Tour demonstrativo</span>
-          <strong>Conheça por dentro.</strong>
-          <span>Explore os ambientes, no seu ritmo.</span>
-        </a>
 
         <div className="hero__footer">
           <div className="hero__proof" aria-label="Diferenciais da clínica">

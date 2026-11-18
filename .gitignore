@@ -10,3 +10,18 @@ site/
 
 # Cloudflare Wrangler
 .wrangler/
+__pycache__/
+*.py[cod]
+*.sqlite3
+backend/staticfiles/
+
+dist-local/
+backend/frontend/
+
+# Configuração real de produção
+.env.production
+backend/.env.production
+backups/
+
+# Documentos importantes locais — não enviar ao GitHub
+/documentos-importantes/

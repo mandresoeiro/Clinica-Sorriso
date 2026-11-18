@@ -2,6 +2,11 @@
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "clinica-sorriso",
   "compatibility_date": "2026-10-02",
+  "workers_dev": true,
+  "routes": [
+    { "pattern": "odontopersonnallite.com.br", "custom_domain": true },
+    { "pattern": "www.odontopersonnallite.com.br", "custom_domain": true }
+  ],
   "assets": {
     "directory": "./dist/",
     "not_found_handling": "single-page-application"

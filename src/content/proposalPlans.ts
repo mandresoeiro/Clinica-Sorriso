@@ -1,0 +1,8 @@
+export const proposalPlans = [
+  { number: '01', title: 'Site institucional', description: 'Uma presença própria para apresentar a clínica.', initial: 450, monthly: 0, media: 0, features: ['Site adaptado ao celular', 'Informações e canais de contato', 'Gestão mensal não incluída'], services: ['site'] },
+  { number: '02', title: 'Site + landing pages', description: 'Páginas específicas para explicar os tratamentos.', initial: 800, monthly: 0, media: 0, features: ['Site institucional', 'Três landing pages', 'Gestão mensal não incluída'], services: ['site','landings'] },
+  { number: '03', title: 'Presença essencial', description: 'Canais organizados e conteúdo com acompanhamento.', initial: 900, monthly: 300, media: 0, features: ['Site, páginas e organização inicial', '4 posts + até 4 adaptações de Stories/mês', 'Manutenção: até 1 hora/mês'], services: ['site','landings','setup','instagram','maintenance'] },
+  { number: '04', title: 'Divulgação Local', description: 'Conteúdo e um primeiro teste de anúncios locais.', initial: 900, monthly: 500, media: 300, features: ['Tudo da presença essencial', '1 campanha + até 2 peças/mês', 'Conferência semanal e relatório simples'], services: ['site','landings','setup','instagram','ads','maintenance'] },
+  { number: '05', title: 'Gestão ampliada', description: 'Mais conteúdo e duas campanhas para acompanhar.', initial: 900, monthly: 800, media: 600, features: ['Site, páginas e organização inicial', '8 posts + até 8 adaptações de Stories/mês', 'Até 2 campanhas + até 4 peças/mês', 'Manutenção: até 1 hora/mês'], services: ['site','landings','setup','instagram','ads','maintenance'] },
+] as const
+

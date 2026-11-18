@@ -1,7 +1,8 @@
 import { treatments } from '../../content/treatments'
 import { useRef, useState, type FormEvent } from 'react'
-import { siteConfig } from '../../config/site.config'
+import { siteConfig, getWhatsAppUrl } from '../../config/site.config'
 import './AppointmentForm.css'
+import { saveLandingIntake } from '../../services/landingIntake'
 
 type FormState = {
   name: string
@@ -24,6 +25,9 @@ export function AppointmentForm({ initialInterest = '' }: { initialInterest?: st
   const [preparedUrl, setPreparedUrl] = useState('')
   const [submitted, setSubmitted] = useState(false)
   const [error, setError] = useState('')
+  const [acknowledged, setAcknowledged] = useState(false)
+  const [sending, setSending] = useState(false)
+  const request = useRef({key:'',id:''})
   const [errorField, setErrorField] = useState<'name' | 'phone' | null>(null)
   const nameInput = useRef<HTMLInputElement>(null)
   const phoneInput = useRef<HTMLInputElement>(null)
@@ -34,8 +38,9 @@ export function AppointmentForm({ initialInterest = '' }: { initialInterest?: st
     if (field === errorField) { setError(''); setErrorField(null) }
   }
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
+    if(sending)return
     const name = form.name.trim()
     const phone = form.phone.replace(/\D/g, '')
     const localPhone = phone.startsWith('55') && phone.length > 11 ? phone.slice(2) : phone
@@ -52,8 +57,17 @@ export function AppointmentForm({ initialInterest = '' }: { initialInterest?: st
       return
     }
 
+    if(!acknowledged){setError('Confirme a autorização para receber o retorno da equipe.');return}
+    setError('');setSending(true)
+    const allowed=['Clínica Geral','Harmonização Facial','Endodontia','Ortodontia','Prótese Dentária','Implante Dentário']
+    const aliases:Record<string,string>={'Próteses':'Prótese Dentária','Implantes':'Implante Dentário'}
+    const interest=aliases[form.interest]||form.interest
+    const payload={name,phone:localPhone,treatment:allowed.includes(interest)?interest:'Quero uma avaliação',period:['Manhã','Tarde'].includes(form.period)?form.period:'Sem preferência',acknowledged:true}
+    const key=JSON.stringify(payload)
+    if(request.current.key!==key)request.current={key,id:crypto.randomUUID()}
+    try{await saveLandingIntake({...payload,request_id:request.current.id})}catch(e){setError(e instanceof Error?e.message:'Não foi possível registrar. Tente novamente.');setSending(false);return}
     const text = [
-      'Olá! Vim pelo site da Clínica Odontopersonnalite.',
+      'Olá! Vim pelo site da Clínica Odonto Personnallite.',
       '',
       `Nome: ${name}`,
       `WhatsApp: ${phone}`,
@@ -64,10 +78,11 @@ export function AppointmentForm({ initialInterest = '' }: { initialInterest?: st
       .filter(Boolean)
       .join('\n')
 
-    const url = `https://wa.me/${siteConfig.contact.phoneE164}?text=${encodeURIComponent(text)}`
+    const url = getWhatsAppUrl(text)
     setPreparedUrl(url)
     setSubmitted(true)
     window.open(url, '_blank', 'noopener,noreferrer')
+    setSending(false)
   }
 
   return (
@@ -78,7 +93,7 @@ export function AppointmentForm({ initialInterest = '' }: { initialInterest?: st
           <h2 className="title">Comece sua conversa com a clínica.</h2>
           <p className="lead">
             Preencha apenas dados de contato e preferência de atendimento.
-            Ao enviar, uma mensagem pronta será aberta no WhatsApp.
+            Seu contato será registrado para retorno da equipe. Em seguida, você poderá continuar no WhatsApp.
           </p>
 
           <div className="appointment-form__note">
@@ -104,7 +119,7 @@ export function AppointmentForm({ initialInterest = '' }: { initialInterest?: st
                 onChange={(event) => updateField('name', event.target.value)}
                 autoComplete="name"
                 required
-                maxLength={100}
+                maxLength={80}
                 placeholder="Seu nome"
               />
               {errorField === 'name' && <span id="appointment-name-error" role="alert" className="appointment-form__error">{error}</span>}
@@ -176,15 +191,17 @@ export function AppointmentForm({ initialInterest = '' }: { initialInterest?: st
           </label>
 
           </details>
-          <button type="submit" className="appointment-form__submit">
-            Continuar no WhatsApp
+          <label><input type="checkbox" checked={acknowledged} onChange={e=>setAcknowledged(e.target.checked)} required /> Autorizo o registro destes dados para receber o retorno da clínica.</label>
+          {error && !errorField && <p role="alert">{error}</p>}
+          <button type="submit" className="appointment-form__submit" disabled={sending}>
+            {sending?'Registrando…':'Registrar e continuar no WhatsApp'}
             <span aria-hidden="true">→</span>
           </button>
 
-          {submitted && <div className="appointment-form__success"><p role="status">Sua mensagem está pronta. Tentamos abrir o WhatsApp; a consulta ainda precisa ser confirmada pela equipe.</p><a href={preparedUrl} target="_blank" rel="noopener noreferrer">Se não abriu, toque aqui para continuar no WhatsApp ↗</a></div>}
+          {submitted && <div className="appointment-form__success"><p role="status">Contato registrado para retorno da equipe. A consulta ainda precisa ser confirmada. No WhatsApp, revise a mensagem e toque em Enviar.</p><a href={preparedUrl} target="_blank" rel="noopener noreferrer">Continuar no WhatsApp ↗</a></div>}
           <p className="appointment-form__privacy">
-            Os campos não são gravados no site. Ao continuar, eles serão incluídos
-            em uma URL enviada ao WhatsApp; você revisa a mensagem antes de enviar à clínica.
+            Nome, telefone, interesse e período são registrados no banco de atendimento da clínica.
+            A mensagem opcional segue apenas no link do WhatsApp; você revisa antes de enviar.
             {' '}<a href="/privacidade">Leia o aviso de privacidade.</a>
             {siteConfig.demoMode && ' Demonstração: utilize somente dados fictícios.'}
           </p>

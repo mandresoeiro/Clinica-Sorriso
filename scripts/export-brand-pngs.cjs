@@ -1,0 +1,2 @@
+const fs=require('fs');const path=require('path');const sharp=require('C:/Users/mandr/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/sharp');
+(async()=>{const dir='output/identidade-visual/essencia-classica-editavel';for(const f of fs.readdirSync(dir).filter(x=>x.endsWith('.svg'))){await sharp(path.join(dir,f),{density:144}).png().toFile(path.join(dir,f.replace('.svg','.png')));}console.log('6 PNGs exportados');})().catch(e=>{console.error(e);process.exit(1)});

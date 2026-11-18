@@ -1,0 +1,40 @@
+{
+  "name": "personnallite-atendimento",
+  "account_id": "2bc93c263c79b06b2a9d2540d4e7e3ee",
+  "main": "output/cloudflare-landing/worker.mjs",
+  "compatibility_date": "2026-10-02",
+  "workers_dev": false,
+  "preview_urls": false,
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "odonto-personnallite-contatos",
+      "database_id": "f5de2b47-0d43-4248-925f-62139c5634cd"
+    }
+  ],
+  "routes": [
+    {
+      "pattern": "odontopersonnallite.com.br/urgencia-protese-implante*",
+      "zone_name": "odontopersonnallite.com.br"
+    },
+    {
+      "pattern": "www.odontopersonnallite.com.br/urgencia-protese-implante*",
+      "zone_name": "odontopersonnallite.com.br"
+    },
+    {
+      "pattern": "odontopersonnallite.com.br/tratamento-humanizado*",
+      "zone_name": "odontopersonnallite.com.br"
+    },
+    {
+      "pattern": "www.odontopersonnallite.com.br/tratamento-humanizado*",
+      "zone_name": "odontopersonnallite.com.br"
+    }
+  ],
+  "keep_vars": true,
+  "vars": {
+    "PANEL_ACCESS_ISSUER": "https://hidden-violet-d793.cloudflareaccess.com",
+    "PANEL_ACCESS_AUD": "f0a4001e360f437138dd65b37dc167b668032fa72c4d3e57c0d823186fbdfa8a",
+    "PANEL_ADMIN_EMAILS": "odontopersonnallite.admin@gmail.com",
+    "PANEL_ALLOWED_EMAILS": "odontopersonnallite.admin@gmail.com,odontopersonnallite.recepcao@gmail.com"
+  }
+}

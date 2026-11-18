@@ -3,7 +3,7 @@ import { TreatmentJourney } from '../components/sections/TreatmentJourney'
 import { Link, Navigate, useParams } from 'react-router-dom'
 import { treatments } from '../content/treatments'
 import { Button } from '../components/ui/Button'
-import { siteConfig } from '../config/site.config'
+import { getWhatsAppUrl } from '../config/site.config'
 
 export function TreatmentDetails() {
   const { slug } = useParams()
@@ -11,7 +11,7 @@ export function TreatmentDetails() {
 
   if (!treatment) return <Navigate to="/404" replace />
 
-  const treatmentWhatsApp = 'https://wa.me/' + siteConfig.contact.phoneE164 + '?text=' + encodeURIComponent('Olá! Conheci ' + treatment.title + ' pelo site e gostaria de entender as etapas e solicitar uma avaliação.')
+  const treatmentWhatsApp = getWhatsAppUrl('Olá! Conheci ' + treatment.title + ' pelo site e gostaria de entender as etapas e solicitar uma avaliação.')
   return (
     <>
       <section className="page-hero">
@@ -44,7 +44,7 @@ export function TreatmentDetails() {
           </article>
         </div>
       </section>
-      <div className="container"><ShareButton title={treatment.title + ' | Clínica Odontopersonnalite'} /></div>
+      <div className="container"><ShareButton title={treatment.title + ' | Clínica Odonto Personnallite'} /></div>
       <TreatmentJourney key={treatment.slug} title={treatment.title} slug={treatment.slug} />
     </>
   )

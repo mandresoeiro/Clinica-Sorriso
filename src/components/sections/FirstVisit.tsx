@@ -1,7 +1,7 @@
 import { VisitChecklist } from './VisitChecklist'
 import { useState } from 'react'
 import { Button } from '../ui/Button'
-import { siteConfig } from '../../config/site.config'
+import { siteConfig, getWhatsAppUrl } from '../../config/site.config'
 import './FirstVisit.css'
 
 const preferences = [
@@ -28,8 +28,8 @@ const preferences = [
 export function FirstVisit() {
   const [selected, setSelected] = useState<string>('steps')
   const preference = preferences.find((item) => item.id === selected) ?? preferences[1]
-  const message = `Olá! Conheci a Clínica Odontopersonnalite pelo site e quero saber sobre minha primeira visita.\nMinha preferência: ${preference.label}.\n${preference.description}\nPodem me orientar sobre atendimento e horários?`
-  const url = `https://wa.me/${siteConfig.contact.phoneE164}?text=${encodeURIComponent(message)}`
+  const message = `Olá! Conheci a Clínica Odonto Personnallite pelo site e quero saber sobre minha primeira visita.\nMinha preferência: ${preference.label}.\n${preference.description}\nPodem me orientar sobre atendimento e horários?`
+  const url = getWhatsAppUrl(message)
 
   return (
     <section className="section first-visit" id="primeira-visita" aria-labelledby="first-visit-title">

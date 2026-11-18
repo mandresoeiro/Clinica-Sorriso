@@ -5,6 +5,8 @@ import { matchesSearch } from '../utils/search'
 import { ShareButton } from '../components/ui/ShareButton'
 import { VisitChecklist } from '../components/sections/VisitChecklist'
 import { AppointmentForm } from '../components/sections/AppointmentForm'
+vi.mock('../services/landingIntake',()=>({saveLandingIntake:vi.fn().mockResolvedValue(undefined)}))
+
 afterEach(() => { cleanup(); vi.restoreAllMocks() })
 it('matches aliases and small errors but rejects unrelated searches', () => {
   expect(matchesSearch('Implantodontia', 'implante')).toBe(true)
@@ -20,14 +22,15 @@ it('counts checklist progress and resets it', () => {
   fireEvent.click(screen.getByRole('button', { name: 'Recomeçar checklist' }))
   expect(screen.getByRole('status').textContent).toContain('0 de 4')
 })
-it('offers a continuation link when the popup cannot open', () => {
+it('offers a continuation link when the popup cannot open', async () => {
   vi.spyOn(window, 'open').mockReturnValue(null)
   const { container } = render(<AppointmentForm />)
   fireEvent.change(screen.getByLabelText('Nome'), { target: { value: 'Maria' } })
   fireEvent.change(screen.getByLabelText('WhatsApp'), { target: { value: '91999999999' } })
-  fireEvent.submit(container.querySelector('form')!)
-  expect(screen.getByRole('status').textContent).toContain('ainda precisa ser confirmada')
-  expect(screen.getByRole('link', { name: /Se não abriu/ }).getAttribute('href')).toContain('https://wa.me/')
+  fireEvent.click(screen.getByRole('checkbox'))
+    fireEvent.submit(container.querySelector('form')!)
+  expect((await screen.findByRole('status')).textContent).toContain('ainda precisa ser confirmada')
+  expect(screen.getByRole('link', { name: /Continuar no WhatsApp/ }).getAttribute('href')).toContain('https://wa.me/')
 })
 it('copies the share link when native sharing is unavailable', async () => {
   const copy = vi.fn().mockResolvedValue(undefined)

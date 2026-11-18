@@ -1,0 +1,25 @@
+import fs from 'node:fs/promises';
+const order=['equipe-sonia','equipe-fabienne','equipe-nayra-odontologia'];
+const htmlPath='landing-pages/tratamento-humanizado/web/index.html';
+let html=await fs.readFile(htmlPath,'utf8');
+html=html.replace(/(<div class="care-team__group"[^>]*>)([\s\S]*?)(<\/div>)/g,(_,start,body,end)=>{
+ const figures=[...body.matchAll(/<figure>[\s\S]*?<\/figure>/g)].map(m=>m[0]);
+ if(figures.length!==3)throw Error('Unexpected team gallery');
+ return start+order.map(name=>{const image=figures.find(figure=>figure.includes('/'+name+'.webp'));if(!image)throw Error('Missing team image');return image}).join('')+end;
+});
+html=html.replace('Pausar carrossel','Pausar movimento');
+await fs.writeFile(htmlPath,html);
+const setupPath='scripts/add-humanized-team-carousel.mjs';
+let setup=await fs.readFile(setupPath,'utf8');
+setup=setup.replace(/const photos=.*?;\r?\n/,`const photos=${JSON.stringify([['equipe-sonia','Dra. Sônia Almeida, CRO-PA 2638.'],['equipe-fabienne','Dra. Fabienne de Freitas Rodrigues, Mestre e Especialista em Endodontia. CRO/PA 8997.'],['equipe-nayra-odontologia','Nayra Martins, Odontologia.']])};\n`).replace('Pausar carrossel','Pausar movimento');
+await fs.writeFile(setupPath,setup);
+const cssPath='landing-pages/tratamento-humanizado/web/styles.css';
+let css=await fs.readFile(cssPath,'utf8');
+css=css.replace('care-team-slide 36s','care-team-slide 75s');
+if(!css.includes('care-team-mobile-organization'))css+='\n/* care-team-mobile-organization */\n@media(max-width:639px){.care-team__track{animation-duration:95s}.care-team figure{width:calc(100vw - 48px)}}\n';
+await fs.writeFile(cssPath,css);
+const appPath='landing-pages/tratamento-humanizado/web/app.js';
+let app=await fs.readFile(appPath,'utf8');
+app=app.replace("'Iniciar carrossel':'Pausar carrossel'","'Continuar movimento':'Pausar movimento'");
+await fs.writeFile(appPath,app);
+console.log('Galerias organizadas: Sônia, Fabienne e Nayra; movimento padronizado.');

@@ -1,7 +1,7 @@
 import { useLocation } from 'react-router-dom'
 import { faqs } from '../content/faqs'
 import { Button } from '../components/ui/Button'
-import { whatsappUrl } from '../config/site.config'
+import { getWhatsAppUrl } from '../config/site.config'
 import './Faq.css'
 
 
@@ -43,7 +43,7 @@ export function Faq() {
             <span className="eyebrow">Ainda ficou com dúvida?</span>
             <h2>Converse diretamente com a clínica.</h2>
           </div>
-          <Button href={whatsappUrl} target="_blank" rel="noreferrer">
+          <Button href={getWhatsAppUrl()} target="_blank" rel="noreferrer">
             Solicitar atendimento
           </Button>
         </div>

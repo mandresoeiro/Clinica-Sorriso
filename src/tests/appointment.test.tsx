@@ -1,7 +1,9 @@
 // @vitest-environment jsdom
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { cleanup, fireEvent, render, screen } from '@testing-library/react'
+import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { AppointmentForm } from '../components/sections/AppointmentForm'
+
+vi.mock('../services/landingIntake',()=>({saveLandingIntake:vi.fn().mockResolvedValue(undefined)}))
 
 afterEach(() => { cleanup(); vi.restoreAllMocks() })
 
@@ -10,6 +12,7 @@ describe('appointment form', () => {
     const open = vi.spyOn(window, 'open').mockReturnValue(null)
     const { container } = render(<AppointmentForm />)
     fireEvent.change(screen.getByLabelText('Nome'), { target: { value: '  ' } })
+    fireEvent.click(screen.getByRole('checkbox'))
     fireEvent.submit(container.querySelector('form')!)
     expect(screen.getByRole('alert').textContent).toContain('nome')
     expect(open).not.toHaveBeenCalled()
@@ -20,25 +23,27 @@ describe('appointment form', () => {
     const { container } = render(<AppointmentForm />)
     fireEvent.change(screen.getByLabelText('Nome'), { target: { value: 'Maria' } })
     fireEvent.change(screen.getByLabelText('WhatsApp'), { target: { value: '123' } })
+    fireEvent.click(screen.getByRole('checkbox'))
     fireEvent.submit(container.querySelector('form')!)
     expect(screen.getByRole('alert').textContent).toContain('DDD')
     expect(open).not.toHaveBeenCalled()
   })
 
-  it('opens a prepared message with trimmed name and normalized phone', () => {
+  it('opens a prepared message with trimmed name and normalized phone', async () => {
     const open = vi.spyOn(window, 'open').mockReturnValue(null)
     const { container } = render(<AppointmentForm />)
     fireEvent.change(screen.getByLabelText('Nome'), { target: { value: '  Maria  ' } })
     fireEvent.change(screen.getByLabelText('WhatsApp'), { target: { value: '+55 (91) 99999-9999' } })
+    fireEvent.click(screen.getByRole('checkbox'))
     fireEvent.submit(container.querySelector('form')!)
-    expect(open).toHaveBeenCalledTimes(1)
+    await waitFor(()=>expect(open).toHaveBeenCalledTimes(1))
     const message = new URL(String(open.mock.calls[0][0])).searchParams.get('text')
     expect(message).toContain('Nome: Maria\n')
     expect(message).toContain('WhatsApp: 5591999999999')
   })
 })
 
-it('preserves treatment context and allows changing it before WhatsApp', () => {
+it('preserves treatment context and allows changing it before WhatsApp', async () => {
   const open = vi.spyOn(window, 'open').mockReturnValue(null)
   const { container } = render(<AppointmentForm initialInterest="Clareamento" />)
   const interest = screen.getByLabelText('O que você procura?') as HTMLSelectElement
@@ -46,7 +51,9 @@ it('preserves treatment context and allows changing it before WhatsApp', () => {
   fireEvent.change(interest, { target: { value: 'Próteses' } })
   fireEvent.change(screen.getByLabelText('Nome'), { target: { value: 'Maria' } })
   fireEvent.change(screen.getByLabelText('WhatsApp'), { target: { value: '91999999999' } })
-  fireEvent.submit(container.querySelector('form')!)
+  fireEvent.click(screen.getByRole('checkbox'))
+    fireEvent.submit(container.querySelector('form')!)
+  await waitFor(()=>expect(open).toHaveBeenCalledTimes(1))
   const message = new URL(String(open.mock.calls[0][0])).searchParams.get('text')
   expect(message).toContain('Interesse: Próteses')
   expect(message).not.toContain('Interesse: Clareamento')

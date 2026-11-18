@@ -1,0 +1,26 @@
+{
+  // Preparation only. No public route and no schedule until the clinic approves
+  // the private destination, key custody, frequency and retention.
+  "name": "odonto-personnallite-backup",
+  "account_id": "2bc93c263c79b06b2a9d2540d4e7e3ee",
+  "main": "infra/cloudflare/backup/worker.mjs",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "preview_urls": false,
+  "vars": {
+    "BACKUPS_ENABLED": "false",
+    "BACKUP_RETENTION_ENABLED": "false",
+    "DRIVE_FOLDER_ID": "1jZR-YkvZxjOq891iJnjyw36-XdDomz2H"
+  },
+  "d1_databases": [{
+    "binding": "DB",
+    "database_name": "odonto-personnallite-contatos",
+    "database_id": "f5de2b47-0d43-4248-925f-62139c5634cd"
+  }],
+  "triggers": {"crons": []}
+  // Prepared daily schedule: 0 6 * * * (03:00 America/Fortaleza).
+  // Keep empty until integration authorization, key custody and first recovery test.
+  // Secrets: DRIVE_CLIENT_ID, DRIVE_CLIENT_SECRET, DRIVE_REFRESH_TOKEN, BACKUP_KEY.
+  // Optional temporary DRIVE_ACCESS_TOKEN is for controlled checks only.
+  // Never place credentials in this file or the repository.
+}

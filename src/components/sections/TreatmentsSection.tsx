@@ -30,9 +30,8 @@ export function TreatmentsSection() {
           </div>
 
           <p className="lead">
-            Uma apresentação visual dos principais cuidados da clínica. As
-            imagens são demonstrativas e serão substituídas pelas fotos
-            oficiais na versão final.
+            Conheça os principais cuidados da clínica. A avaliação profissional
+            orienta o tratamento indicado para cada pessoa.
           </p>
         </div>
 
@@ -60,6 +59,7 @@ export function TreatmentsSection() {
                 </div>
 
                 <div className="treatment-card__body">
+                  <small>Imagem ilustrativa</small>
                   <span className="eyebrow">{t.eyebrow}</span>
                   <h3>{t.title}</h3>
                   <p>{t.shortDescription}</p>
@@ -71,6 +71,7 @@ export function TreatmentsSection() {
             )
           })}
         </div>
+        <div className="treatments-showcase__more"><Link className="button button--ghost" to="/tratamentos">Ver todos os tratamentos →</Link><Link to="/proteses">Informações sobre próteses →</Link></div>
       </div>
     </section>
   )

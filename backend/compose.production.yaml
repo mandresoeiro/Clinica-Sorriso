@@ -1,0 +1,40 @@
+name: personnallite-production
+services:
+  db:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: personnallite
+      POSTGRES_USER: personnallite
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Defina a senha do banco}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U personnallite -d personnallite"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+  api:
+    build: .
+    restart: unless-stopped
+    env_file: .env.production
+    environment:
+      DJANGO_SETTINGS_MODULE: config.settings.production
+      POSTGRES_HOST: db
+      POSTGRES_DB: personnallite
+      POSTGRES_USER: personnallite
+      TRUST_NGINX_HEADERS: "true"
+    depends_on:
+      db:
+        condition: service_healthy
+  web:
+    image: nginx:stable-alpine
+    restart: unless-stopped
+    depends_on: [api]
+    ports: ["80:80", "443:443"]
+    volumes:
+      - ../dist:/var/www/site:ro
+      - ../infra/nginx/personnallite-production.conf:/etc/nginx/conf.d/default.conf:ro
+      - ${TLS_CERT_DIR:?Informe a pasta dos certificados}:/etc/nginx/tls:ro
+volumes:
+  postgres_data:

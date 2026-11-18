@@ -1,0 +1,26 @@
+{
+  "data": "2026-10-13",
+  "django": "5.2.18",
+  "drf": "3.17.2",
+  "backend_tests_passed": 9,
+  "test_database": "SQLite em memória e PostgreSQL no Docker (9 testes em cada ambiente)",
+  "migration_check": "sem alterações pendentes",
+  "dependencies": "pip check aprovado",
+  "static_manifest": "gerado",
+  "admin_login_http": 200,
+  "admin_css_http": 200,
+  "health_http": 200,
+  "compose_configuration": "validada pelo Docker Compose",
+  "container_and_postgresql_execution": "Imagem construída, serviços api e db iniciados; migrações aplicadas e testes PostgreSQL aprovados.",
+  "ci_postgresql": "Workflow preparado, não executado no GitHub nesta sessão.",
+  "site_published": "Não alterado ou conectado ao backend nesta entrega.",
+  "postgresql_tests_passed": 9,
+  "local_url": "http://127.0.0.1:8001/admin/",
+  "live_http_checks": {
+    "health": 200,
+    "readiness": 200,
+    "admin_login": 200,
+    "admin_css": 200,
+    "anonymous_me": 403
+  }
+}

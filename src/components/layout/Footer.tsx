@@ -10,7 +10,8 @@ export function Footer() {
         <div className="footer__brand">
           <img className="footer__logo" src="/images/brand/logo.svg" alt={siteConfig.name} width="220" height="165" />
           <p>{siteConfig.tagline}</p>
-          {siteConfig.demoMode && <span className="footer__demo">Versão demonstrativa</span>}
+          <p>Responsável técnica: {siteConfig.technicalResponsible}</p>
+          {siteConfig.demoMode && <span className="footer__demo">Imagens ilustrativas</span>}
         </div>
 
         <div>
@@ -22,6 +23,9 @@ export function Footer() {
             <Link to={ROUTES.team}>Equipe</Link>
             <Link to={ROUTES.faq}>Dúvidas</Link>
             <Link to={ROUTES.contact}>Contato</Link>
+            <Link to="/proteses">Próteses dentárias</Link>
+            <a href="/tratamento-humanizado/">Atendimento humanizado</a>
+            <a href="/urgencia-protese-implante/">Urgência em prótese e implante</a>
             <Link to={ROUTES.privacy}>Privacidade e LGPD</Link>
           </nav>
         </div>
@@ -43,7 +47,7 @@ export function Footer() {
 
       <div className="container footer__bottom">
         <span>© {new Date().getFullYear()} {siteConfig.name}.</span>
-        <span>Conteúdo sujeito à validação da clínica.</span>
+        <span>Atendimento e horários sujeitos à confirmação da equipe.</span>
         <a className="footer__credit" href="https://soeirotech.com.br" target="_blank" rel="noopener noreferrer" aria-label="Desenvolvido por SoeiroTech — visitar site em nova aba">
           <span>Desenvolvido por</span>
           <strong>SoeiroTech</strong>

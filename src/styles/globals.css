@@ -140,3 +140,10 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .container { width: min(calc(100% - 1.3rem), var(--container)); }
   .section { padding: 3.8rem 0; }
 }
+
+/* Tipografia da clínica: títulos 500–600, leitura Inter, ações 600. */
+h1,h2,h3,h4,h5,h6{font-family:var(--font-display);font-weight:600}
+body{font-weight:400}
+button,input,select,textarea{font-family:var(--font-sans)}
+button,.button{font-weight:600}
+nav{font-family:var(--font-sans);font-weight:500}

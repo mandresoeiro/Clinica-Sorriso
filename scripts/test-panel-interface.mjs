@@ -1,0 +1,114 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {JSDOM} from 'jsdom';
+const dom=new JSDOM(fs.readFileSync('infra/cloudflare/panel/index.html','utf8'),{url:'https://odontopersonnallite.com.br/tratamento-humanizado/painel/',runScripts:'outside-only',pretendToBeVisual:true});
+const w=dom.window,d=w.document;
+let role='admin';
+let now=Date.parse('2026-10-22T15:00:00Z'),timer,copied='',conflict=false,offline=false;const calls=[];
+w.Date.now=()=>now;w.setInterval=callback=>{timer=callback};w.matchMedia=()=>({matches:true});w.HTMLElement.prototype.scrollIntoView=()=>{};
+w.HTMLDialogElement.prototype.showModal=function(){this.setAttribute('open','')};w.HTMLDialogElement.prototype.close=function(){this.removeAttribute('open');this.dispatchEvent(new w.Event('close'))};
+Object.defineProperty(w.navigator,'clipboard',{value:{async writeText(value){copied=value}}});
+const record={request_id:'11111111-1111-4111-8111-111111111111',name:'Contato fictício <img src=x>',phone:'91000000001',treatment:'Prótese Dentária',period:'Manhã',campaign:'urgencia-protese-implante',status:'novo',created_at:'2026-10-21 10:00:00'},history=[];
+w.fetch=async(path,options={})=>{
+ calls.push({path,options});if(offline)throw Error('Falha de conexão simulada');const u=new URL(path,w.location.href);let data,status=200;
+ if(u.pathname.endsWith('/session'))data={role,email:'recepcao@example.test',csrfToken:'csrf',expiresAt:Date.parse('2026-10-22T16:00:00Z')/1000};
+ else if(u.pathname.endsWith('/requests'))data={requests:[{...record}],summary:{novo:record.status==='novo'?1:0,em_atendimento:record.status==='em_atendimento'?1:0,agendado:0,arquivado:0},pagination:{page:1,pages:1,total:1}};
+ else if(u.pathname.endsWith('/today'))data={counts:{new_contacts:1,unassigned:1,overdue:0},appointments:[],callbacks:[]};
+ else if(u.pathname.endsWith('/appointment'))data={appointment:null,history:[],professionals:['Dra. Sônia Almeida']};
+ else if(u.pathname.endsWith('/manual')){status=201;data={status:'created',request_id:JSON.parse(options.body).request_id}}
+ else if(u.pathname.endsWith('/claim')){if(record.assignee){status=409;data={error:'already_assigned'}}else{record.assignee=options.headers['X-Operator-Id'];data={status:'assigned',assignee:record.assignee}}}
+ else if(u.pathname.endsWith('/staff')&&options.method!=='POST')data={staff:[]};
+ else if(u.pathname.endsWith('/staff')||u.pathname.endsWith('/staff-visibility'))data={status:'updated'};
+ else if(u.pathname.endsWith('/report'))data={day:'2026-10-23',from:'2026-10-23',to:'2026-10-23',newContacts:3,bookingChanges:0,treatments:[{treatment:'Clínica Geral',status:'novo',campaign:'tratamento-humanizado-ligacao',total:2},{treatment:'Prótese Dentária',status:'agendado',campaign:'tratamento-humanizado',total:1}]};
+ else if(u.pathname.endsWith('/reminders'))data={reminders:[]};
+ else if(u.pathname.endsWith('/workflow'))data={workflow:{assignee:'',callback_at:'',appointment_at:'',professional:'',version:0}};
+ else if(u.pathname.endsWith('/detail'))data={record:{...record},history};
+ else if(u.pathname.endsWith('/status')){const p=JSON.parse(options.body);if(conflict||p.expected_status!==record.status){status=409;data={error:'conflict'}}else{history.push({actor:'recepcao@example.test',old_status:record.status,new_status:p.status,created_at:'2026-10-22 15:00:00'});record.status=p.status;data={status:'updated'}}}
+ return {status,ok:status>=200&&status<300,clone(){return {async json(){return data}}},async json(){return data}};
+};
+w.eval(fs.readFileSync('infra/cloudflare/panel/panel.js','utf8')+'\n'+fs.readFileSync('infra/cloudflare/panel/workflow.js','utf8')+'\n'+fs.readFileSync('infra/cloudflare/panel/staff.js','utf8')+'\n'+fs.readFileSync('infra/cloudflare/panel/desk.js','utf8'));
+const tick=async()=>{for(let i=0;i<5;i++)await new Promise(resolve=>setImmediate(resolve))};await tick();
+
+assert.equal(d.querySelectorAll('.report-charts section').length,2);
+assert.equal(d.querySelectorAll('.report-charts meter').length,4);
+assert.deepEqual([...d.querySelectorAll('.report-kpis strong')].map(e=>e.textContent),['3','1','2']);
+let exportBlob,printed=0;w.Blob=Blob;w.URL.createObjectURL=b=>{exportBlob=b;return 'blob:synthetic-report'};w.URL.revokeObjectURL=()=>{};const originalAnchorClick=w.HTMLAnchorElement.prototype.click;w.HTMLAnchorElement.prototype.click=function(){if(!this.download)return originalAnchorClick.call(this)};w.print=()=>printed++;
+[...d.querySelectorAll('.report-actions button')].find(b=>b.textContent==='Exportar resumo CSV').click();
+const csvText=await exportBlob.text();assert.match(csvText,/Clínica Geral/);assert.match(csvText,/pediu ligação/);assert.ok(!csvText.includes(record.name));assert.ok(!csvText.includes(record.phone));
+assert.equal(printed,0);[...d.querySelectorAll('.report-actions button')].find(b=>b.textContent==='Imprimir / salvar PDF').click();assert.equal(printed,1);
+const reportDates=d.querySelectorAll('.report-filters input');reportDates[0].value='2026-10-01';reportDates[1].value='2026-10-24';d.querySelector('.report-filters').dispatchEvent(new w.Event('submit',{cancelable:true}));await tick();assert.match(calls.findLast(c=>c.path.startsWith('api/report?')).path,/from=2026-10-01&to=2026-10-24/);
+assert.match(d.querySelector('#rows').textContent,/Contato fictício <img src=x>/);assert.equal(d.querySelector('#rows img'),null);
+assert.match(d.querySelector('#rows').textContent,/Sem retorno registrado/);
+assert.equal(d.querySelectorAll('.today-metrics .metric').length,4);
+assert.equal(d.querySelector('#scope').value,'active');assert.ok(d.querySelector('.desk-nav a[href="#admin-summary"]'));
+const callFixture={phone:'91999990001',name:'Fictício',assignee:''};const phoneButton=w.eval('phoneAction') (callFixture);assert.equal(phoneButton.getAttribute('href'),'tel:+5591999990001');assert.equal(phoneButton.dispatchEvent(new w.MouseEvent('click',{cancelable:true})),false);assert.match(d.querySelector('#feedback').textContent,/Assuma/);const invalidPhone=w.eval('phoneAction')({phone:'00900000001',name:'Fictício'});assert.equal(invalidPhone.getAttribute('href'),null);
+assert.equal(d.querySelector('#operator option[value="atendente-3"]').textContent,'Apoio da clínica');
+d.querySelector('.claim-button').click();await tick();assert.match(d.querySelector('#feedback').textContent,/Escolha quem/);
+assert.equal(d.querySelector('#advanced-filters').open,false);
+assert.equal(d.querySelector('#advanced-filters #campaign')?.id,'campaign');
+assert.equal(d.querySelector('.desk-nav a[aria-current]')?.hash,'#hoje');
+assert.ok(d.querySelector('#contatos .summary'),'Totais ficam junto à fila');
+assert.ok(d.querySelector('#contatos').compareDocumentPosition(d.querySelector('#equipe'))&w.Node.DOCUMENT_POSITION_FOLLOWING);
+// A selected profile changes presentation and opens its own queue, without login changes.
+d.querySelector('#operator').value='atendente-2';d.querySelector('#operator').dispatchEvent(new w.Event('change'));await tick();assert.equal(d.body.dataset.profile,'atendente-2');assert.match(d.querySelector('.profile-identity h2').textContent,/Nayra/);assert.equal(d.querySelector('#assignee').value,'atendente-2');assert.equal(d.querySelector('.mine-queue').getAttribute('aria-pressed'),'true');
+w.eval("updateProfilePhotos([{staff_id:'atendente-2',version:3,hidden:0}])");assert.equal(d.querySelector('.profile-avatar img').hidden,false);assert.match(d.querySelector('.profile-avatar img').getAttribute('src'),/id=atendente-2&v=3/);
+w.eval("updateProfilePhotos([{staff_id:'atendente-2',version:3,hidden:1}])");assert.equal(d.querySelector('.profile-avatar img').hidden,true);assert.equal(d.querySelector('.profile-avatar span').textContent,'NA');
+d.querySelector('#switch-person').click();await tick();assert.equal(d.body.dataset.profile,'neutral');assert.equal(d.querySelector('#operator').value,'');assert.equal(d.querySelector('.profile-avatar img').getAttribute('src'),null);
+d.querySelector('#operator').value='atendente-3';d.querySelector('#operator').dispatchEvent(new w.Event('change'));await tick();assert.equal(d.body.dataset.profile,'atendente-3');assert.match(d.querySelector('.profile-identity h2').textContent,/equipe de apoio/);d.querySelector('#switch-person').click();await tick();
+d.querySelector('#operator').value='atendente-1';
+d.querySelector('#operator').dispatchEvent(new w.Event('change'));await tick();assert.match(d.querySelector('.operator-note').textContent,/Rosiane Oliveira Santiago/);assert.equal(d.body.dataset.profile,'atendente-1');
+d.querySelector('#manual-open').click();assert.ok(d.querySelector('#manual-dialog').open);
+const manualForm=d.querySelector('#manual-form');manualForm.elements.name.value='Exemplo fictício';manualForm.elements.phone.value='(91) 99999-0005';manualForm.elements.acknowledged.checked=true;
+w.confirm=()=>false;d.querySelector('[data-close="manual-dialog"]').click();assert.ok(d.querySelector('#manual-dialog').open);assert.equal(manualForm.elements.name.value,'Exemplo fictício');
+const escapeDraft=new w.Event('cancel',{cancelable:true});d.querySelector('#manual-dialog').dispatchEvent(escapeDraft);assert.equal(escapeDraft.defaultPrevented,true);
+assert.match(w.eval("whatsapp({phone:'91999990005',name:'Exemplo',campaign:'manual-telefone'}).href"),/Estamos%20retornando/);
+assert.ok(!w.eval("whatsapp({phone:'91999990005',name:'Exemplo',campaign:'manual-telefone'}).href").includes('pelo%20site'));
+const otherOwnerLink=w.eval("whatsapp({phone:'91999990005',name:'Exemplo',campaign:'manual-telefone',assignee:'atendente-2'})");assert.equal(otherOwnerLink.dispatchEvent(new w.MouseEvent('click',{cancelable:true})),false,'aviso permite cancelar WhatsApp de contato atribuído a outra pessoa');
+manualForm.dispatchEvent(new w.Event('submit',{cancelable:true}));await tick();
+const manualCall=calls.findLast(c=>c.path==='api/manual');assert.ok(manualCall);assert.equal(JSON.parse(manualCall.options.body).phone,'91999990005');assert.equal(manualCall.options.headers['X-Operator-Id'],'atendente-1');assert.equal(d.querySelector('#manual-dialog').open,false);
+d.querySelector('.claim-button').click();await tick();assert.equal(calls.findLast(c=>c.path==='api/claim').options.headers['X-Operator-Id'],'atendente-1');assert.match(d.querySelector('.owner-badge').textContent,/Rosiane/);assert.equal(d.querySelector('.claim-button'),null);d.querySelector('.mine-queue').click();await tick();assert.equal(d.querySelector('#assignee').value,'atendente-1');
+d.querySelector('#operator').value='';d.querySelector('#search').value='';
+assert.equal(d.querySelectorAll('#staff-cards img').length,3);assert.match(d.querySelector('#staff-cards').textContent,/Rosiane Oliveira Santiago/);assert.equal(d.querySelectorAll('#staff-cards input[type=file]').length,3);assert.ok(d.querySelector('#staff-cards img').alt.includes('Avatar ilustrativo'));
+let bitmapClosed=false;const draws=[];w.confirm=()=>true;w.createImageBitmap=async()=>({width:300,height:400,close(){bitmapClosed=true}});w.HTMLCanvasElement.prototype.getContext=()=>({fillRect(){},drawImage(...args){draws.push(args)}});w.HTMLCanvasElement.prototype.toDataURL=()=>"data:image/jpeg;base64,/9j/AAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+const staffCards=[...d.querySelectorAll('.staff-card')];
+assert.equal(staffCards[0].querySelector('button').textContent,'Adicionar foto');
+assert.doesNotMatch(staffCards[0].textContent,/JPG/);
+const staffReads=calls.filter(c=>c.path==='api/staff'&&!c.options.method).length;
+const fileInput=d.querySelector('#staff-cards input');Object.defineProperty(fileInput,'files',{value:[new w.File(['fixture'],'photo.jpg',{type:'image/jpeg'})]});fileInput.dispatchEvent(new w.Event('change'));await tick();assert.ok(d.querySelector('#photo-editor').open);assert.match(d.querySelector('#photo-editor').textContent,/JPG, PNG ou WebP/);const zoom=[...d.querySelectorAll('#photo-editor input')][0];zoom.value=2;zoom.dispatchEvent(new w.Event('input'));[...d.querySelectorAll('#photo-editor button')].find(b=>b.textContent==='Usar foto').click();await tick();assert.equal(d.querySelector('#photo-editor'),null);assert.ok(bitmapClosed);assert.ok(draws.length>=2);assert.equal(JSON.parse(calls.findLast(c=>c.path==='api/staff'&&c.options.method==='POST').options.body).id,'atendente-1');
+assert.deepEqual([...d.querySelectorAll('.staff-card')],staffCards);
+assert.equal(calls.filter(c=>c.path==='api/staff'&&!c.options.method).length,staffReads);
+assert.equal(staffCards[0].querySelector('[role=status]').textContent,'Foto salva.');
+assert.equal(staffCards[0].querySelector('button').textContent,'Trocar foto');
+assert.match(staffCards[0].querySelector('img').getAttribute('src'),/id=atendente-1&v=1$/);
+const visibilityButton=staffCards[0].querySelector('button:last-child');
+assert.equal(visibilityButton.textContent,'Ocultar foto');
+visibilityButton.click();await tick();
+assert.equal(visibilityButton.textContent,'Mostrar foto');
+assert.equal(staffCards[0].querySelector('img').getAttribute('src'),'avatar.svg');
+visibilityButton.click();await tick();
+assert.equal(visibilityButton.textContent,'Ocultar foto');
+assert.match(staffCards[0].querySelector('img').getAttribute('src'),/id=atendente-1&v=3$/);
+
+d.querySelector('#campaign').value='urgencia-protese-implante';d.querySelector('#from').value='2026-10-21';d.querySelector('#filters').dispatchEvent(new w.Event('submit',{cancelable:true}));await tick();
+assert.match(calls.findLast(c=>c.path.startsWith('api/requests')).path,/campaign=urgencia-protese-implante/);
+d.querySelector('.contact-name').click();await tick();assert.ok(d.querySelector('#detail').open);assert.match(d.querySelector('#detail .workflow').textContent,/Apoio da clínica/);const owner=d.querySelector('#detail .workflow select');owner.value='atendente-2';d.querySelector('#detail .workflow form').dispatchEvent(new w.Event('submit',{cancelable:true}));await tick();assert.equal(JSON.parse(calls.findLast(c=>c.path==='api/workflow').options.body).assignee,'atendente-2');assert.match(d.querySelector('#detail-body').textContent,/Manhã/);d.querySelector('[data-close=detail]').click();
+d.querySelector('.state-select').value='em_atendimento';d.querySelector('.state-select').dispatchEvent(new w.Event('change'));assert.ok(d.querySelector('#confirm').open);assert.equal(record.status,'novo');d.querySelector('[data-close=confirm]').click();assert.equal(record.status,'novo');
+d.querySelector('.state-select').value='em_atendimento';d.querySelector('.state-select').dispatchEvent(new w.Event('change'));d.querySelector('#confirm-save').click();await tick();assert.equal(record.status,'em_atendimento');assert.equal(history.length,1);assert.equal(d.querySelector('#undo').hidden,false);
+d.querySelector('#undo').click();await tick();assert.equal(record.status,'novo');assert.equal(history.length,2);assert.equal(d.querySelector('#undo').hidden,true);
+d.querySelector('.contact-name').click();await tick();assert.match(d.querySelector('#detail-body').textContent,/recepcao@example.test/);[...d.querySelectorAll('#detail-body button')].find(b=>b.textContent==='Copiar telefone').click();await tick();assert.equal(copied,record.phone);d.querySelector('[data-close=detail]').click();
+conflict=true;d.querySelector('.state-select').value='arquivado';d.querySelector('.state-select').dispatchEvent(new w.Event('change'));d.querySelector('#confirm-save').click();await tick();assert.equal(record.status,'novo');assert.match(d.querySelector('#feedback').textContent,/Outra pessoa/);conflict=false;
+const before=calls.length;now+=130000;timer();await tick();assert.equal(calls.length,before,'atualização automática começa desativada');d.querySelector('#auto-refresh').checked=true;timer();await tick();assert.ok(calls.length>before);
+role='reception';d.querySelector('#refresh').click();await tick();assert.equal(d.querySelector('#admin-summary').hidden,true);assert.equal(d.querySelectorAll('#staff-cards input[type=file]').length,3);assert.equal(d.querySelector('.state-select option[value=arquivado]').disabled,false);
+
+// A late response must not replace the newest dashboard values.
+const originalFetch=w.fetch;let releaseOld,todayCalls=0;
+const responseWithCount=n=>({ok:true,status:200,async json(){return {counts:{new_contacts:n,unassigned:0,overdue:0},appointments:[],callbacks:[]}}});
+w.fetch=async(path,options)=>{if(path==='api/today'){todayCalls++;if(todayCalls===1)return new Promise(resolve=>{releaseOld=resolve});return responseWithCount(99)}return originalFetch(path,options)};
+const oldToday=w.eval('loadToday()');await tick();await w.eval('loadToday()');assert.equal(d.querySelector('.today-metrics strong').textContent,'99');releaseOld(responseWithCount(1));await oldToday;assert.equal(d.querySelector('.today-metrics strong').textContent,'99');w.fetch=originalFetch;
+d.querySelector('.desk-nav a[href="#equipe"]').click();assert.equal(d.querySelector('#equipe').open,true);
+d.querySelector('.contact-name').click();await tick();const draftOwner=d.querySelector('#detail .workflow select');draftOwner.value='atendente-1';draftOwner.dispatchEvent(new w.Event('change',{bubbles:true}));w.confirm=()=>false;d.querySelector('[data-close=detail]').click();assert.equal(d.querySelector('#detail').open,true,'Ficha preenchida é preservada ao cancelar o descarte');w.confirm=()=>true;d.querySelector('[data-close=detail]').click();assert.equal(d.querySelector('#detail').open,false);
+offline=true;d.querySelector('#refresh').click();await tick();assert.equal(d.querySelector('#rows').children.length,0);assert.match(d.querySelector('#updated').textContent,/indisponível/);
+offline=false;now=Date.parse('2026-10-22T16:01:00Z');timer();assert.equal(d.querySelector('#session-warning').hidden,false);assert.match(d.querySelector('#session-warning').textContent,/expirou/);
+assert.equal(d.body.dataset.profile,'neutral');assert.equal(d.querySelector('.profile-avatar img').getAttribute('src'),null);
+dom.window.close();console.log('OK: filtros, ficha, XSS, confirmação/cancelamento, desfazer, conflito, cópia, atualização opcional, falha e expiração.');
+

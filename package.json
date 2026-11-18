@@ -9,7 +9,11 @@
     "preview": "vite preview",
     "lint": "eslint .",
     "typecheck": "tsc -b --pretty false",
-    "test": "vitest run"
+    "test": "vitest run",
+    "prebuild": "node scripts/prepare-humanized-landing.mjs",
+    "build:landing:cloudflare": "node scripts/build-cloudflare-landing.mjs",
+    "test:landing:cloudflare": "npm run build:landing:cloudflare && node scripts/test-cloudflare-landing.mjs && node scripts/test-cloudflare-panel.mjs && node scripts/test-panel-operations.mjs && node scripts/test-panel-interface.mjs && node scripts/test-urgency-landing.mjs && node scripts/test-landing-analytics.mjs && node scripts/test-landing-location.mjs",
+    "deploy:landing:cloudflare": "npm run test:landing:cloudflare && npx wrangler@4.147.0 deploy --config wrangler.landing.jsonc"
   },
   "dependencies": {
     "react": "^19.1.1",

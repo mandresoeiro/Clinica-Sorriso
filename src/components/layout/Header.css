@@ -6,12 +6,17 @@
   backdrop-filter: blur(18px);
   border-bottom: 1px solid rgba(221, 227, 226, .78);
 }
+.site-header__instagram{display:inline-flex;align-items:center;gap:.45rem;min-width:44px;min-height:44px;padding:.55rem .7rem;border:1px solid var(--color-border);border-radius:12px;color:var(--color-primary);font-weight:750;font-size:.85rem;flex-shrink:0}
+.site-header__instagram svg{width:21px;height:21px}
+@media(max-width:1450px){.site-header__instagram span{display:none}}
+@media(max-width:380px){.brand__name{max-width:140px}}
 
 .site-header__inner {
   min-height: 78px;
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: clamp(.8rem, 1.5vw, 1.5rem);
+  padding-block: .65rem;
 }
 
 .brand {
@@ -20,7 +25,11 @@
   gap: .7rem;
   margin-right: auto;
   font-weight: 900;
+  flex-shrink: 0;
 }
+.brand__name{max-width:none;white-space:nowrap}
+.site-header__cta{flex-shrink:0}
+.site-header__cta .button{white-space:nowrap;padding:.85rem 1.2rem;min-height:48px}
 
 .brand__mark {
   width: 40px;
@@ -37,15 +46,18 @@
 
 .desktop-nav {
   display: flex;
-  gap: 1.35rem;
+  gap: clamp(.8rem, 1.25vw, 1.25rem);
+  align-items: center;
+  flex-shrink: 0;
   color: var(--color-muted);
-  font-weight: 750;
+  font-weight: 500;
   font-size: .92rem;
 }
 
 .desktop-nav a {
   position: relative;
   padding: .35rem 0;
+  white-space: nowrap;
 }
 
 .desktop-nav a::after {
@@ -78,6 +90,7 @@
   border-radius: 14px;
   background: white;
   cursor: pointer;
+  flex-shrink: 0;
 }
 
 .menu-toggle span {
@@ -93,7 +106,7 @@
   display: none;
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 1280px) {
   .site-header__inner {
     min-height: 70px;
   }
@@ -131,7 +144,7 @@
   .mobile-menu a:not(.button) {
     padding: .9rem 0;
     border-bottom: 1px solid var(--color-border);
-    font-weight: 800;
+    font-weight: 500;
   }
 
   .mobile-menu .button {
@@ -146,8 +159,39 @@
   }
 }
 
-@media(max-width:1100px){.mobile-menu.is-open nav{max-height:calc(100dvh - 70px);overflow-y:auto;overscroll-behavior:contain}.site-header__inner{gap:1rem}}
+@media(max-width:1280px){.mobile-menu.is-open nav{max-height:calc(100dvh - 170px);overflow-y:auto;overscroll-behavior:contain}.site-header__inner{gap:1rem}}
 
-.brand__mark{flex-shrink:0;font-size:1rem}.brand__name{line-height:1.2}@media(max-width:700px){.brand__name{max-width:180px;font-size:.95rem}.brand{gap:.5rem}.site-header__inner{gap:.6rem}}
+.brand__mark{flex-shrink:0;font-size:1rem}.brand__name{line-height:1.2}@media(max-width:700px){.brand__name{max-width:180px;min-width:0;font-size:.95rem}.brand{gap:.5rem;min-width:0;flex-shrink:1}.site-header__inner{gap:.6rem}}
 
 .brand__logo{width:48px;height:52px;object-fit:contain;flex-shrink:0}@media(max-width:700px){.brand__logo{width:40px;height:44px}}
+.project-menu{display:flex;align-items:center;justify-content:flex-end;gap:1.3rem;flex-wrap:wrap;border-top:1px solid #17383b12;padding-block:.5rem;color:#17383b;font-size:.8rem}.project-menu>span{margin-right:auto;color:#526463;font-size:.7rem;text-transform:uppercase;letter-spacing:.08em}.project-menu a{font-weight:700;min-height:36px;display:flex;align-items:center}.project-menu a:last-child{padding:.4rem .7rem;background:#e9eee7;border-radius:8px}.project-menu a.active{text-decoration:underline;text-underline-offset:4px}@media(max-width:700px){.project-menu{gap:.4rem 1rem;justify-content:flex-start;font-size:.75rem}.project-menu>span{display:none}.project-menu a{min-height:40px}}
+.project-entry{display:flex;justify-content:flex-end;padding-bottom:.35rem}.project-entry a{font-size:.75rem;color:#526463;min-height:32px;display:flex;align-items:center}.project-menu{justify-content:flex-start;gap:.5rem 1.2rem}.project-menu a{white-space:nowrap}.project-menu a:last-child{background:transparent;font-size:.75rem}.project-menu a:nth-child(3){background:#e9eee7;border-radius:8px;padding:.4rem .7rem}@media(max-width:600px){.project-menu{gap:0 1rem}.project-menu a{font-size:.7rem}.project-entry a{min-height:36px}}
+.project-entry a,.project-menu a[href="/apresentacao-cliente"]{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;background:#17383b;color:#fff;border:1px solid #17383b;border-radius:10px;padding:.65rem 1rem;min-height:44px;font-size:.85rem;font-weight:750;box-shadow:0 3px 10px #17383b15;text-decoration:none}.project-entry{padding-block:.35rem .65rem}.project-entry a:hover,.project-menu a[href="/apresentacao-cliente"]:hover{background:#254d50}.project-entry a:focus-visible,.project-menu a[href="/apresentacao-cliente"]:focus-visible{outline:3px solid #b2a184;outline-offset:3px}@media(max-width:600px){.project-entry{justify-content:stretch}.project-entry a{width:100%}.project-menu a[href="/apresentacao-cliente"]{font-size:.8rem;padding:.6rem .8rem}}
+.site-header .brand__name{max-width:none;white-space:nowrap}
+@media(max-width:700px){.site-header .brand__name{font-size:clamp(.68rem,2.7vw,.95rem)}.site-header .brand{gap:.4rem}.site-header .brand__logo{width:32px;height:38px}.site-header .site-header__instagram{padding:.4rem;min-width:36px}.site-header .site-header__inner{gap:.45rem}}
+@media(max-width:380px){.site-header .site-header__instagram{display:none}}
+/* Área confortável para tocar nos controles do cabeçalho no celular. */
+@media(max-width:700px){
+  .site-header button.menu-toggle,.site-header a.site-header__instagram{min-width:44px;min-height:44px;flex-shrink:0}
+  .site-header .mobile-menu a{min-height:44px}
+}
+
+/* Todos os links de navegação usam a mesma família e peso. */
+.site-header .desktop-nav a,
+.site-header .desktop-nav a.active,
+.site-header .mobile-menu nav a:not(.button),
+.site-header .mobile-menu nav a.active:not(.button){
+  font-family:Inter,Arial,sans-serif;
+  font-size:.92rem;
+  font-style:normal;
+  font-weight:500;
+  font-synthesis:none;
+  line-height:1.5;
+  letter-spacing:normal;
+}
+
+/* A navegação nunca herda a fonte serifada de títulos ou da marca. */
+.site-header nav.desktop-nav a,
+.site-header .mobile-menu nav a:not(.button),
+.site-header nav.desktop-nav a *,
+.site-header .mobile-menu nav a:not(.button) *{font-family:Inter,Arial,sans-serif!important;font-style:normal!important;font-weight:500!important}

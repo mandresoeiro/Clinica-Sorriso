@@ -1,5 +1,5 @@
 import { Button } from '../components/ui/Button'
-import { whatsappUrl } from '../config/site.config'
+import { getWhatsAppUrl } from '../config/site.config'
 import { FirstVisit } from '../components/sections/FirstVisit'
 import { VirtualTour } from '../components/sections/VirtualTour'
 
@@ -15,7 +15,7 @@ export function Clinic() {
             e fotografias reais da clínica após validação do briefing.
           </p>
           <div className="page-actions">
-            <Button href={whatsappUrl} target="_blank" rel="noreferrer">Solicitar agendamento</Button>
+            <Button href={getWhatsAppUrl()} target="_blank" rel="noreferrer">Solicitar agendamento</Button>
           </div>
         </div>
       </section>
@@ -57,7 +57,7 @@ export function Clinic() {
           <h2 className="title">Conheça o espaço pessoalmente.</h2>
           <p className="lead">Converse com a equipe e tire suas dúvidas antes de decidir qualquer tratamento.</p>
           <div className="page-actions">
-            <Button href={whatsappUrl} target="_blank" rel="noreferrer">Conversar pelo WhatsApp</Button>
+            <Button href={getWhatsAppUrl()} target="_blank" rel="noreferrer">Conversar pelo WhatsApp</Button>
           </div>
         </div>
       </section>

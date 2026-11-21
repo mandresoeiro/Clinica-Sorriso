@@ -9,7 +9,7 @@ afterEach(cleanup)
 it('keeps patient navigation focused and without commercial links', () => {
   render(<MemoryRouter><Header /></MemoryRouter>)
   const main = within(screen.getByRole('navigation', { name: 'Navegação principal' }))
-  expect(main.getAllByRole('link').map(link => link.textContent)).toEqual(['Clínica', 'Tratamentos', 'Equipe', 'Contato'])
+  expect(main.getAllByRole('link').map(link => link.textContent)).toEqual(['Clínica', 'Tratamentos', 'Profissionais', 'Contato'])
   expect(screen.queryByRole('link', { name: /Apresentação do projeto/ })).toBeNull()
   expect(screen.queryByRole('link', { name: /Montar proposta/ })).toBeNull()
   fireEvent.click(screen.getByRole('button', { name: 'Abrir menu' }))

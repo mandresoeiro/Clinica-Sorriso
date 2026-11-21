@@ -24,7 +24,7 @@ export const siteConfig = {
     mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Travessa%20Almirante%20Wandenkolk%2C%201243%2C%20Bel%C3%A9m%20-%20PA',
   },
   social: {
-    instagram: 'https://www.instagram.com/odontopersonallite/',
+    instagram: 'https://www.instagram.com/odontopersonnallite/',
     facebook: '',
     tiktok: '',
   },

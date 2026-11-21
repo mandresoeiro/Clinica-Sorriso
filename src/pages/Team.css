@@ -15,3 +15,18 @@
 @media(max-width:999px){.team-ribbon{--team-card:calc((100vw - 76px)/2)}}
 @media(max-width:639px){.team-ribbon{--team-card:calc(100vw - 56px)}.team-ribbon__track{animation-duration:95s}}
 @media(prefers-reduced-motion:reduce){.team-ribbon__track{animation:none}.team-ribbon__viewport{overflow-x:auto}.team-ribbon__group[aria-hidden="true"],.team-carousel__play{display:none}}
+
+.professional-list { display: grid; gap: 24px; margin-bottom: 32px; }
+.professional-profile {
+  display: grid;
+  grid-template-columns: minmax(0, 16rem) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(16px, 4vw, 48px);
+}
+.professional-profile img { display: block; width: 100%; height: auto; border-radius: 12px; }
+.professional-profile ul { padding-inline-start: 1.25rem; }
+.professional-profile__instagram { text-decoration: underline; overflow-wrap: anywhere; }
+@media (max-width: 639px) {
+  .professional-profile { grid-template-columns: minmax(0, 1fr); }
+  .professional-profile img { max-width: 16rem; }
+}

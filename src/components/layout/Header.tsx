@@ -10,7 +10,7 @@ const menuTypography = { fontFamily: 'Inter, Arial, sans-serif', fontWeight: 500
 const nav = [
   ['Clínica', ROUTES.clinic],
   ['Tratamentos', ROUTES.treatments],
-  ['Equipe', ROUTES.team],
+  ['Profissionais', ROUTES.team],
   ['Contato', ROUTES.contact],
 ] as const
 

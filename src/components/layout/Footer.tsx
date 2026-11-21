@@ -20,7 +20,7 @@ export function Footer() {
             <Link to={ROUTES.clinic}>Clínica</Link>
             <a href={`${ROUTES.clinic}#tour-virtual`}>Tour virtual</a>
             <Link to={ROUTES.treatments}>Especialidades</Link>
-            <Link to={ROUTES.team}>Equipe</Link>
+            <Link to={ROUTES.team}>Profissionais</Link>
             <Link to={ROUTES.faq}>Dúvidas</Link>
             <Link to={ROUTES.contact}>Contato</Link>
             <Link to="/proteses">Próteses dentárias</Link>

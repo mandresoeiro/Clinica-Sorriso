@@ -1,7 +1,7 @@
 name: Publicar na Cloudflare
 on:
   push:
-    branches: [main, feat/home-demo-images]
+    branches: [main, feat/home-demo-images, codex/planejamento-integracao-digital]
   workflow_dispatch:
 
 permissions:

@@ -105,14 +105,14 @@
   }
 }
 .clinic-intro { background: #f2f5ef; color: var(--color-primary-2); }
-.clinic-intro .lead { color: #526463; }
+.clinic-intro .lead { color: #705850; }
 .clinic-intro__visual { border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); }
 .clinic-intro__numbers div { border-color: #cdd9d2; }
-.clinic-intro__numbers strong { color: #397779; }
-.clinic-intro__numbers span { color: #526463; }
-.clinic-intro .button--ghost { color: #17383b; border-color: #8caaa8; background: white; }
+.clinic-intro__numbers strong { color: #9e402c; }
+.clinic-intro__numbers span { color: #705850; }
+.clinic-intro .button--ghost { color: #603629; border-color: #c9775b; background: white; }
 
 .clinic-intro__instagram { width: fit-content; display: flex; align-items: center; flex-wrap: wrap; gap: .4rem; min-height: 44px; color: var(--color-primary); font-weight: 700; text-underline-offset: .25em; }
 .clinic-intro__instagram:hover { text-decoration: underline; }
 .clinic-intro__instagram:focus-visible { outline: 2px solid currentColor; outline-offset: 5px; border-radius: 4px; }
-.clinic-intro__instagram-hint { flex-basis: 100%; font-size: .75rem; font-weight: 400; color: #526463; }
+.clinic-intro__instagram-hint { flex-basis: 100%; font-size: .75rem; font-weight: 400; color: #705850; }

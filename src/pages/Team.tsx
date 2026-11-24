@@ -9,7 +9,7 @@ export function Team() {
   function photoGroup(duplicate: boolean) {
     return <div className="team-ribbon__group" aria-hidden={duplicate || undefined} inert={duplicate || undefined}>
       {teamPhotos.map(photo => <figure className="card team-ribbon__card" key={photo.src}>
-        <img className="team-portrait" src={photo.src} alt={duplicate ? '' : photo.alt} width={photo.width} height={photo.height} decoding="async" />
+        <img className="team-portrait" src={photo.src} alt={duplicate ? '' : photo.alt} width={photo.width} height={photo.height} loading="lazy" decoding="async" />
         {photo.caption && <figcaption>{photo.caption}</figcaption>}
       </figure>)}
     </div>

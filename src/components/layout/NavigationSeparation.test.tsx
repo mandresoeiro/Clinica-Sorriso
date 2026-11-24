@@ -14,6 +14,8 @@ it('keeps patient navigation focused and without commercial links', () => {
   expect(screen.queryByRole('link', { name: /Montar proposta/ })).toBeNull()
   fireEvent.click(screen.getByRole('button', { name: 'Abrir menu' }))
   const mobile = within(screen.getByRole('navigation', { name: 'Navegação móvel' }))
+  expect(mobile.getByRole('link', { name: 'Profissionais' })).toBeTruthy()
+  expect(mobile.getByRole('link', { name: 'Instagram da clínica' }).getAttribute('href')).toBe('https://www.instagram.com/odontopersonnallite/')
   fireEvent.click(mobile.getByRole('link', { name: 'Tratamentos' }))
   expect(screen.getByRole('button', { name: 'Abrir menu' }).getAttribute('aria-expanded')).toBe('false')
 })

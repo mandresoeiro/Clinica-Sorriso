@@ -63,6 +63,9 @@ export function Header() {
           {nav.map(([label, path]) => (
             <NavLink key={path} to={path} style={menuTypography} onClick={closeMenu}>{label}</NavLink>
           ))}
+          <a href={siteConfig.social.instagram} target="_blank" rel="noopener noreferrer" onClick={closeMenu}>
+            Instagram da clínica
+          </a>
           <Button href={getWhatsAppUrl()} target="_blank" rel="noreferrer" onClick={closeMenu}>
             Solicitar agendamento
           </Button>

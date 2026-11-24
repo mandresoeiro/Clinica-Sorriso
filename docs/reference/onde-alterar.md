@@ -65,9 +65,9 @@ src/components/sections/Hero.css
 Imagens:
 
 ```text
-public/images/hero/hero-01.jpg
-public/images/hero/hero-02.jpg
-public/images/hero/hero-03.jpg
+public/images/hero/hero-01.webp
+public/images/hero/hero-02.webp
+public/images/hero/hero-03.webp
 ```
 
 ## FAQ

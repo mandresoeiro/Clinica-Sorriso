@@ -12,17 +12,17 @@ type HeroSlide = {
 
 const heroSlides: HeroSlide[] = [
   {
-    src: '/images/hero/hero-01.jpg',
+    src: '/images/hero/hero-01.webp',
     alt: 'Paciente sorrindo durante atendimento odontológico',
     position: 'center 42%',
   },
   {
-    src: '/images/hero/hero-02.jpg',
+    src: '/images/hero/hero-02.webp',
     alt: 'Atendimento odontológico com foco em precisão e cuidado',
     position: 'center 44%',
   },
   {
-    src: '/images/hero/hero-03.jpg',
+    src: '/images/hero/hero-03.webp',
     alt: 'Paciente sorrindo durante avaliação odontológica',
     position: 'center 40%',
   },
